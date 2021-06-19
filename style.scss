@@ -1,3 +1,10 @@
+$yellow: #fff94f;
+$brown: #3B1719;
+$red: #69140e;
+$orange: #a44200;
+$light-orange: #d58936;
+$text: #ffffff;
+
 *,
 *::after,
 *::before {
@@ -9,12 +16,12 @@
 body,
 html {
 	height: 100vh;
-	color: #ffffff;
+	color: $text;
 	user-select: none
 }
 
 body {
-	background-color: #3B1719;
+	background-color: $brown;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -28,9 +35,11 @@ body {
 	color: #198754 !important;
 }
 
+
+
 .popup-title {
 	position: absolute;
-	top: 30px;
+	top: -100px;
 	left: 0;
 	right: 0;
 	margin: 0 auto;
@@ -41,16 +50,17 @@ body {
 	line-height: 50px;
 	font-size: 20px;
 	border-radius: 30px;
-	background-color: #a44200;
-	box-shadow: 0px 0px 25px 3px rgb(37 37 37 / 50%);
+	background-color: $orange;
+	box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
+	transition: top .4s;
 }
 
 .btn {
-	background-color: #d58936;
+	background-color: $light-orange;
 	border-radius: 15px;
-	color: #fff94f;
+	color: $yellow;
 	outline: none;
-	border: 1px solid #fff94f;
+	border: 1px solid $yellow;
 	line-height: 30px;
 	padding: 0 15px;
 	text-transform: uppercase;
@@ -83,39 +93,43 @@ body {
 	display: flex;
 	justify-content: space-between;
 	height: 100%;
+	padding: 5vw;
 
 	>div {
 		min-width: 200px;
-		margin: 0 15px;
 		flex: 0 1 50%;
+		margin: 0 15px;
 	}
-}
-
-.container {
-	height: 100%;
-	padding: 5vw;
 }
 
 .inner {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
-	align-content: space-between;
 
 	>div {
-		flex: 0 1 50%;
+		min-width: 200px;
+		text-align: center;
+		background-color: #69140e;
+		height: max-content;
+		margin: 0 auto;
+		border-radius: 18px;
+		padding: 0 2px 10px 2px;
+
+		.btn {
+			width: 100%;
+		}
 	}
 }
 
 .elements {
 	border-radius: 20px;
-	background-color: #69140e;
+	background-color: $red;
 	width: 350px !important;
 	font-size: 14px;
 	height: min-content;
 
 	&__title {
-		background-color: #a44200;
+		background-color: $orange;
 		width: 100%;
 		text-align: center;
 		border-radius: 20px 20px 0px 0px;
@@ -131,11 +145,15 @@ body {
 	}
 
 	&__item {
-		color: #d5883685;
+		color: #d58836b6;
 		font-weight: 700;
 		cursor: pointer;
 		padding: 7px 0;
 		border-bottom: 1px solid;
+
+		&.text-green::marker {
+			display: none;
+		}
 
 		&-wrapper {
 			display: flex;
@@ -238,14 +256,29 @@ body {
 		summary {
 			cursor: pointer;
 			outline: none;
+			margin-bottom: 5px;
 		}
 
 		.more__wrapper {
 			display: flex;
 			flex-direction: column;
+			text-align: left;
+			margin: 0 5px;
 
 			* {
 				cursor: pointer;
+			}
+
+			label {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 5px;
+
+				input {
+					width: 18px;
+					height: 18px;
+					font-size: 12px;
+				}
 			}
 		}
 	}
@@ -256,4 +289,4 @@ body {
 	}
 }
 
-.custom {}
+// .custom {}
