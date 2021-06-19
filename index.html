@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+	<link rel="stylesheet" href="style.css">
+	<title>Create combination</title>
+</head>
+
+<body>
+	<div class="container">
+		<div class="wrapper">
+			<div class="elements">
+				<h2 class="elements__title">
+					Elements
+				</h2>
+				<div class="elements__menu">
+					<button type="button" class="elements__menu-item delete-all btn btn-small">Delete All</button>
+					<button type="button" class="elements__menu-item change-all btn btn-small">Change All</button>
+				</div>
+				<ol class="elements__list">
+				</ol>
+				<button type="button" class="elements__save btn">Save elements list</button>
+			</div>
+			<div class="inner">
+				<div class="random">
+					<button class="random__simple-btn btn">Random</button>
+					<details class="random__more more" open>
+						<summary>More settings</summary>
+						<div class="more__wrapper">
+							<label for="enable">
+								Увімкнути:
+								<input type="checkbox" id="enable">
+							</label>
+							<label for="count">
+								К-сть елементів:
+								<input type="number" id="count" min="1" max="99" value="1">
+							</label>
+							<label for="jump">
+								Зіскок:
+								<input type="checkbox" id="jump">
+							</label>
+							<label for="change-jump">
+								Зміна зіскоку:
+								<input type="checkbox" id="change-jump">
+							</label>
+							<label for="repeat-elem">
+								Повтор елементів:
+								<input type="checkbox" id="repeat-elem">
+							</label>
+						</div>
+					</details>
+				</div>
+				<div class="custom">
+					<button class="custom__simple-btn btn">Custom</button>
+					<details class="custom__more more" open>
+						<summary>More settings</summary>
+						<div class="more__wrapper">
+
+						</div>
+					</details>
+				</div>
+				<!-- <div class="saves">
+				<h2 class="saves__title">
+					Saves
+				</h2>
+				<div class="saves__menu">
+					<button type="button" class="elements__menu-item delete-all-saves btn btn-small">Delete All</button>
+				</div>
+				<ol class="saves__list">
+				</ol>
+			</div> -->
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.12/lib/draggable.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.12/lib/sortable.js"></script>
+	<script src="app.js"></script>
+</body>
+
+</html>
