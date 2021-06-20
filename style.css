@@ -87,6 +87,20 @@ body {
   flex: 0 1 50%;
   margin: 0 15px;
 }
+@media (max-width: 955px) {
+  .wrapper > div {
+    flex: none;
+  }
+}
+@media (max-width: 680px) {
+  .wrapper {
+    flex-wrap: wrap;
+  }
+  .wrapper > div {
+    flex: 0 1 100%;
+    margin: 0 0 15px;
+  }
+}
 
 .inner {
   display: flex;
@@ -103,6 +117,44 @@ body {
 }
 .inner > div .btn {
   width: 100%;
+}
+@media (max-width: 955px) {
+  .inner > div {
+    margin: 0px;
+  }
+}
+@media (max-width: 460px) {
+  .inner > div {
+    min-width: 175px;
+  }
+}
+@media (max-width: 955px) {
+  .inner {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 680px) {
+  .inner {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+  }
+  .inner > div:last-child {
+    margin-left: 10px;
+  }
+}
+@media (max-width: 400px) {
+  .inner {
+    flex-wrap: wrap;
+  }
+  .inner > div {
+    flex: 0 1 100%;
+    margin: 0 0 10px;
+  }
+  .inner > div:last-child {
+    margin-left: 0;
+  }
 }
 
 .elements {
