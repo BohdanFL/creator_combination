@@ -220,7 +220,7 @@ repeatElemBtn.addEventListener("click", () => {
 const random = (array) => Math.floor(Math.random() * array.length)
 const sortableOptions = {
 	draggable: 'li',
-	delay: 0,
+	delay: 300,
 	distance: 10,
 	classes: {
 		'source:dragging': ['text-green'],
