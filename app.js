@@ -168,7 +168,6 @@ for (let i = 0; i < 11; i++) {
 const log = (text) => console.log(text)
 
 const randomBtn = document.querySelector('.random__simple-btn')
-const customBtn = document.querySelector('.custom__simple-btn')
 const elementsList = document.querySelector('.elements__list')
 const deleteAllBtn = document.querySelector('.delete-all')
 const changeAllBtn = document.querySelector('.change-all')
@@ -222,10 +221,12 @@ repeatElemBtn.addEventListener("click", () => {
 const random = (array) => Math.floor(Math.random() * array.length)
 const sortableOptions = {
 	draggable: 'li',
-	distance: 10,
+	delay: 0,
+	distance: 0,
 	classes: {
 		'source:dragging': ['text-green'],
-	}
+	},
+
 }
 
 const clearAndSaveElems = () => {
@@ -239,8 +240,10 @@ const clearAndSaveElems = () => {
 	}
 	localStorage.setItem("saveElems", JSON.stringify(elems))
 }
-let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems).sensors[1].delay.touch = 300
-
+let sortable = new Draggable.Sortable(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+sortable.sensors[1].delay.touch = 300
+log(sortable)
+g
 const enableRepeatElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	const repeatObj = isRepeat()
@@ -414,7 +417,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 				}
 			}
 		}
-		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems).sensors[1].delay.touch = 300
+		// sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 		if (save) {
 			localStorage.setItem('saveElems', JSON.stringify(elems))
 		}
@@ -559,7 +562,6 @@ const createLi = (text) => {
 elems ? elems.a.forEach(elem => createLi(elem)) : false
 
 randomBtn.addEventListener('click', addRandomElem);
-customBtn.addEventListener('click', () => alert("In coming..."));
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 
