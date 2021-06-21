@@ -243,7 +243,7 @@ const clearAndSaveElems = () => {
 let sortable = new Draggable.Sortable(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 sortable.sensors[1].delay.touch = 300
 log(sortable)
-g
+
 const enableRepeatElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	const repeatObj = isRepeat()
