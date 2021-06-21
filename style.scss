@@ -92,8 +92,7 @@ body {
 .wrapper {
 	display: flex;
 	justify-content: space-between;
-	height: 100%;
-	padding: 5vw;
+	padding: 5vw 5vw 0;
 
 	>div {
 		min-width: 200px;
@@ -107,7 +106,7 @@ body {
 	}
 
 	@media (max-width: 680px) {
-		flex-wrap: wrap;
+		flex-wrap: wrap-reverse;
 
 		>div {
 			flex: 0 1 100%;
