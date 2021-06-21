@@ -193,6 +193,10 @@ body {
 		padding: 10px 10px 10px 30px;
 		max-height: 70vh;
 		overflow-y: auto;
+
+		@media (max-width: 680px) {
+			max-height: 290px;
+		}
 	}
 
 	&__item {

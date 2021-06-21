@@ -178,6 +178,11 @@ body {
   max-height: 70vh;
   overflow-y: auto;
 }
+@media (max-width: 680px) {
+  .elements__list {
+    max-height: 290px;
+  }
+}
 .elements__item {
   color: #d58836b6;
   font-weight: 700;
