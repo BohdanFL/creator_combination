@@ -168,6 +168,7 @@ for (let i = 0; i < 11; i++) {
 const log = (text) => console.log(text)
 
 const randomBtn = document.querySelector('.random__simple-btn')
+const customBtn = document.querySelector('.custom__simple-btn')
 const elementsList = document.querySelector('.elements__list')
 const deleteAllBtn = document.querySelector('.delete-all')
 const changeAllBtn = document.querySelector('.change-all')
@@ -562,6 +563,7 @@ const createLi = (text) => {
 elems ? elems.a.forEach(elem => createLi(elem)) : false
 
 randomBtn.addEventListener('click', addRandomElem);
+customBtn.addEventListener('click', () => alert("In coming..."));
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 
