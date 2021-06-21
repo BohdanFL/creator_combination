@@ -27,7 +27,7 @@ body {
 }
 
 .popup-title {
-  position: absolute;
+  position: fixed;
   top: -100px;
   left: 0;
   right: 0;
@@ -185,20 +185,12 @@ body {
   padding: 7px 0;
   border-bottom: 1px solid;
 }
-.elements__item.text-green::marker {
-  display: none;
-}
 .elements__item-wrapper {
   display: flex;
   justify-content: space-between;
 }
 .elements__item i {
-  color: auto;
-  opacity: 0;
   transition: all 0.2s;
-}
-.elements__item:hover i {
-  opacity: 1;
 }
 .elements__item i.fa-sync-alt:hover {
   color: rgba(0, 110, 255, 0.479);
