@@ -168,6 +168,7 @@ for (let i = 0; i < 11; i++) {
 const log = (text) => console.log(text)
 
 const randomBtn = document.querySelector('.random__simple-btn')
+const customBtn = document.querySelector('.custom__simple-btn')
 const elementsList = document.querySelector('.elements__list')
 const deleteAllBtn = document.querySelector('.delete-all')
 const changeAllBtn = document.querySelector('.change-all')
@@ -189,6 +190,7 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	changeJumpEnable: false,
 	repeatEnable: false
 }
+
 if (optionsInRandom) {
 	enableOptionsBtn.checked = optionsInRandom.enableOptions
 	countEnableBtn.value = optionsInRandom.count
@@ -220,11 +222,16 @@ repeatElemBtn.addEventListener("click", () => {
 const random = (array) => Math.floor(Math.random() * array.length)
 const sortableOptions = {
 	draggable: 'li',
-	delay: 300,
+	delay: {
+		mouse: 0,
+		drag: 0,
+		touch: 300
+	},
 	distance: 10,
 	classes: {
 		'source:dragging': ['text-green'],
-	}
+	},
+
 }
 
 const clearAndSaveElems = () => {
@@ -558,14 +565,14 @@ const createLi = (text) => {
 elems ? elems.a.forEach(elem => createLi(elem)) : false
 
 randomBtn.addEventListener('click', addRandomElem);
+customBtn.addEventListener('click', () => alert("In coming..."));
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 
 
 //` TODO:
 /**
- * * changingElem: 100% був заміненний іншим елементом
- * * CSS: застилізувати інпути настройок
- * * changingElem: коли true repeatEnable, функція createNewDataElems має змінювати тільки змінюваний елемент; написати нову фукцію яка буде виконувати попередню задачу
- * *
+ * 
+ * 
+ * 
  */
