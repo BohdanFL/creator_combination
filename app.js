@@ -222,16 +222,10 @@ repeatElemBtn.addEventListener("click", () => {
 const random = (array) => Math.floor(Math.random() * array.length)
 const sortableOptions = {
 	draggable: 'li',
-	delay: {
-		mouse: 0,
-		drag: 0,
-		touch: 300
-	},
 	distance: 10,
 	classes: {
 		'source:dragging': ['text-green'],
-	},
-
+	}
 }
 
 const clearAndSaveElems = () => {
@@ -245,7 +239,7 @@ const clearAndSaveElems = () => {
 	}
 	localStorage.setItem("saveElems", JSON.stringify(elems))
 }
-let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems).sensors[1].delay.touch = 300
 
 const enableRepeatElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
@@ -420,7 +414,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 				}
 			}
 		}
-		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems).sensors[1].delay.touch = 300
 		if (save) {
 			localStorage.setItem('saveElems', JSON.stringify(elems))
 		}
@@ -572,7 +566,8 @@ changeAllBtn.addEventListener('click', changeAllList)
 
 //` TODO:
 /**
- * 
- * 
- * 
+ * * changingElem: 100% був заміненний іншим елементом
+ * * CSS: застилізувати інпути настройок
+ * * changingElem: коли true repeatEnable, функція createNewDataElems має змінювати тільки змінюваний елемент; написати нову фукцію яка буде виконувати попередню задачу
+ * *
  */
