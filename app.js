@@ -222,7 +222,11 @@ repeatElemBtn.addEventListener("click", () => {
 const random = (array) => Math.floor(Math.random() * array.length)
 const sortableOptions = {
 	draggable: 'li',
-	delay: 0,
+	delay: {
+		move: 0,
+		drag: 0,
+		touch: 300
+	},
 	distance: 0,
 	classes: {
 		'source:dragging': ['text-green'],
@@ -241,9 +245,8 @@ const clearAndSaveElems = () => {
 	}
 	localStorage.setItem("saveElems", JSON.stringify(elems))
 }
-let sortable = new Draggable.Sortable(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-sortable.sensors[1].delay.touch = 300
-log(sortable)
+let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+// sortable.sensors[1].delay.touch = 300
 
 const enableRepeatElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
@@ -386,8 +389,6 @@ const createNewDataElems = (numIterate = 1, timeout = 1000, addRandom = false, c
 	return newDataElemsE
 }
 
-
-
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, only) => {
 	// const iterate = (i, opt) => {
 	if (i === 1) {
@@ -418,7 +419,8 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 				}
 			}
 		}
-		// sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+		// sortable.sensors[1].delay.touch = 300
 		if (save) {
 			localStorage.setItem('saveElems', JSON.stringify(elems))
 		}
