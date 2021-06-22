@@ -22,8 +22,18 @@ body {
   display: none;
 }
 
-.text-green .elements__item-text {
-  color: #198754 !important;
+.active {
+  position: relative;
+  z-index: 11;
+  font-size: 16px;
+  background-color: rgba(255, 249, 79, 0.1);
+  transition: all 0.3s;
+}
+.active .elements__item-text {
+  color: #d58936 !important;
+}
+.active .elements__item-btns > i {
+  display: none;
 }
 
 .popup-title {
@@ -42,6 +52,18 @@ body {
   background-color: #a44200;
   box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
   transition: top 0.4s;
+  z-index: 11;
+}
+
+.popup-title-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  opacity: 0.5;
+  z-index: 10;
 }
 
 .btn {
@@ -176,6 +198,7 @@ body {
   padding: 10px 10px 10px 30px;
   max-height: 70vh;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 @media (max-width: 680px) {
   .elements__list {
@@ -188,6 +211,7 @@ body {
   cursor: pointer;
   padding: 7px 0;
   border-bottom: 1px solid;
+  transition: all 0.3s;
 }
 .elements__item-wrapper {
   display: flex;
@@ -201,6 +225,14 @@ body {
 }
 .elements__item i.fa-minus-circle:hover {
   color: rgba(255, 0, 0, 0.548);
+}
+.elements__item.check {
+  transition: all 0.3s;
+  border-bottom: 2px solid;
+  color: greenyellow;
+}
+.elements__item.check span {
+  color: greenyellow !important;
 }
 .elements__save {
   display: block;
@@ -236,6 +268,8 @@ body {
 }
 .random__more .more__wrapper label input,
 .custom__more .more__wrapper label input {
+  position: relative;
+  z-index: 11;
   width: 18px;
   height: 18px;
   font-size: 12px;

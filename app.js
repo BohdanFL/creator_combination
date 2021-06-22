@@ -165,8 +165,6 @@ for (let i = 0; i < 11; i++) {
 	dataElems.e.splice(i, 11)
 }
 
-const log = (text) => console.log(text)
-
 const randomBtn = document.querySelector('.random__simple-btn')
 const customBtn = document.querySelector('.custom__simple-btn')
 const elementsList = document.querySelector('.elements__list')
@@ -178,11 +176,9 @@ const jumpEnableBtn = document.querySelector('#jump')
 const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
 let enableOptions = enableOptionsBtn.checked
-
 let elems = JSON.parse(localStorage.getItem('saveElems')) || {
 	a: []
 }
-
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	enableOptions: false,
 	count: 1,
@@ -190,36 +186,6 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	changeJumpEnable: false,
 	repeatEnable: false
 }
-
-if (optionsInRandom) {
-	enableOptionsBtn.checked = optionsInRandom.enableOptions
-	countEnableBtn.value = optionsInRandom.count
-	jumpEnableBtn.checked = optionsInRandom.jumpEnable
-	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
-	repeatElemBtn.checked = optionsInRandom.repeatEnable
-}
-
-countEnableBtn.addEventListener("input", () => {
-	if (countEnableBtn.value.length > 2) {
-		countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
-	}
-	countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-})
-jumpEnableBtn.addEventListener("click", () => {
-	optionsInRandom.jumpEnable = jumpEnableBtn.checked
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-})
-changeJumpEnableBtn.addEventListener("click", () => {
-	optionsInRandom.changeJumpEnable = changeJumpEnableBtn.checked
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-})
-repeatElemBtn.addEventListener("click", () => {
-	optionsInRandom.repeatEnable = repeatElemBtn.checked
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-})
-
-const random = (array) => Math.floor(Math.random() * array.length)
 const sortableOptions = {
 	draggable: 'li',
 	delay: {
@@ -227,11 +193,22 @@ const sortableOptions = {
 		drag: 0,
 		touch: 300
 	},
-	distance: 0,
+	distance: 10,
 	classes: {
-		'source:dragging': ['text-green'],
+		'source:dragging': ['active'],
 	},
 
+}
+
+const log = (text) => console.log(text)
+const random = (array) => Math.floor(Math.random() * array.length)
+
+if (optionsInRandom) {
+	enableOptionsBtn.checked = optionsInRandom.enableOptions
+	countEnableBtn.value = optionsInRandom.count
+	jumpEnableBtn.checked = optionsInRandom.jumpEnable
+	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
+	repeatElemBtn.checked = optionsInRandom.repeatEnable
 }
 
 const clearAndSaveElems = () => {
@@ -246,27 +223,39 @@ const clearAndSaveElems = () => {
 	localStorage.setItem("saveElems", JSON.stringify(elems))
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-// sortable.sensors[1].delay.touch = 300
 
 const enableRepeatElem = () => {
+	log("enable repeat elem")
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-	const repeatObj = isRepeat()
+	const repeatObj = isRepeat(repeatEnable)
 	if (repeatEnable) {
 		console.log("Enable check repeat");
 		if (repeatObj.isRepeatBool) {
 			createTitle(200, "Виберіть елементи для заміни")
+			sortable.destroy()
 		}
 		// createNewDataElems()
 	} else {
-		if (repeatObj.isRepeatBool) {
-			if (document.querySelector(".popup-title")) {
-				document.querySelector(".popup-title").style.top = "-100px"
-				setTimeout(() => {
-					document.querySelector(".popup-title").remove()
-				}, 200)
-			}
-		}
 		console.log("Disable check repeat");
+		if (repeatObj.isRepeatBool) {
+			let titleWrapper = document.querySelector(".popup-title")
+			let titleBg = document.querySelector(".popup-title-bg")
+			if (titleWrapper) {
+				titleWrapper.style.top = "-100px"
+				setTimeout(() => {
+					titleWrapper.remove()
+					titleBg.remove()
+				}, 200)
+				elementsList.childNodes.forEach((i) => {
+					if (i.textContent.trim()) {
+						if (i.classList.contains("active")) {
+							i.classList.remove("active")
+						}
+					}
+				});
+			}
+			sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+		}
 	}
 	return repeatEnable
 }
@@ -289,9 +278,8 @@ const checkEnableOption = () => {
 	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 }
 checkEnableOption()
-enableOptionsBtn.addEventListener('click', checkEnableOption)
 
-const isRepeat = () => {
+const isRepeat = (repeatEnable) => {
 	let repeat = 0
 	let elem = elementsList.childNodes
 	const repeatElems = []
@@ -299,10 +287,15 @@ const isRepeat = () => {
 		elem.forEach((i, nI) => {
 			if (n < nI) {
 				if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
+					// const toggleClassCheck = () => i.classList.toggle("check")
 					repeat++
 					repeatElems.push(elem[n])
 					repeatElems.push(elem[nI])
-					i.classList.add("text-green")
+					if (repeatEnable) {
+						i.classList.add("active")
+						elem[n].classList.add("active")
+						// i.addEventListener("click", toggleClassCheckI)
+					}
 				}
 			}
 		});
@@ -316,9 +309,16 @@ const isRepeat = () => {
 
 const createTitle = (duration, titleText) => {
 	const titleWrapper = document.createElement("div")
+	const titleBg = document.createElement("div")
+
 	titleWrapper.classList.add("popup-title")
+	titleBg.classList.add("popup-title-bg")
+
 	titleWrapper.textContent = titleText
+
 	document.body.appendChild(titleWrapper)
+	document.body.appendChild(titleBg)
+
 	setTimeout(() => {
 		titleWrapper.style.top = "20px"
 	}, duration)
@@ -403,7 +403,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 		setTimeout(() => {
 			iterate(i + 1, elem, array, iterableArr, change, save, only)
 			// iterate(i + 1, opt)
-		}, 30);
+		}, 20);
 	} else {
 		if (!change) {
 			elem.textContent = only
@@ -420,7 +420,6 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 			}
 		}
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-		// sortable.sensors[1].delay.touch = 300
 		if (save) {
 			localStorage.setItem('saveElems', JSON.stringify(elems))
 		}
@@ -549,10 +548,10 @@ const createLi = (text) => {
 	const li = document.createElement('li')
 	li.classList.add('elements__item')
 	li.innerHTML = `<div class="elements__item-wrapper">
-                    <span class=\"elements__item-text\">${text}</span>  
-                    <div>
-                        <i class=\"fas fa-sync-alt\"></i> 
-                        <i class=\"fas fa-minus-circle\"></i>
+                    <span class="elements__item-text">${text}</span>  
+                    <div class="elements__item-btns">
+                        <i class="fas fa-sync-alt"></i> 
+                        <i class="fas fa-minus-circle"></i>
                     </div>
                 </div>`
 	elementsList.appendChild(li)
@@ -568,12 +567,32 @@ randomBtn.addEventListener('click', addRandomElem);
 customBtn.addEventListener('click', () => alert("In coming..."));
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
-
+enableOptionsBtn.addEventListener('click', checkEnableOption)
+countEnableBtn.addEventListener("input", () => {
+	if (countEnableBtn.value.length > 2) {
+		countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
+	}
+	countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+})
+jumpEnableBtn.addEventListener("click", () => {
+	optionsInRandom.jumpEnable = jumpEnableBtn.checked
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+})
+changeJumpEnableBtn.addEventListener("click", () => {
+	optionsInRandom.changeJumpEnable = changeJumpEnableBtn.checked
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+})
+repeatElemBtn.addEventListener("click", () => {
+	optionsInRandom.repeatEnable = repeatElemBtn.checked
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+})
 
 //` TODO:
 /**
- * * changingElem: 100% був заміненний іншим елементом
- * * CSS: застилізувати інпути настройок
- * * changingElem: коли true repeatEnable, функція createNewDataElems має змінювати тільки змінюваний елемент; написати нову фукцію яка буде виконувати попередню задачу
- * *
+ * * запускати функції(changeAllList) які потребую запускатись після iterate через new Promise().then()
+ * 
+ * 
+ * 
+ * 
  */
