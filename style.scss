@@ -216,6 +216,23 @@ body {
 		max-height: 70vh;
 		overflow-y: auto;
 		overflow-x: hidden;
+		// * Застилізувати скролбар
+		// &::-webkit-scrollbar {
+		// 	background: gray;
+		// }
+
+		// &::-webkit-scrollbar-track {
+		// 	background: green;
+		// }
+
+		// &::-webkit-scrollbar-button {
+		// 	background: blue;
+		// }
+
+		// &::-webkit-scrollbar-thumb {
+		// 	background: red;
+		// }
+		// *
 
 		@media (max-width: 680px) {
 			max-height: 290px;

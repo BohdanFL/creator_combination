@@ -203,12 +203,11 @@ const sortableOptions = {
 		drag: 0,
 		touch: 300
 	},
-	distance: detectModile.test(navigator.userAgent) * 10,
+	distance: !detectModile.test(navigator.userAgent) * 10,
 	classes: {
 		'source:dragging': ['active'],
 	}
 }
-log(sortableOptions.distance)
 
 const random = (array) => Math.floor(Math.random() * array.length)
 
