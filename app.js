@@ -164,7 +164,9 @@ let newDataElemsE = []
 for (let i = 0; i < 11; i++) {
 	dataElems.e.splice(i, 11)
 }
+const log = (...text) => console.log(...text)
 
+const detectModile = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBook|IEMobile|MeeGo|mini|Fennec|Windows Phone|Kindle|Silk|Opera Mini/
 const randomBtn = document.querySelector('.random__simple-btn')
 const customBtn = document.querySelector('.custom__simple-btn')
 const elementsList = document.querySelector('.elements__list')
@@ -176,9 +178,8 @@ const jumpEnableBtn = document.querySelector('#jump')
 const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
 let enableOptions = enableOptionsBtn.checked
-let elems = JSON.parse(localStorage.getItem('saveElems')) || {
-	a: []
-}
+let elems = JSON.parse(localStorage.getItem('saveElems')) || []
+
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	enableOptions: false,
 	count: 1,
@@ -186,22 +187,6 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	changeJumpEnable: false,
 	repeatEnable: false
 }
-const sortableOptions = {
-	draggable: 'li',
-	delay: {
-		move: 0,
-		drag: 0,
-		touch: 300
-	},
-	distance: 10,
-	classes: {
-		'source:dragging': ['active'],
-	},
-
-}
-
-const log = (text) => console.log(text)
-const random = (array) => Math.floor(Math.random() * array.length)
 
 if (optionsInRandom) {
 	enableOptionsBtn.checked = optionsInRandom.enableOptions
@@ -211,73 +196,32 @@ if (optionsInRandom) {
 	repeatElemBtn.checked = optionsInRandom.repeatEnable
 }
 
-const clearAndSaveElems = () => {
-	elems = {
-		a: []
+const sortableOptions = {
+	draggable: 'li',
+	delay: {
+		mouse: 100,
+		drag: 0,
+		touch: 300
+	},
+	distance: detectModile.test(navigator.userAgent) * 10,
+	classes: {
+		'source:dragging': ['active'],
 	}
+}
+log(sortableOptions.distance)
+
+const random = (array) => Math.floor(Math.random() * array.length)
+
+const clearAndSaveElems = () => {
+	elems = []
 	for (let i = 0; i < elementsList.childNodes.length; i++) {
 		if (elementsList.childNodes[i].textContent.trim()) {
-			elems.a.push(elementsList.childNodes[i].textContent.trim())
+			elems.push(elementsList.childNodes[i].textContent.trim())
 		}
 	}
 	localStorage.setItem("saveElems", JSON.stringify(elems))
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-
-const enableRepeatElem = () => {
-	log("enable repeat elem")
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-	const repeatObj = isRepeat(repeatEnable)
-	if (repeatEnable) {
-		console.log("Enable check repeat");
-		if (repeatObj.isRepeatBool) {
-			createTitle(200, "Виберіть елементи для заміни")
-			sortable.destroy()
-		}
-		// createNewDataElems()
-	} else {
-		console.log("Disable check repeat");
-		if (repeatObj.isRepeatBool) {
-			let titleWrapper = document.querySelector(".popup-title")
-			let titleBg = document.querySelector(".popup-title-bg")
-			if (titleWrapper) {
-				titleWrapper.style.top = "-100px"
-				setTimeout(() => {
-					titleWrapper.remove()
-					titleBg.remove()
-				}, 200)
-				elementsList.childNodes.forEach((i) => {
-					if (i.textContent.trim()) {
-						if (i.classList.contains("active")) {
-							i.classList.remove("active")
-						}
-					}
-				});
-			}
-			sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-		}
-	}
-	return repeatEnable
-}
-const checkEnableOption = () => {
-	enableOptions = enableOptionsBtn.checked
-	if (!enableOptions) {
-		countEnableBtn.disabled = true
-		jumpEnableBtn.disabled = true
-		changeJumpEnableBtn.disabled = true
-		repeatElemBtn.disabled = true
-		repeatElemBtn.removeEventListener('click', enableRepeatElem)
-	} else {
-		countEnableBtn.disabled = false
-		jumpEnableBtn.disabled = false
-		changeJumpEnableBtn.disabled = false
-		repeatElemBtn.disabled = false
-		repeatElemBtn.addEventListener('click', enableRepeatElem)
-	}
-	optionsInRandom.enableOptions = enableOptions
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-}
-checkEnableOption()
 
 const isRepeat = (repeatEnable) => {
 	let repeat = 0
@@ -287,27 +231,67 @@ const isRepeat = (repeatEnable) => {
 		elem.forEach((i, nI) => {
 			if (n < nI) {
 				if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-					// const toggleClassCheck = () => i.classList.toggle("check")
+
 					repeat++
 					repeatElems.push(elem[n])
 					repeatElems.push(elem[nI])
 					if (repeatEnable) {
 						i.classList.add("active")
 						elem[n].classList.add("active")
-						// i.addEventListener("click", toggleClassCheckI)
+
 					}
 				}
 			}
 		});
 	}
+	// repeatElems.forEach(i => {
+	// 	const toggleClass = () => {
+	// 		log(repeatEnable)
+	// 		if (!repeatEnable) {
+	// 			i.removeEventListener("click", toggleClass)
+	// 			return
+	// 		}
+	// 		i.classList.toggle("check")
+	// 	}
+	// 	i.addEventListener("click", toggleClass)
+	// })
+
+	repeatEnable ? isRepeatBool = !!repeat : isRepeatBool = false
 	return {
 		repeatElems,
 		repeat,
-		isRepeatBool: !!repeat
+		isRepeatBool
+	}
+}
+
+const enableRepeatElem = () => {
+	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+	const repeatObj = isRepeat(repeatEnable)
+
+	if (repeatEnable) {
+		console.log("Enable check repeat");
+		if (repeatObj.isRepeatBool) {
+			createTitle(100, "Виберіть елементи для заміни")
+			sortable.destroy()
+			sortable.destroyed = true
+		}
+	} else {
+		console.log("Disable check repeat");
+		if (!repeatObj.isRepeatBool) {
+			clearStyle()
+			if (sortable.destroyed === true) {
+				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+				sortable.destroyed = false
+			}
+		}
 	}
 }
 
 const createTitle = (duration, titleText) => {
+	if (document.querySelector(".popup-title") && document.querySelector(".popup-title-bg")) {
+		document.querySelector(".popup-title").remove()
+		document.querySelector(".popup-title-bg").remove()
+	}
 	const titleWrapper = document.createElement("div")
 	const titleBg = document.createElement("div")
 
@@ -321,8 +305,56 @@ const createTitle = (duration, titleText) => {
 
 	setTimeout(() => {
 		titleWrapper.style.top = "20px"
+		titleBg.style.opacity = ".5"
 	}, duration)
 }
+
+const clearStyle = () => {
+	let titleWrapper = document.querySelector(".popup-title")
+	let titleBg = document.querySelector(".popup-title-bg")
+	if (titleWrapper && titleBg) {
+		titleWrapper.style.top = "-100px"
+		titleBg.style.opacity = "0"
+		setTimeout(() => {
+			titleWrapper.remove()
+			titleBg.remove()
+		}, 200)
+		elementsList.childNodes.forEach((i) => {
+			if (i.textContent.trim()) {
+				if (i.classList.contains("active")) {
+					i.classList.remove("active")
+				}
+				if (i.classList.contains("check")) {
+					i.classList.remove("check")
+				}
+			}
+		});
+	}
+}
+
+const checkEnableOption = () => {
+	enableOptions = enableOptionsBtn.checked
+	if (!enableOptions) {
+		countEnableBtn.disabled = true
+		jumpEnableBtn.disabled = true
+		changeJumpEnableBtn.disabled = true
+		repeatElemBtn.disabled = true
+		clearStyle()
+		repeatElemBtn.removeEventListener('click', enableRepeatElem)
+	} else {
+		countEnableBtn.disabled = false
+		jumpEnableBtn.disabled = false
+		changeJumpEnableBtn.disabled = false
+		repeatElemBtn.disabled = false
+		if (repeatElemBtn.checked) {
+			enableRepeatElem()
+		}
+		repeatElemBtn.addEventListener('click', enableRepeatElem)
+	}
+	optionsInRandom.enableOptions = enableOptions
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+}
+checkEnableOption()
 
 const checkRepeatitons = (numIterate, timeout, addRandom, changingElem, checkElems) => {
 	let repeat = 0
@@ -407,14 +439,14 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 	} else {
 		if (!change) {
 			elem.textContent = only
-			elems.a.push(elem.textContent)
+			elems.push(elem.textContent)
 		} else {
 			const findText = elem.textContent
 			for (const key in elementsList.children) {
 				const elem = elementsList.children[key];
 				if (typeof elem === "object") {
 					if (elem.textContent.trim() === findText) {
-						elems.a.splice(key, 1, findText)
+						elems.splice(key, 1, findText)
 					}
 				}
 			}
@@ -466,9 +498,7 @@ const deleteAllList = () => {
 	// let confirm = prompt("You know what you do? If yes, write YES", "NO")
 	// if (confirm === "YES") {
 	elementsList.innerHTML = ''
-	elems = {
-		a: []
-	}
+	elems = []
 	localStorage.setItem('saveElems', JSON.stringify(elems))
 	// } else if (confirm === "NO" || confirm === null) {
 	// 	return
@@ -485,9 +515,7 @@ const changeAllList = () => {
 		changeAllBtn.textContent = "Change all"
 	}, 1000)
 	const elementsItemList = elementsList.querySelectorAll(".elements__item .elements__item-text")
-	elems = {
-		a: []
-	}
+	elems = []
 	enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 
@@ -510,9 +538,9 @@ const deletingElem = (elem) => {
 	const parent = elem.parentNode.parentNode.parentNode
 	parent.remove()
 	const findText = parent.textContent.trim()
-	elems.a.find((item, num) => {
+	elems.find((item, num) => {
 		if (findText === item) {
-			elems.a.splice(num, 1)
+			elems.splice(num, 1)
 			localStorage.setItem('saveElems', JSON.stringify(elems))
 		}
 	})
@@ -561,7 +589,7 @@ const createLi = (text) => {
 	return li
 }
 
-elems ? elems.a.forEach(elem => createLi(elem)) : false
+elems ? elems.forEach(elem => createLi(elem)) : false
 
 randomBtn.addEventListener('click', addRandomElem);
 customBtn.addEventListener('click', () => alert("In coming..."));
@@ -591,8 +619,8 @@ repeatElemBtn.addEventListener("click", () => {
 //` TODO:
 /**
  * * запускати функції(changeAllList) які потребую запускатись після iterate через new Promise().then()
- * 
- * 
- * 
+ * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
+ * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
+ * * добавити гайд(текстовий) в правому-верхньому куті або для кожного налаштування іконки-гайди
  * 
  */

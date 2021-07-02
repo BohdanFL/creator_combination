@@ -61,9 +61,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #000;
-  opacity: 0.5;
+  background-color: #000;
+  opacity: 0;
   z-index: 10;
+  transition: opacity 0.3s;
 }
 
 .btn {
@@ -216,9 +217,10 @@ body {
 .elements__item-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .elements__item i {
-  transition: all 0.2s;
+  transition: color 0.2s;
 }
 .elements__item i.fa-sync-alt:hover {
   color: rgba(0, 110, 255, 0.479);
@@ -273,6 +275,16 @@ body {
   width: 18px;
   height: 18px;
   font-size: 12px;
+}
+.random__more .more__wrapper label input#count,
+.custom__more .more__wrapper label input#count {
+  width: 35px;
+}
+@media (max-width: 767px) {
+  .random__more .more__wrapper label input#count,
+.custom__more .more__wrapper label input#count {
+    width: 18px;
+  }
 }
 .random__simple-btn,
 .custom__simple-btn {
