@@ -536,13 +536,7 @@ const deletingElem = (elem) => {
 	console.log('DELETE');
 	const parent = elem.parentNode.parentNode.parentNode
 	parent.remove()
-	const findText = parent.textContent.trim()
-	elems.find((item, num) => {
-		if (findText === item) {
-			elems.splice(num, 1)
-			localStorage.setItem('saveElems', JSON.stringify(elems))
-		}
-	})
+	clearAndSaveElems()
 }
 
 const changingElem = (elem) => {
@@ -564,11 +558,8 @@ const addBtnToLi = (li) => {
 	let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
 	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
 
-	const deletingElemEvent = () => deletingElem(deleteElemBtn)
-	const changingElemEvent = () => changingElem(changeElemBtn)
-
-	deleteElemBtn.addEventListener('click', deletingElemEvent)
-	changeElemBtn.addEventListener('click', changingElemEvent)
+	deleteElemBtn.addEventListener('click', () => deletingElem(deleteElemBtn))
+	changeElemBtn.addEventListener('click', () => changingElem(changeElemBtn))
 }
 
 const createLi = (text) => {
