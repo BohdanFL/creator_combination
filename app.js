@@ -222,45 +222,64 @@ const clearAndSaveElems = () => {
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 
-const isRepeat = (repeatEnable) => {
+const isRepeat = (repeatEnable = false) => {
 	let repeat = 0
 	let elem = elementsList.childNodes
 	const repeatElems = []
-	for (let n = 0; n < elem.length; n++) {
-		elem.forEach((i, nI) => {
-			if (n < nI) {
-				if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-
-					repeat++
-					repeatElems.push(elem[n])
-					repeatElems.push(elem[nI])
-					if (repeatEnable) {
-						i.classList.add("active")
-						elem[n].classList.add("active")
-
+	const ignoreList = []
+	if (repeatEnable) {
+		for (let n = 0; n < elem.length; n++) {
+			let addFirstElem = true;
+			const isWas = ignoreList.indexOf(elem[n].textContent.trim())
+			if (!ignoreList[isWas]) {
+				elem.forEach((i, nI) => {
+					if (elem[n].textContent.trim() && elem[nI].textContent.trim()) {
+						if (n < nI) {
+							if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
+								let ignoreListNotRepeat = true
+								ignoreList.forEach(ignoreItem => {
+									if (ignoreItem === elem[n].textContent.trim()) {
+										ignoreListNotRepeat = false
+									}
+								})
+								if (ignoreListNotRepeat) {
+									ignoreList.push(elem[n].textContent.trim())
+								}
+								repeat++
+								if (addFirstElem) {
+									repeatElems.push(elem[n])
+									addFirstElem = false;
+								}
+								repeatElems.push(elem[nI])
+								i.classList.add("active")
+								elem[n].classList.add("active")
+							}
+						}
 					}
-				}
+				});
 			}
-		});
+		}
 	}
-	// repeatElems.forEach(i => {
-	// 	const toggleClass = () => {
-	// 		log(repeatEnable)
-	// 		if (!repeatEnable) {
-	// 			i.removeEventListener("click", toggleClass)
-	// 			return
-	// 		}
-	// 		i.classList.toggle("check")
-	// 	}
-	// 	i.addEventListener("click", toggleClass)
-	// })
 
-	repeatEnable ? isRepeatBool = !!repeat : isRepeatBool = false
 	return {
 		repeatElems,
 		repeat,
-		isRepeatBool
+		isRepeatBool: !!repeat
 	}
+}
+
+const toggleClass = (e) => {
+	e.target.closest(".elements__item").classList.toggle("check")
+	const confirmBtn = document.querySelector("#confirm")
+	let isContainsClass = false
+	elementsList.childNodes.forEach(i => {
+		if (i.textContent.trim()) {
+			if (i.classList.contains("check")) {
+				isContainsClass = true
+			}
+		}
+	})
+	confirmBtn.disabled = !isContainsClass
 }
 
 const enableRepeatElem = () => {
@@ -271,33 +290,43 @@ const enableRepeatElem = () => {
 		console.log("Enable check repeat");
 		if (repeatObj.isRepeatBool) {
 			createTitle(100, "Виберіть елементи для заміни")
+
 			sortable.destroy()
 			sortable.destroyed = true
-		}
-	} else {
-		console.log("Disable check repeat");
-		if (!repeatObj.isRepeatBool) {
-			clearStyle()
-			if (sortable.destroyed === true) {
-				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-				sortable.destroyed = false
-			}
+
+			const confirmBtn = document.querySelector("#confirm")
+			const rejectBtn = document.querySelector("#reject")
+
+			elementsList.addEventListener("mousedown", toggleClass)
+			confirmBtn.addEventListener("click", confirmedRepeat, {
+				once: true
+			})
+			rejectBtn.addEventListener("click", rejectedRepeat, {
+				once: true
+			})
 		}
 	}
 }
 
 const createTitle = (duration, titleText) => {
-	if (document.querySelector(".popup-title") && document.querySelector(".popup-title-bg")) {
-		document.querySelector(".popup-title").remove()
-		document.querySelector(".popup-title-bg").remove()
+	if (document.querySelector(".popup__title") && document.querySelector(".popup__title-bg")) {
+		document.querySelector(".popup__title").remove()
+		document.querySelector(".popup__title-bg").remove()
 	}
-	const titleWrapper = document.createElement("div")
+	const titleWrapper = document.createElement("h1")
 	const titleBg = document.createElement("div")
 
-	titleWrapper.classList.add("popup-title")
-	titleBg.classList.add("popup-title-bg")
+	titleWrapper.classList.add("popup__title")
+	titleBg.classList.add("popup__title-bg")
 
-	titleWrapper.textContent = titleText
+	titleWrapper.innerHTML = `
+		${titleText}
+		<h2 class="popup__subtitle">Готові здійснити заміну?</h2>
+		<div class="popup__btns">
+			<button class="popup__btn btn" id="confirm" disabled>Так</button>
+			<button class="popup__btn btn" id="reject">Ні</button>
+		</div>
+	`
 
 	document.body.appendChild(titleWrapper)
 	document.body.appendChild(titleBg)
@@ -309,8 +338,8 @@ const createTitle = (duration, titleText) => {
 }
 
 const clearStyle = () => {
-	let titleWrapper = document.querySelector(".popup-title")
-	let titleBg = document.querySelector(".popup-title-bg")
+	let titleWrapper = document.querySelector(".popup__title")
+	let titleBg = document.querySelector(".popup__title-bg")
 	if (titleWrapper && titleBg) {
 		titleWrapper.style.top = "-100px"
 		titleBg.style.opacity = "0"
@@ -329,6 +358,33 @@ const clearStyle = () => {
 			}
 		});
 	}
+}
+
+const rejectedRepeat = () => {
+	log("reject")
+	elementsList.removeEventListener("mousedown", toggleClass)
+	clearStyle()
+	repeatElemBtn.checked = false
+	if (sortable.destroyed) {
+		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+		sortable.destroyed = false
+	}
+}
+
+const confirmedRepeat = () => {
+	console.log("confirm")
+	elementsList.childNodes.forEach(i => {
+		if (i.textContent.trim()) {
+			if (i.classList.contains("check")) {
+				// console.log(i.querySelector(".elements__item-text"))
+				createNewDataElems(1, 1000, false, i.querySelector(".elements__item-text"))
+				setTimeout(() => {
+					clearStyle()
+				}, 1000);
+			}
+		}
+	})
+	elementsList.removeEventListener("mousedown", toggleClass)
 }
 
 const checkEnableOption = () => {
@@ -368,7 +424,6 @@ const checkRepeatitons = (numIterate, timeout, addRandom, changingElem, checkEle
 				}
 				if (n < nI) {
 					if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-						// createTitle(1000, "Виберіть елементи для заміни")
 						repeat++
 						if (addRandom) {
 							iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
@@ -380,14 +435,7 @@ const checkRepeatitons = (numIterate, timeout, addRandom, changingElem, checkEle
 			});
 		}
 	} else {
-		// for (let n = 0; n < elem.length; n++) {
-		// 	elem.forEach((i, nI) => {
-		// 		if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-		// 			console.log(newDataElemsE);
 		iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false)
-		// 		}
-		// 	});
-		// }
 	}
 	setTimeout(() => {
 		if (repeat > 0) {
@@ -416,6 +464,7 @@ const createNewDataElems = (numIterate = 1, timeout = 1000, addRandom = false, c
 	elemNums.forEach(i => {
 		newDataElemsE.push(checkElems[i])
 	})
+	log(newDataElemsE)
 	checkRepeatitons(numIterate, timeout, addRandom, changingElem)
 	return newDataElemsE
 }
