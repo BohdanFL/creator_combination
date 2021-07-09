@@ -179,7 +179,11 @@ const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
 let enableOptions = enableOptionsBtn.checked
 let elems = JSON.parse(localStorage.getItem('saveElems')) || []
-
+if (elems.a) {
+	elems = elems.a
+	localStorage.removeItem("saveElems")
+	localStorage.setItem("saveElems", JSON.stringify(elems))
+}
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	enableOptions: false,
 	count: 1,
