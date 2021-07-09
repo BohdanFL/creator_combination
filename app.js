@@ -673,9 +673,11 @@ repeatElemBtn.addEventListener("click", () => {
 	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 })
 
+console.log("Now you in branch newIterate")
+
 //` TODO:
 /**
- * * запускати функції(changeAllList) які потребую запускатись після iterate через new Promise().then()
+ * * запускати функції  які потребую запускатись після iterate через new Promise().then()
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
  * * добавити гайд(текстовий) в правому-верхньому куті або для кожного налаштування іконки-гайди
