@@ -486,39 +486,54 @@ const createNewDataElems = (numIterate = 1, timeout = 1000, addRandom = false, c
 
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 20, only) => {
 	// const iterate = (i, opt) => {
-	if (i === 1 || i === 31) {
-		only = array[random(array)]
-	}
-	if (i === 30) {
-		console.log("iterate");
-	}
-	elem.textContent = iterableArr[random(iterableArr)]
-	sortable.destroy()
-	if (i < 30) {
-		setTimeout(() => iterate(i + 1, elem, array, iterableArr, change, save, duration, only), duration);
-		// setTimeout(() => iterate(i + 1, opt), duration);
-	} else {
-		if (!change) {
-			elem.textContent = only
-			elems.push(elem.textContent)
+	return new Promise((resolve) => {
+
+		if (i < 30) {
+			setTimeout(() => iterate(i + 1, elem, array, iterableArr, change, save, duration, only), duration);
+			// setTimeout(() => iterate(i + 1, opt), duration);
 		} else {
-			const findText = elem.textContent
-			for (const key in elementsList.children) {
-				const elem = elementsList.children[key];
-				if (typeof elem === "object") {
-					if (elem.textContent.trim() === findText) {
-						elems.splice(key, 1, findText)
+			if (!change) {
+				elem.textContent = only
+				elems.push(elem.textContent)
+			} else {
+				const findText = elem.textContent
+				for (const key in elementsList.children) {
+					const elem = elementsList.children[key];
+					if (typeof elem === "object") {
+						if (elem.textContent.trim() === findText) {
+							elems.splice(key, 1, findText)
+						}
 					}
 				}
 			}
+			sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+			if (save) {
+				localStorage.setItem('saveElems', JSON.stringify(elems))
+			}
 		}
-		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-		if (save) {
-			localStorage.setItem('saveElems', JSON.stringify(elems))
-		}
-	}
-	return only
+
+		const interval = setInterval(() => {
+			if (i === 1 || i === 31) {
+				only = arr[random(arr)];
+				console.log("iterate");
+			}
+			i++;
+			elem.textContent = iterableArr[random(iterableArr)]
+			sortable.destroy()
+
+			if (i > 30) {
+				elem.textContent = only;
+				clearInterval(interval);
+				resolve(only);
+			}
+		}, 100);
+	});
 }
+
+// btn.addEventListener("click", () => {
+//   iterate(1, s).then((r) => console.log(r));
+// });
+
 
 const addRandomElem = () => {
 	const sumElem = elementsList.children.length + parseInt(countEnableBtn.value)
