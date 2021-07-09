@@ -383,7 +383,7 @@ const confirmedRepeat = () => {
 			if (i.classList.contains("check")) {
 				createNewDataElems(1, 1000, false, i.querySelector(".elements__item-text"))
 				setTimeout(() => {
-					// clearStyle()
+					clearStyle()
 				}, 1000);
 			}
 		}
@@ -444,9 +444,7 @@ const checkRepeatitons = (numIterate, timeout, addRandom, changingElem, checkEle
 		conditionNum = 1
 		timeout = 1000
 		setTimeout(() => {
-			console.log("%c____________________________________________", "color: blue; background-color: blue; width: 100%")
 			elem.forEach((i) => {
-				console.log(only, i.textContent.trim())
 				if (i.textContent.trim()) {
 					if (only === i.textContent.trim()) {
 						repeat++
@@ -673,11 +671,9 @@ repeatElemBtn.addEventListener("click", () => {
 	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 })
 
-console.log("Now you in branch newIterate")
-
 //` TODO:
 /**
- * * запускати функції  які потребую запускатись після iterate через new Promise().then()
+ * * запускати функції які потребую запускатись після iterate через new Promise().then()
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
  * * добавити гайд(текстовий) в правому-верхньому куті або для кожного налаштування іконки-гайди
