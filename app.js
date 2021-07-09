@@ -487,34 +487,9 @@ const createNewDataElems = (numIterate = 1, timeout = 1000, addRandom = false, c
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 20, only) => {
 	// const iterate = (i, opt) => {
 	return new Promise((resolve) => {
-
-		if (i < 30) {
-			setTimeout(() => iterate(i + 1, elem, array, iterableArr, change, save, duration, only), duration);
-			// setTimeout(() => iterate(i + 1, opt), duration);
-		} else {
-			if (!change) {
-				elem.textContent = only
-				elems.push(elem.textContent)
-			} else {
-				const findText = elem.textContent
-				for (const key in elementsList.children) {
-					const elem = elementsList.children[key];
-					if (typeof elem === "object") {
-						if (elem.textContent.trim() === findText) {
-							elems.splice(key, 1, findText)
-						}
-					}
-				}
-			}
-			sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-			if (save) {
-				localStorage.setItem('saveElems', JSON.stringify(elems))
-			}
-		}
-
 		const interval = setInterval(() => {
 			if (i === 1 || i === 31) {
-				only = arr[random(arr)];
+				only = array[random(array)];
 				console.log("iterate");
 			}
 			i++;
@@ -522,18 +497,33 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 			sortable.destroy()
 
 			if (i > 30) {
-				elem.textContent = only;
 				clearInterval(interval);
+
+				if (!change) {
+					elem.textContent = only
+					elems.push(elem.textContent)
+				} else {
+					const findText = elem.textContent
+					for (const key in elementsList.children) {
+						const elem = elementsList.children[key];
+						if (typeof elem === "object") {
+							if (elem.textContent.trim() === findText) {
+								elems.splice(key, 1, findText)
+							}
+						}
+					}
+				}
+
+				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+				if (save) {
+					localStorage.setItem('saveElems', JSON.stringify(elems))
+				}
+
 				resolve(only);
 			}
-		}, 100);
+		}, duration);
 	});
 }
-
-// btn.addEventListener("click", () => {
-//   iterate(1, s).then((r) => console.log(r));
-// });
-
 
 const addRandomElem = () => {
 	const sumElem = elementsList.children.length + parseInt(countEnableBtn.value)
@@ -559,7 +549,7 @@ const addRandomElem = () => {
 		if (repeatEnable) {
 			createNewDataElems(1, 1000, true, null, arr)
 		} else {
-			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
+			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr).then(r => console.log(r))
 		}
 	}
 
@@ -688,6 +678,7 @@ repeatElemBtn.addEventListener("click", () => {
 
 //` TODO:
 /**
+ * * добавити перевірку наявності елементів для добавлення і замінни без повтору
  * * запускати функції які потребую запускатись після iterate через new Promise().then()
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
