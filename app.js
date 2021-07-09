@@ -381,10 +381,10 @@ const confirmedRepeat = () => {
 	elementsList.childNodes.forEach(i => {
 		if (i.textContent.trim()) {
 			if (i.classList.contains("check")) {
-				createNewDataElems(1, 1000, false, i.querySelector(".elements__item-text"))
-				setTimeout(() => {
+				createNewDataElems(1, false, i.querySelector(".elements__item-text")).then(() => {
+					console.log("promise createNewDataElems")
 					clearStyle()
-				}, 1000);
+				})
 			}
 		}
 	})
@@ -415,80 +415,98 @@ const checkEnableOption = () => {
 }
 checkEnableOption()
 
-const checkRepeatitons = (numIterate, timeout, addRandom, changingElem, checkElems) => {
-	let repeat = 0
-	let conditionNum = 0
-	let elem = elementsList.childNodes
-	if (!changingElem) {
-		for (let n = 0; n < elem.length; n++) {
-			elem.forEach((i, nI) => {
-				if (addRandom) {
-					if (nI === 0 && n === 0) {
-						iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
-					}
-				}
-				if (n < nI) {
-					if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-						repeat++
-						if (addRandom) {
-							iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
-						} else {
-							iterate(numIterate, elem[nI].querySelector(".elements__item-text"), newDataElemsE, checkElems, false, false)
+const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
+	return new Promise(resolve => {
+		let repeat = 0
+		let conditionNum = 0
+		let elem = elementsList.childNodes
+		if (!changingElem) {
+			console.log("don't changing elem")
+			for (let n = 1; n < elem.length; n++) {
+				console.log(n, elem[n])
+				elem.forEach((i, nI) => {
+					// if (elem[n].textContent.trim() && elem[nI].textContent.trim()) {
+					// if (addRandom) {
+					// 	if (nI === 0 && n === 0) {
+					// 		iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
+					// 	}
+					// }
+					if (n < nI) {
+						console.log(elem[n].textContent.trim(), elem[nI].textContent.trim())
+						if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
+							repeat++
+							console.log("addRandom:" + addRandom)
+							// console.log(repeat, elem[n], elem[nI], elem[n].textContent.trim(), elem[nI].textContent.trim())
+							if (addRandom) {
+								console.log(elementsList.querySelector(".elements__item:last-child .elements__item-text"))
+								iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
+							} else {
+								iterate(numIterate, elem[nI].querySelector(".elements__item-text"), newDataElemsE, checkElems, false, false)
+							}
 						}
 					}
-				}
-			});
-		}
-	} else {
-		const only = iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false, 1)
-		conditionNum = 1
-		timeout = 1000
-		setTimeout(() => {
-			elem.forEach((i) => {
-				if (i.textContent.trim()) {
-					if (only === i.textContent.trim()) {
-						repeat++
+					// }
+				});
+			}
+		} else {
+			conditionNum = 1
+			iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false).then(only => {
+				console.log(only)
+				elem.forEach((i) => {
+					if (i.textContent.trim()) {
+						if (only === i.textContent.trim()) {
+							repeat++
+						}
 					}
-				}
-			});
-		}, 1000)
-	}
-	setTimeout(() => {
-		if (repeat > conditionNum) {
-			createNewDataElems(31, 1, addRandom, changingElem, checkElems)
+				});
+				resolve({
+					repeat,
+					conditionNum
+				})
+			})
+		}
+	}).then((obj) => {
+		console.log("inside promise checkRepeatitons")
+		console.log(obj)
+		if (obj.repeat > obj.conditionNum) {
+			createNewDataElems(32, addRandom, changingElem, checkElems)
 		} else {
 			clearAndSaveElems()
 		}
-	}, timeout)
+	})
 }
 
-const createNewDataElems = (numIterate = 1, timeout = 1000, addRandom = false, changingElem, checkElems = dataElems.e) => {
-	elemNums = [];
-	newDataElemsE = [];
-	checkElems.forEach((_, n) => elemNums.push(n))
-	checkElems.forEach((i, n) => {
-		let repeat = -1
-		elementsList.childNodes.forEach((i2) => {
-			if (i2.textContent.trim() === i) {
-				repeat++
-				if (!repeat > 0) {
-					elemNums.splice(elemNums.indexOf(n), 1)
+const createNewDataElems = (numIterate = 1, addRandom = false, changingElem, checkElems = dataElems.e) => {
+	return new Promise(resolve => {
+		elemNums = [];
+		newDataElemsE = [];
+		checkElems.forEach((_, n) => elemNums.push(n))
+		checkElems.forEach((i, n) => {
+			let repeat = -1
+			elementsList.childNodes.forEach((i2) => {
+				if (i2.textContent.trim() === i) {
+					repeat++
+					if (!repeat > 0) {
+						elemNums.splice(elemNums.indexOf(n), 1)
+					}
 				}
-			}
-		});
+			});
+		})
+		elemNums.forEach(i => {
+			newDataElemsE.push(checkElems[i])
+		})
+		checkRepeatitons(numIterate, addRandom, changingElem, checkElems).then(() => {
+			console.log("outside promise checkRepeatitons")
+			resolve()
+		})
 	})
-	elemNums.forEach(i => {
-		newDataElemsE.push(checkElems[i])
-	})
-	checkRepeatitons(numIterate, timeout, addRandom, changingElem, checkElems)
-	return newDataElemsE
 }
 
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 20, only) => {
 	// const iterate = (i, opt) => {
 	return new Promise((resolve) => {
 		const interval = setInterval(() => {
-			if (i === 1 || i === 31) {
+			if (i === 1 || i === 32) {
 				only = array[random(array)];
 				console.log("iterate");
 			}
@@ -547,9 +565,9 @@ const addRandomElem = () => {
 		}
 		createLi('')
 		if (repeatEnable) {
-			createNewDataElems(1, 1000, true, null, arr)
+			createNewDataElems(1, true, null, arr)
 		} else {
-			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr).then(r => console.log(r))
+			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
 		}
 	}
 
@@ -576,10 +594,7 @@ const deleteAllList = () => {
 const changeAllList = () => {
 	changeAllBtn.disabled = true
 	changeAllBtn.textContent = "Disabled"
-	setTimeout(() => {
-		changeAllBtn.disabled = false
-		changeAllBtn.textContent = "Change all"
-	}, 1000)
+
 	const elementsItemList = elementsList.querySelectorAll(".elements__item .elements__item-text")
 	elems = []
 	enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
@@ -592,7 +607,10 @@ const changeAllList = () => {
 				arr = dataElems.j
 			}
 		}
-		iterate(1, item, arr)
+		iterate(1, item, arr).then(() => {
+			changeAllBtn.disabled = false
+			changeAllBtn.textContent = "Change all"
+		})
 		if (repeatEnable) {
 			createNewDataElems()
 		}
@@ -612,7 +630,7 @@ const changingElem = (elem) => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 
 	if (repeatEnable) {
-		createNewDataElems(1, 1000, false, elem.parentNode.previousSibling.previousSibling)
+		createNewDataElems(1, false, elem.parentNode.previousSibling.previousSibling)
 		return
 	}
 
