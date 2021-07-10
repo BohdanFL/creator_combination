@@ -294,7 +294,15 @@ const enableRepeatElem = () => {
 			i.classList.add("active")
 		})
 		if (repeatObj.isRepeatBool) {
-			createTitle(100, "Виберіть елементи для заміни")
+			const titleWrapper = createTitle("Виберіть елементи для заміни", 100, true)
+			titleWrapper.innerHTML += `
+				<h2 class="popup__subtitle">Готові здійснити заміну?</h2>
+				<div class="popup__btns">
+					<button class="popup__btn btn" id="confirm" disabled>Так</button>
+					<button class="popup__btn btn" id="reject">Ні</button>
+				</div>
+			`
+			titleWrapper.style.lineHeight = "40px"
 
 			sortable.destroy()
 			sortable.destroyed = true
@@ -313,44 +321,44 @@ const enableRepeatElem = () => {
 	}
 }
 
-const createTitle = (duration, titleText) => {
-	if (document.querySelector(".popup__title") && document.querySelector(".popup__title-bg")) {
+const createTitle = (titleText, duration, createBg) => {
+	if (document.querySelector(".popup__title")) {
 		document.querySelector(".popup__title").remove()
+	} else if (document.querySelector(".popup__title-bg")) {
 		document.querySelector(".popup__title-bg").remove()
 	}
+
 	const titleWrapper = document.createElement("h1")
-	const titleBg = document.createElement("div")
-
 	titleWrapper.classList.add("popup__title")
-	titleBg.classList.add("popup__title-bg")
+	let titleBg
+	if (createBg) {
+		titleBg = document.createElement("div")
+		titleBg.classList.add("popup__title-bg")
+	}
 
-	titleWrapper.innerHTML = `
-		${titleText}
-		<h2 class="popup__subtitle">Готові здійснити заміну?</h2>
-		<div class="popup__btns">
-			<button class="popup__btn btn" id="confirm" disabled>Так</button>
-			<button class="popup__btn btn" id="reject">Ні</button>
-		</div>
-	`
+	titleWrapper.innerHTML = titleText
 
 	document.body.appendChild(titleWrapper)
-	document.body.appendChild(titleBg)
+	if (createBg) document.body.appendChild(titleBg)
 
 	setTimeout(() => {
 		titleWrapper.style.top = "20px"
-		titleBg.style.opacity = ".5"
+		if (createBg) titleBg.style.opacity = ".5"
 	}, duration)
+
+	return titleWrapper
 }
 
-const clearStyle = () => {
+const clearStyle = (isBg = false) => {
 	let titleWrapper = document.querySelector(".popup__title")
-	let titleBg = document.querySelector(".popup__title-bg")
-	if (titleWrapper && titleBg) {
+	let titleBg
+	if (isBg) titleBg = document.querySelector(".popup__title-bg")
+	if (titleWrapper) {
 		titleWrapper.style.top = "-100px"
-		titleBg.style.opacity = "0"
+		if (isBg) titleBg.style.opacity = "0"
 		setTimeout(() => {
 			titleWrapper.remove()
-			titleBg.remove()
+			if (isBg) titleBg.remove()
 		}, 200)
 		elementsList.childNodes.forEach((i) => {
 			if (i.textContent.trim()) {
@@ -368,7 +376,7 @@ const clearStyle = () => {
 const rejectedRepeat = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
-	clearStyle()
+	clearStyle(true)
 	repeatElemBtn.checked = false
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
@@ -382,8 +390,7 @@ const confirmedRepeat = () => {
 		if (i.textContent.trim()) {
 			if (i.classList.contains("check")) {
 				createNewDataElems(1, false, i.querySelector(".elements__item-text")).then(() => {
-					console.log("promise createNewDataElems")
-					clearStyle()
+					clearStyle(true)
 				})
 			}
 		}
@@ -398,7 +405,6 @@ const checkEnableOption = () => {
 		jumpEnableBtn.disabled = true
 		changeJumpEnableBtn.disabled = true
 		repeatElemBtn.disabled = true
-		clearStyle()
 		repeatElemBtn.removeEventListener('click', enableRepeatElem)
 	} else {
 		countEnableBtn.disabled = false
@@ -421,31 +427,23 @@ const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
 		let conditionNum = 0
 		let elem = elementsList.childNodes
 		if (!changingElem) {
-			console.log("don't changing elem")
 			for (let n = 0; n < elem.length; n++) {
-				console.log(n, elem[n])
 				elem.forEach((i, nI) => {
-					// if (elem[n].textContent.trim() && elem[nI].textContent.trim()) {
 					if (addRandom) {
 						if (nI === 0 && n === 0) {
 							iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
 						}
 					}
 					if (n < nI) {
-						console.log(elem[n].textContent.trim(), elem[nI].textContent.trim())
 						if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
 							repeat++
-							console.log("addRandom:" + addRandom)
-							// console.log(repeat, elem[n], elem[nI], elem[n].textContent.trim(), elem[nI].textContent.trim())
 							if (addRandom) {
-								console.log(elementsList.querySelector(".elements__item:last-child .elements__item-text"))
 								iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
 							} else {
 								iterate(numIterate, elem[nI].querySelector(".elements__item-text"), newDataElemsE, checkElems, false, false)
 							}
 						}
 					}
-					// }
 				});
 			}
 		} else {
@@ -466,7 +464,6 @@ const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
 			})
 		}
 	}).then((obj) => {
-		console.log("inside promise checkRepeatitons")
 		console.log(obj)
 		if (obj.repeat > obj.conditionNum) {
 			createNewDataElems(32, addRandom, changingElem, checkElems)
@@ -492,17 +489,22 @@ const createNewDataElems = (numIterate = 1, addRandom = false, changingElem, che
 				}
 			});
 		})
-		elemNums.forEach(i => {
-			newDataElemsE.push(checkElems[i])
-		})
-		checkRepeatitons(numIterate, addRandom, changingElem, checkElems).then(() => {
-			console.log("outside promise checkRepeatitons")
-			resolve()
-		})
+		if (elemNums.length) {
+			elemNums.forEach(i => {
+				newDataElemsE.push(checkElems[i])
+			})
+			checkRepeatitons(numIterate, addRandom, changingElem, checkElems).then(() => {
+				resolve()
+			})
+		} else {
+			elementsList.querySelector(".elements__item:last-child").remove()
+			createTitle("Неможливо створити елемент який неповторюється!", 200)
+			setTimeout(clearStyle, 5000)
+		}
 	})
 }
 
-const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 20, only) => {
+const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 5, only) => {
 	// const iterate = (i, opt) => {
 	return new Promise((resolve) => {
 		const interval = setInterval(() => {
@@ -652,6 +654,7 @@ const addBtnToLi = (li) => {
 
 const createLi = (text) => {
 	const li = document.createElement('li')
+	text = text === '' ? dataElems.e[random(dataElems.e)] : text
 	li.classList.add('elements__item')
 	li.innerHTML = `<div class="elements__item-wrapper">
                     <span class="elements__item-text">${text}</span>  
@@ -697,10 +700,11 @@ repeatElemBtn.addEventListener("click", () => {
 //` TODO:
 /**
  * * добавити перевірку наявності елементів для добавлення і замінни без повтору
- * * запускати функції які потребую запускатись після iterate через new Promise().then()
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
  * * добавити гайд(текстовий) в правому-верхньому куті або для кожного налаштування іконки-гайди
- * * замінити dateElems на json файл і брати елементи з файлу
+ * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * застилізувати настройки
  */
+// // * * переписати createTitle
+// // * * запускати функції які потребую запускатись після iterate через new Promise().then() - Done
