@@ -422,15 +422,15 @@ const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
 		let elem = elementsList.childNodes
 		if (!changingElem) {
 			console.log("don't changing elem")
-			for (let n = 1; n < elem.length; n++) {
+			for (let n = 0; n < elem.length; n++) {
 				console.log(n, elem[n])
 				elem.forEach((i, nI) => {
 					// if (elem[n].textContent.trim() && elem[nI].textContent.trim()) {
-					// if (addRandom) {
-					// 	if (nI === 0 && n === 0) {
-					// 		iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
-					// 	}
-					// }
+					if (addRandom) {
+						if (nI === 0 && n === 0) {
+							iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
+						}
+					}
 					if (n < nI) {
 						console.log(elem[n].textContent.trim(), elem[nI].textContent.trim())
 						if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
