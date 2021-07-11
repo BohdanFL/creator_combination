@@ -508,7 +508,7 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
 				resolve()
 			})
 		} else {
-			createTitle("Неможливо створити елемент який неповторюється!")
+			createTitle("Неможливо замінити на унікальний елемент!")
 			setTimeout(clearStyle, 3000)
 		}
 	})
@@ -712,14 +712,13 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
 
 //` TODO: Local
 /**
- * * добавити перевірку наявності елементів для добавлення і замінни без повтору - almost done (fix in the isRepeat() )
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * застилізувати настройки
  * * добавити кнопку "Select all" при активації опції "Повтор елементів"
  * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
  * * перемалювати лого на темно оранжевий
  */
-// "finished checking for items to add and replace without repeating; finished 'Select all'"
+// // * * добавити перевірку наявності елементів для добавлення і замінни без повтору - Done
 // //  * * переписати checkRepeatitons() - Done
 // // * * переписати createTitle - Done
 // // * * запускати функції які потребую запускатись після iterate через new Promise().then() - Done
