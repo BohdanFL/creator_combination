@@ -287,7 +287,6 @@ const enableRepeatElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	const repeatObj = isRepeat()
 
-
 	if (repeatEnable) {
 		console.log("Enable check repeat");
 		repeatObj.repeatElems.forEach(i => {
@@ -349,16 +348,15 @@ const createTitle = (titleText, duration, createBg) => {
 	return titleWrapper
 }
 
-const clearStyle = (isBg = false) => {
+const clearStyle = () => {
 	let titleWrapper = document.querySelector(".popup__title")
-	let titleBg
-	if (isBg) titleBg = document.querySelector(".popup__title-bg")
+	let titleBg = document.querySelector(".popup__title-bg")
 	if (titleWrapper) {
 		titleWrapper.style.top = "-100px"
-		if (isBg) titleBg.style.opacity = "0"
+		if (titleBg) titleBg.style.opacity = "0"
 		setTimeout(() => {
 			titleWrapper.remove()
-			if (isBg) titleBg.remove()
+			if (titleBg) titleBg.remove()
 		}, 200)
 		elementsList.childNodes.forEach((i) => {
 			if (i.textContent.trim()) {
@@ -376,7 +374,7 @@ const clearStyle = (isBg = false) => {
 const rejectedRepeat = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
-	clearStyle(true)
+	clearStyle()
 	repeatElemBtn.checked = false
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
@@ -390,7 +388,7 @@ const confirmedRepeat = () => {
 		if (i.textContent.trim()) {
 			if (i.classList.contains("check")) {
 				createNewDataElems(1, false, i.querySelector(".elements__item-text")).then(() => {
-					clearStyle(true)
+					clearStyle()
 				})
 			}
 		}
@@ -446,6 +444,10 @@ const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
 					}
 				});
 			}
+			resolve({
+				repeat,
+				conditionNum
+			})
 		} else {
 			conditionNum = 1
 			iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false).then(only => {
@@ -670,6 +672,13 @@ const createLi = (text) => {
 	return li
 }
 
+const addClickForOptions = (btn, value, event = "click", func) => {
+	btn.addEventListener(event, () => {
+		typeof func === "function" ? func() : optionsInRandom[value] = jumpEnableBtn.checked
+		localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+	})
+}
+
 elems ? elems.forEach(elem => createLi(elem)) : false
 
 randomBtn.addEventListener('click', addRandomElem);
@@ -677,34 +686,27 @@ customBtn.addEventListener('click', () => alert("In coming..."));
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 enableOptionsBtn.addEventListener('click', checkEnableOption)
-countEnableBtn.addEventListener("input", () => {
+
+addClickForOptions(countEnableBtn, "count", "input", () => {
 	if (countEnableBtn.value.length > 2) {
 		countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
 	}
 	countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 })
-jumpEnableBtn.addEventListener("click", () => {
-	optionsInRandom.jumpEnable = jumpEnableBtn.checked
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-})
-changeJumpEnableBtn.addEventListener("click", () => {
-	optionsInRandom.changeJumpEnable = changeJumpEnableBtn.checked
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-})
-repeatElemBtn.addEventListener("click", () => {
-	optionsInRandom.repeatEnable = repeatElemBtn.checked
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-})
+addClickForOptions(jumpEnableBtn, "jumpEnable")
+addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
+addClickForOptions(repeatElemBtn, "repeatEnable")
 
 //` TODO:
 /**
- * * добавити перевірку наявності елементів для добавлення і замінни без повтору
+ * * добавити перевірку наявності елементів для добавлення і замінни без повтору - almost done (test, bug)
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
  * * добавити гайд(текстовий) в правому-верхньому куті або для кожного налаштування іконки-гайди
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * застилізувати настройки
+ * * добавити кнопку "Select all" при активації опції "Повтор елементів"
+ * * переписати checkRepeatitons()
  */
-// // * * переписати createTitle
+// // * * переписати createTitle - Done
 // // * * запускати функції які потребую запускатись після iterate через new Promise().then() - Done
