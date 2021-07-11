@@ -375,7 +375,7 @@ const rejectedRepeat = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
 	clearStyle()
-	repeatElemBtn.checked = false
+	// repeatElemBtn.checked = false
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 		sortable.destroyed = false
@@ -425,29 +425,28 @@ const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
 		let conditionNum = 0
 		let elem = elementsList.childNodes
 		if (!changingElem) {
-			for (let n = 0; n < elem.length; n++) {
-				elem.forEach((i, nI) => {
-					if (addRandom) {
-						if (nI === 0 && n === 0) {
-							iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
-						}
-					}
-					if (n < nI) {
-						if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-							repeat++
-							if (addRandom) {
+			for (let n = 1; n < elem.length; n++) {
+				if (elem[n]) {
+					elem.forEach((i, nI) => {
+						if (addRandom) {
+							if (nI === 0 && n === 0) {
 								iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
-							} else {
-								iterate(numIterate, elem[nI].querySelector(".elements__item-text"), newDataElemsE, checkElems, false, false)
+							}
+							if (n < nI) {
+								if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
+									repeat++
+									console.log(elem[n], elem[nI])
+									// iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
+								}
 							}
 						}
-					}
-				});
+					});
+				}
 			}
-			resolve({
-				repeat,
-				conditionNum
-			})
+			// resolve({
+			// 	repeat,
+			// 	conditionNum
+			// })
 		} else {
 			conditionNum = 1
 			iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false).then(only => {
@@ -499,7 +498,7 @@ const createNewDataElems = (numIterate = 1, addRandom = false, changingElem, che
 				resolve()
 			})
 		} else {
-			elementsList.querySelector(".elements__item:last-child").remove()
+			// elementsList.querySelector(".elements__item:last-child").remove()
 			createTitle("Неможливо створити елемент який неповторюється!", 200)
 			setTimeout(clearStyle, 5000)
 		}
@@ -569,7 +568,7 @@ const addRandomElem = () => {
 		}
 		createLi('')
 		if (repeatEnable) {
-			createNewDataElems(1, true, null, arr)
+			createNewDataElems(1, false, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
 		} else {
 			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
 		}
@@ -616,7 +615,7 @@ const changeAllList = () => {
 			changeAllBtn.textContent = "Change all"
 		})
 		if (repeatEnable) {
-			createNewDataElems()
+			createNewDataElems(1, false, item, arr)
 		}
 	})
 }
@@ -656,7 +655,7 @@ const addBtnToLi = (li) => {
 
 const createLi = (text) => {
 	const li = document.createElement('li')
-	text = text === '' ? dataElems.e[random(dataElems.e)] : text
+	// text = text === '' ? dataElems.e[random(dataElems.e)] : text
 	li.classList.add('elements__item')
 	li.innerHTML = `<div class="elements__item-wrapper">
                     <span class="elements__item-text">${text}</span>  
@@ -686,7 +685,6 @@ customBtn.addEventListener('click', () => alert("In coming..."));
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 enableOptionsBtn.addEventListener('click', checkEnableOption)
-
 addClickForOptions(countEnableBtn, "count", "input", () => {
 	if (countEnableBtn.value.length > 2) {
 		countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
