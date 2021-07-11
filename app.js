@@ -179,11 +179,6 @@ const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
 let enableOptions = enableOptionsBtn.checked
 let elems = JSON.parse(localStorage.getItem('saveElems')) || []
-if (elems.a) {
-	elems = elems.a
-	localStorage.removeItem("saveElems")
-	localStorage.setItem("saveElems", JSON.stringify(elems))
-}
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	enableOptions: false,
 	count: 1,
@@ -191,15 +186,6 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	changeJumpEnable: false,
 	repeatEnable: false
 }
-
-if (optionsInRandom) {
-	enableOptionsBtn.checked = optionsInRandom.enableOptions
-	countEnableBtn.value = optionsInRandom.count
-	jumpEnableBtn.checked = optionsInRandom.jumpEnable
-	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
-	repeatElemBtn.checked = optionsInRandom.repeatEnable
-}
-
 const sortableOptions = {
 	draggable: 'li',
 	delay: {
@@ -211,6 +197,47 @@ const sortableOptions = {
 	classes: {
 		'source:dragging': ['active'],
 	}
+}
+
+const addBtnToLi = (li) => {
+	let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
+	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
+
+	deleteElemBtn.addEventListener('click', () => deletingElem(deleteElemBtn))
+	changeElemBtn.addEventListener('click', () => changingElem(changeElemBtn))
+}
+
+const createLi = (text) => {
+	const li = document.createElement('li')
+	text = text === '' ? dataElems.e[random(dataElems.e)] : text
+	li.classList.add('elements__item')
+	li.innerHTML = `<div class="elements__item-wrapper">
+                    <span class="elements__item-text">${text}</span>  
+                    <div class="elements__item-btns">
+                        <i class="fas fa-sync-alt"></i> 
+                        <i class="fas fa-minus-circle"></i>
+                    </div>
+                </div>`
+	elementsList.appendChild(li)
+
+	addBtnToLi(li)
+
+	return li
+}
+
+elems ? elems.forEach(elem => createLi(elem)) : false
+if (elems.a) {
+	elems = elems.a
+	localStorage.removeItem("saveElems")
+	localStorage.setItem("saveElems", JSON.stringify(elems))
+}
+
+if (optionsInRandom) {
+	enableOptionsBtn.checked = optionsInRandom.enableOptions
+	countEnableBtn.value = optionsInRandom.count
+	jumpEnableBtn.checked = optionsInRandom.jumpEnable
+	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
+	repeatElemBtn.checked = optionsInRandom.repeatEnable
 }
 
 const random = (array) => Math.floor(Math.random() * array.length)
@@ -286,7 +313,7 @@ const toggleClass = (e) => {
 const enableRepeatElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	const repeatObj = isRepeat()
-
+	console.log(repeatObj)
 	if (repeatEnable) {
 		console.log("Enable check repeat");
 		repeatObj.repeatElems.forEach(i => {
@@ -308,6 +335,8 @@ const enableRepeatElem = () => {
 
 			const confirmBtn = document.querySelector("#confirm")
 			const rejectBtn = document.querySelector("#reject")
+			const selectAll = document.querySelector(".select-all")
+			selectAll.classList.remove("hide")
 
 			elementsList.addEventListener("mousedown", toggleClass)
 			confirmBtn.addEventListener("click", confirmedRepeat, {
@@ -320,7 +349,7 @@ const enableRepeatElem = () => {
 	}
 }
 
-const createTitle = (titleText, duration, createBg) => {
+const createTitle = (titleText, duration = 200, createBg) => {
 	if (document.querySelector(".popup__title")) {
 		document.querySelector(".popup__title").remove()
 	} else if (document.querySelector(".popup__title-bg")) {
@@ -351,13 +380,18 @@ const createTitle = (titleText, duration, createBg) => {
 const clearStyle = () => {
 	let titleWrapper = document.querySelector(".popup__title")
 	let titleBg = document.querySelector(".popup__title-bg")
+	let selectAll = document.querySelector(".select-all")
+
 	if (titleWrapper) {
 		titleWrapper.style.top = "-100px"
 		if (titleBg) titleBg.style.opacity = "0"
+		if (selectAll) selectAll.classList.add("hide")
+
 		setTimeout(() => {
 			titleWrapper.remove()
 			if (titleBg) titleBg.remove()
 		}, 200)
+
 		elementsList.childNodes.forEach((i) => {
 			if (i.textContent.trim()) {
 				if (i.classList.contains("active")) {
@@ -375,7 +409,11 @@ const rejectedRepeat = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
 	clearStyle()
+
 	repeatElemBtn.checked = false
+	optionsInRandom.repeatEnable = false
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 		sortable.destroyed = false
@@ -411,6 +449,7 @@ const checkEnableOption = () => {
 		repeatElemBtn.disabled = false
 		console.log(repeatElemBtn.checked)
 		if (repeatElemBtn.checked) {
+
 			enableRepeatElem()
 		}
 		repeatElemBtn.addEventListener('click', enableRepeatElem)
@@ -426,7 +465,6 @@ const checkRepeatitons = (numIterate, changingElem, checkElems) => {
 		let elem = elementsList.childNodes
 		if (changingElem) {
 			iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false).then(only => {
-				console.log(only)
 				elem.forEach((i) => {
 					if (i.textContent.trim()) {
 						if (only === i.textContent.trim()) {
@@ -438,7 +476,6 @@ const checkRepeatitons = (numIterate, changingElem, checkElems) => {
 			})
 		}
 	}).then((repeat) => {
-		console.log(repeat)
 		if (repeat > 1) {
 			createNewDataElems(32, changingElem, checkElems)
 		} else {
@@ -447,7 +484,7 @@ const checkRepeatitons = (numIterate, changingElem, checkElems) => {
 	})
 }
 
-const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e) => {
+const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e, createItem) => {
 	return new Promise(resolve => {
 		elemNums = [];
 		newDataElemsE = [];
@@ -467,12 +504,15 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
 			elemNums.forEach(i => {
 				newDataElemsE.push(checkElems[i])
 			})
+			if (createItem) {
+				createLi('')
+				changingElem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
+			}
 			checkRepeatitons(numIterate, changingElem, checkElems).then(() => {
 				resolve()
 			})
 		} else {
-			// elementsList.querySelector(".elements__item:last-child").remove()
-			createTitle("Неможливо створити елемент який неповторюється!", 200)
+			createTitle("Неможливо створити елемент який неповторюється!")
 			setTimeout(clearStyle, 5000)
 		}
 	})
@@ -520,29 +560,54 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 }
 
 const addRandomElem = () => {
-	const sumElem = elementsList.children.length + parseInt(countEnableBtn.value)
-	if (elementsList.children.length >= 99 || countEnableBtn.value > 99 || sumElem > 99) {
-		alert('Ліміт елементів(99)')
-		if (enableOptions) {
-			countEnableBtn.value = 99 - elementsList.children.length
+	const elemsLength = elementsList.children.length
+	const sumElem = elemsLength + parseInt(countEnableBtn.value)
+	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+	if (!repeatEnable) {
+		if (elemsLength >= 99) {
+			createTitle('Ви досягли ліміту елементів (99)')
+			setTimeout(clearStyle, 3000)
+		} else {
+			if (enableOptions) {
+				if (countEnableBtn.value > 99 || sumElem > 99) {
+					createTitle('Дія неможлива, ліміт елементів (99)')
+					setTimeout(clearStyle, 3000)
+				}
+			}
 		}
-		return
+		if (elemsLength >= 99 || countEnableBtn.value > 99 || sumElem > 99) {
+			if (enableOptions) {
+				countEnableBtn.value = (99 - elemsLength) || 1
+			}
+			return
+		}
 	}
 
 	enableOptions ? countValue = parseInt(countEnableBtn.value) : countValue = 1
 	enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	let arr = dataElems.e
+	let potentialItemCount = elemsLength + countValue
+	if (repeatEnable) {
+		if (potentialItemCount > arr.length) {
+			countEnableBtn.value = (arr.length - elemsLength) === 0 ? 1 : arr.length - elemsLength
+		}
+	}
 	for (let i = 0; i < countValue; i++) {
 		if (jumpEnable) {
 			if (i === (countValue - 1)) {
 				arr = dataElems.j
 			}
 		}
-		createLi('')
 		if (repeatEnable) {
-			createNewDataElems(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
+			if (potentialItemCount > arr.length) {
+				createTitle("Неможливо створити таку кількість унікальних елементів!")
+				setTimeout(clearStyle, 3000)
+				i = countValue
+			} else {
+				createNewDataElems(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr, true)
+			}
 		} else {
+			createLi('')
 			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
 		}
 	}
@@ -552,6 +617,8 @@ const addRandomElem = () => {
 		left: 0,
 		top: elementsList.scrollHeight
 	})
+	// optionsInRandom.count = countEnableBtn.value
+	// localStorage.setItem('optionsInRandom', JSON.stringify(optionsInRandom))
 }
 
 const deleteAllList = () => {
@@ -604,44 +671,17 @@ const changingElem = (elem) => {
 	console.log('CHANGE');
 	enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-
-	if (repeatEnable) {
-		createNewDataElems(1, elem.parentNode.previousSibling.previousSibling)
-		return
-	}
+	let arr = dataElems.e
 
 	if (changeJumpEnable) {
-		iterate(1, elem.parentNode.previousSibling.previousSibling, dataElems.j, dataElems.j, true)
+		arr = dataElems.j
+	}
+	if (repeatEnable) {
+		createNewDataElems(1, elem.parentNode.previousSibling.previousSibling, arr)
 	} else {
-		iterate(1, elem.parentNode.previousSibling.previousSibling, dataElems.e, dataElems.e, true)
+		iterate(1, elem.parentNode.previousSibling.previousSibling, arr, arr, true)
 	}
 
-}
-
-const addBtnToLi = (li) => {
-	let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
-	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
-
-	deleteElemBtn.addEventListener('click', () => deletingElem(deleteElemBtn))
-	changeElemBtn.addEventListener('click', () => changingElem(changeElemBtn))
-}
-
-const createLi = (text) => {
-	const li = document.createElement('li')
-	text = text === '' ? dataElems.e[random(dataElems.e)] : text
-	li.classList.add('elements__item')
-	li.innerHTML = `<div class="elements__item-wrapper">
-                    <span class="elements__item-text">${text}</span>  
-                    <div class="elements__item-btns">
-                        <i class="fas fa-sync-alt"></i> 
-                        <i class="fas fa-minus-circle"></i>
-                    </div>
-                </div>`
-	elementsList.appendChild(li)
-
-	addBtnToLi(li)
-
-	return li
 }
 
 const addClickForOptions = (btn, value, event = "click", func) => {
@@ -650,8 +690,6 @@ const addClickForOptions = (btn, value, event = "click", func) => {
 		localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	})
 }
-
-elems ? elems.forEach(elem => createLi(elem)) : false
 
 randomBtn.addEventListener('click', addRandomElem);
 customBtn.addEventListener('click', () => alert("In coming..."));
@@ -668,16 +706,24 @@ addClickForOptions(jumpEnableBtn, "jumpEnable")
 addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
 addClickForOptions(repeatElemBtn, "repeatEnable")
 
-//` TODO:
+//` TODO: Global
 /**
- * * добавити перевірку наявності елементів для добавлення і замінни без повтору - almost done (test, bug)
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
  * * добавити гайд(текстовий) в правому-верхньому куті або для кожного налаштування іконки-гайди
+ * * Назначити або переписати архітектуру коду
+ */
+
+//` TODO: Local
+/**
+ * * добавити перевірку наявності елементів для добавлення і замінни без повтору - almost done (fix in the isRepeat() )
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * застилізувати настройки
  * * добавити кнопку "Select all" при активації опції "Повтор елементів"
+ * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
+ * * перемалювати лого на темно оранжевий
  */
+// "added checking for items to add and replace without repeating(don't in isRepeat()); added 'Select all' button without functional; some style change in .check selector"
 // //  * * переписати checkRepeatitons() - Done
 // // * * переписати createTitle - Done
 // // * * запускати функції які потребую запускатись після iterate через new Promise().then() - Done
