@@ -410,10 +410,6 @@ const rejectedRepeat = () => {
 	elementsList.removeEventListener("mousedown", toggleClass)
 	clearStyle()
 
-	repeatElemBtn.checked = false
-	optionsInRandom.repeatEnable = false
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 		sortable.destroyed = false
@@ -513,7 +509,7 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
 			})
 		} else {
 			createTitle("Неможливо створити елемент який неповторюється!")
-			setTimeout(clearStyle, 5000)
+			setTimeout(clearStyle, 3000)
 		}
 	})
 }
@@ -723,7 +719,7 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
  * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
  * * перемалювати лого на темно оранжевий
  */
-// "added checking for items to add and replace without repeating(don't in isRepeat()); added 'Select all' button without functional; some style change in .check selector"
+// "finished checking for items to add and replace without repeating; finished 'Select all'"
 // //  * * переписати checkRepeatitons() - Done
 // // * * переписати createTitle - Done
 // // * * запускати функції які потребую запускатись після iterate через new Promise().then() - Done
