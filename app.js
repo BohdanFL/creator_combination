@@ -375,7 +375,7 @@ const rejectedRepeat = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
 	clearStyle()
-	// repeatElemBtn.checked = false
+	repeatElemBtn.checked = false
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 		sortable.destroyed = false
@@ -387,7 +387,7 @@ const confirmedRepeat = () => {
 	elementsList.childNodes.forEach(i => {
 		if (i.textContent.trim()) {
 			if (i.classList.contains("check")) {
-				createNewDataElems(1, false, i.querySelector(".elements__item-text")).then(() => {
+				createNewDataElems(1, i.querySelector(".elements__item-text")).then(() => {
 					clearStyle()
 				})
 			}
@@ -409,6 +409,7 @@ const checkEnableOption = () => {
 		jumpEnableBtn.disabled = false
 		changeJumpEnableBtn.disabled = false
 		repeatElemBtn.disabled = false
+		console.log(repeatElemBtn.checked)
 		if (repeatElemBtn.checked) {
 			enableRepeatElem()
 		}
@@ -419,36 +420,11 @@ const checkEnableOption = () => {
 }
 checkEnableOption()
 
-const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
+const checkRepeatitons = (numIterate, changingElem, checkElems) => {
 	return new Promise(resolve => {
 		let repeat = 0
-		let conditionNum = 0
 		let elem = elementsList.childNodes
-		if (!changingElem) {
-			for (let n = 1; n < elem.length; n++) {
-				if (elem[n]) {
-					elem.forEach((i, nI) => {
-						if (addRandom) {
-							if (nI === 0 && n === 0) {
-								iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
-							}
-							if (n < nI) {
-								if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-									repeat++
-									console.log(elem[n], elem[nI])
-									// iterate(numIterate, elementsList.querySelector(".elements__item:last-child .elements__item-text"), newDataElemsE, checkElems, false, false)
-								}
-							}
-						}
-					});
-				}
-			}
-			// resolve({
-			// 	repeat,
-			// 	conditionNum
-			// })
-		} else {
-			conditionNum = 1
+		if (changingElem) {
 			iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false).then(only => {
 				console.log(only)
 				elem.forEach((i) => {
@@ -458,23 +434,20 @@ const checkRepeatitons = (numIterate, addRandom, changingElem, checkElems) => {
 						}
 					}
 				});
-				resolve({
-					repeat,
-					conditionNum
-				})
+				resolve(repeat)
 			})
 		}
-	}).then((obj) => {
-		console.log(obj)
-		if (obj.repeat > obj.conditionNum) {
-			createNewDataElems(32, addRandom, changingElem, checkElems)
+	}).then((repeat) => {
+		console.log(repeat)
+		if (repeat > 1) {
+			createNewDataElems(32, changingElem, checkElems)
 		} else {
 			clearAndSaveElems()
 		}
 	})
 }
 
-const createNewDataElems = (numIterate = 1, addRandom = false, changingElem, checkElems = dataElems.e) => {
+const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e) => {
 	return new Promise(resolve => {
 		elemNums = [];
 		newDataElemsE = [];
@@ -494,7 +467,7 @@ const createNewDataElems = (numIterate = 1, addRandom = false, changingElem, che
 			elemNums.forEach(i => {
 				newDataElemsE.push(checkElems[i])
 			})
-			checkRepeatitons(numIterate, addRandom, changingElem, checkElems).then(() => {
+			checkRepeatitons(numIterate, changingElem, checkElems).then(() => {
 				resolve()
 			})
 		} else {
@@ -568,7 +541,7 @@ const addRandomElem = () => {
 		}
 		createLi('')
 		if (repeatEnable) {
-			createNewDataElems(1, false, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
+			createNewDataElems(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
 		} else {
 			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
 		}
@@ -615,7 +588,7 @@ const changeAllList = () => {
 			changeAllBtn.textContent = "Change all"
 		})
 		if (repeatEnable) {
-			createNewDataElems(1, false, item, arr)
+			createNewDataElems(1, item, arr)
 		}
 	})
 }
@@ -633,7 +606,7 @@ const changingElem = (elem) => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 
 	if (repeatEnable) {
-		createNewDataElems(1, false, elem.parentNode.previousSibling.previousSibling)
+		createNewDataElems(1, elem.parentNode.previousSibling.previousSibling)
 		return
 	}
 
@@ -655,7 +628,7 @@ const addBtnToLi = (li) => {
 
 const createLi = (text) => {
 	const li = document.createElement('li')
-	// text = text === '' ? dataElems.e[random(dataElems.e)] : text
+	text = text === '' ? dataElems.e[random(dataElems.e)] : text
 	li.classList.add('elements__item')
 	li.innerHTML = `<div class="elements__item-wrapper">
                     <span class="elements__item-text">${text}</span>  
@@ -673,7 +646,7 @@ const createLi = (text) => {
 
 const addClickForOptions = (btn, value, event = "click", func) => {
 	btn.addEventListener(event, () => {
-		typeof func === "function" ? func() : optionsInRandom[value] = jumpEnableBtn.checked
+		typeof func === "function" ? func() : optionsInRandom[value] = btn.checked
 		localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	})
 }
@@ -704,7 +677,7 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * застилізувати настройки
  * * добавити кнопку "Select all" при активації опції "Повтор елементів"
- * * переписати checkRepeatitons()
  */
+// //  * * переписати checkRepeatitons() - Done
 // // * * переписати createTitle - Done
 // // * * запускати функції які потребую запускатись після iterate через new Promise().then() - Done
