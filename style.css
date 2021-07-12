@@ -237,9 +237,6 @@ body {
   border-bottom: 1px solid;
   transition: all 0.3s;
 }
-.elements__item:first-child {
-  padding: 0 0 7px;
-}
 .elements__item-wrapper {
   display: flex;
   justify-content: space-between;
