@@ -122,6 +122,7 @@ body {
 }
 @media (max-width: 680px) {
   .wrapper {
+    min-height: 100%;
     flex-wrap: wrap-reverse;
   }
   .wrapper > div {
@@ -229,6 +230,7 @@ body {
   align-items: center;
 }
 .elements__item i {
+  font-size: 18px;
   transition: color 0.2s;
 }
 .elements__item i.fa-sync-alt:hover {
@@ -307,8 +309,8 @@ body {
 .random__more .more__wrapper label input,
 .custom__more .more__wrapper label input {
   border: none;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
 }
 .random__more .more__wrapper label input#count,
 .custom__more .more__wrapper label input#count {

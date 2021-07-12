@@ -692,7 +692,14 @@ const addClickForOptions = (btn, value, event = "click", func) => {
 }
 
 randomBtn.addEventListener('click', addRandomElem);
-customBtn.addEventListener('click', () => alert("In coming..."));
+customBtn.addEventListener('click', () => {
+	createTitle("У майбутньому...", 0)
+	setTimeout(clearStyle, 1500)
+});
+document.querySelector(".elements__save").addEventListener('click', () => {
+	createTitle("У майбутньому...", 0)
+	setTimeout(clearStyle, 1500)
+});
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 enableOptionsBtn.addEventListener('click', checkEnableOption)
