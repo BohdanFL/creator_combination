@@ -375,7 +375,12 @@ const createTitle = (titleText, duration = 200, createBg) => {
 	if (createBg) document.body.appendChild(titleBg)
 
 	setTimeout(() => {
-		titleWrapper.style.top = "20px"
+		console.log()
+		if (window.innerWidth <= 400) {
+			titleWrapper.style.top = "5vw"
+		} else {
+			titleWrapper.style.top = "10px"
+		}
 		if (createBg) titleBg.style.opacity = ".5"
 	}, duration)
 
