@@ -349,6 +349,9 @@ const enableRepeatElem = () => {
 			rejectBtn.addEventListener("click", rejectedRepeat, {
 				once: true
 			})
+		} else {
+			createTitle("Немає елементів які повторюються", 0)
+			setTimeout(clearStyle, 1500)
 		}
 	}
 }
