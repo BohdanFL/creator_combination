@@ -216,7 +216,7 @@ body {
   overflow: hidden auto;
   z-index: 11;
 }
-.elements__list li:not(.active) {
+.elements__list-active li:not(.active) {
   opacity: 0.5;
   pointer-events: none;
 }

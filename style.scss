@@ -249,7 +249,7 @@ body {
 		// }
 		// *
 
-		li:not(.active) {
+		&-active li:not(.active) {
 			opacity: .5;
 			pointer-events: none;
 		}

@@ -330,8 +330,7 @@ const enableRepeatElem = () => {
 					<button class="popup__btn btn" id="reject">Ні</button>
 				</div>
 			`
-			// titleWrapper.style.lineHeight = "40px"
-
+			elementsList.classList.add("elements__list-active")
 			repeatObj.repeatElems.forEach(i => {
 				i.classList.add("active")
 			})
@@ -395,7 +394,7 @@ const clearStyle = () => {
 		titleWrapper.style.top = "-100px"
 		if (titleBg) titleBg.style.opacity = "0"
 		if (selectAll) selectAll.classList.add("hide")
-
+		if (elementsList.classList.contains("elements__list-active")) elementsList.classList.remove("elements__list-active")
 		setTimeout(() => {
 			titleWrapper.remove()
 			if (titleBg) titleBg.remove()
