@@ -306,9 +306,9 @@ body {
 }
 .random__more .more__wrapper label input,
 .custom__more .more__wrapper label input {
-  width: 18px;
-  height: 18px;
-  font-size: 12px;
+  border: none;
+  width: 22px;
+  height: 22px;
 }
 .random__more .more__wrapper label input#count,
 .custom__more .more__wrapper label input#count {
@@ -317,7 +317,7 @@ body {
 @media (max-width: 767px) {
   .random__more .more__wrapper label input#count,
 .custom__more .more__wrapper label input#count {
-    width: 18px;
+    width: 22px;
   }
 }
 .random__simple-btn,

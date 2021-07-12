@@ -383,9 +383,8 @@ const createTitle = (titleText, duration = 200, createBg) => {
 }
 
 const clearStyle = () => {
-	let titleWrapper = document.querySelector(".popup__title")
-	let titleBg = document.querySelector(".popup__title-bg")
-	let selectAll = document.querySelector(".select-all")
+	let titleWrapper = document.querySelector(".popup")
+	let titleBg = document.querySelector(".popup-bg")
 
 	if (titleWrapper) {
 		titleWrapper.style.top = "-100px"
@@ -730,6 +729,7 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * застилізувати настройки
  * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
+ * * пофіксити скрол при виборі елементів на заміну
  */
 // // * * перемалювати лого на темно оранжевий - Done
 // // * * добавити кнопку "Select all" при активації опції "Повтор елементів" - Done
