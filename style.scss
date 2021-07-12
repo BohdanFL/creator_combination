@@ -49,10 +49,6 @@ body {
 	cursor: pointer;
 	transition: background-color .3s;
 
-	&:hover {
-		background-color: transparent;
-	}
-
 	&-small {
 		padding: 0 10px;
 		line-height: 20px;
@@ -337,7 +333,8 @@ body {
 	&__menu {
 		margin: -11px 10px 10px;
 
-		.select-all {
+		.select-all,
+		.unselect-all {
 			position: relative;
 			z-index: 11;
 			transition: all .3s;

@@ -178,6 +178,7 @@ const jumpEnableBtn = document.querySelector('#jump')
 const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
 const selectAll = document.querySelector(".select-all")
+const unselectAll = document.querySelector(".unselect-all")
 let enableOptions = enableOptionsBtn.checked
 let elems = JSON.parse(localStorage.getItem('saveElems')) || []
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
@@ -240,6 +241,14 @@ if (optionsInRandom) {
 	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
 	repeatElemBtn.checked = optionsInRandom.repeatEnable
 }
+
+let btnEventStyle
+if (detectModile.test(navigator.userAgent)) {
+	btnEventStyle = ".btn:active {background-color: transparent;}"
+} else {
+	btnEventStyle = ".btn:hover {background-color: transparent;}"
+}
+document.styleSheets[1].insertRule(btnEventStyle, 7);
 
 const random = (array) => Math.floor(Math.random() * array.length)
 
@@ -341,6 +350,7 @@ const enableRepeatElem = () => {
 			const confirmBtn = document.querySelector("#confirm")
 			const rejectBtn = document.querySelector("#reject")
 			selectAll.classList.remove("hide")
+			unselectAll.classList.remove("hide")
 
 			elementsList.addEventListener("mousedown", toggleClass)
 			confirmBtn.addEventListener("click", confirmedRepeat, {
@@ -397,6 +407,7 @@ const clearStyle = () => {
 		titleWrapper.style.top = "-100px"
 		if (titleBg) titleBg.style.opacity = "0"
 		if (selectAll) selectAll.classList.add("hide")
+		if (unselectAll) unselectAll.classList.add("hide")
 		if (elementsList.classList.contains("elements__list-active")) elementsList.classList.remove("elements__list-active")
 		setTimeout(() => {
 			titleWrapper.remove()
@@ -715,16 +726,21 @@ document.querySelector(".elements__save").addEventListener('click', () => {
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 enableOptionsBtn.addEventListener('click', checkEnableOption)
-selectAll.addEventListener("click", () => {
-	elementsList.childNodes.forEach(i => {
-		if (i.textContent.trim()) {
-			if (i.classList.contains("active")) {
-				i.classList.add("check")
+const selectAndUnselect = (btn, action) => {
+	btn.addEventListener("click", () => {
+		elementsList.childNodes.forEach(i => {
+			if (i.textContent.trim()) {
+				if (i.classList.contains("active")) {
+					i.classList[action]("check")
+				}
 			}
-		}
+		})
+		confirmToggleDisable()
 	})
-	confirmToggleDisable()
-})
+}
+selectAndUnselect(selectAll, "add")
+selectAndUnselect(unselectAll, "remove")
+
 addClickForOptions(countEnableBtn, "count", "input", () => {
 	if (countEnableBtn.value.length > 2) {
 		countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
@@ -746,10 +762,10 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
 //` TODO: Local
 /**
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
- * * застилізувати настройки
  * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
- * * пофіксити скрол при виборі елементів на заміну
  */
+// // * * застилізувати настройки - Done
+// // * * пофіксити скрол при виборі елементів на заміну - Done
 // // * * перемалювати лого на темно оранжевий - Done
 // // * * добавити кнопку "Select all" при активації опції "Повтор елементів" - Done
 // // * * добавити перевірку наявності елементів для добавлення і замінни без повтору - Done

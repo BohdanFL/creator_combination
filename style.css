@@ -42,9 +42,6 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.btn:hover {
-  background-color: transparent;
-}
 .btn-small {
   padding: 0 10px;
   line-height: 20px;
@@ -290,7 +287,8 @@ body {
 .elements__menu {
   margin: -11px 10px 10px;
 }
-.elements__menu .select-all {
+.elements__menu .select-all,
+.elements__menu .unselect-all {
   position: relative;
   z-index: 11;
   transition: all 0.3s;
