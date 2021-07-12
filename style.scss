@@ -356,16 +356,16 @@ body {
 				position: relative;
 				display: flex;
 				justify-content: space-between;
-				align-items: center;
-				line-height: 28px;
+				line-height: 22px;
 
 				.custom-checkbox {
 					position: absolute;
-					top: 2px;
+					top: 0;
 					right: 0;
 					height: 22px;
 					width: 22px;
 					background-color: #eee;
+					border: solid $red 1px;
 
 					&::after {
 						content: "";
@@ -386,7 +386,7 @@ body {
 						opacity: 1;
 						width: 22px;
 						height: 22px;
-						border: none;
+						border: solid $red 1px;
 						text-align: center;
 						background-color: #eee;
 						-moz-appearance: textfield;
@@ -417,8 +417,8 @@ body {
 				}
 
 				.custom-checkbox:after {
-					left: 7px;
-					top: 1px;
+					left: 6px;
+					top: 0px;
 					width: 8px;
 					height: 16px;
 					border: solid white;
