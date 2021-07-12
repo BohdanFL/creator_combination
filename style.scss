@@ -66,57 +66,25 @@ body {
 	}
 }
 
-.active {
-	position: relative;
-	z-index: 11;
-	font-size: 16px;
-	background-color: rgba($yellow, .1);
-	transition: all .3s;
-
-	.elements__item-text {
-		color: $light-orange !important;
-	}
-
-	.elements__item-btns>i {
-		display: none;
-	}
-}
-
 .popup {
-	&__title {
-		position: fixed;
-		top: -120px;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
-		padding: 10px 20px;
-		max-width: 360px;
-		text-align: center;
-		font-weight: bold;
-		line-height: 30px;
-		font-size: 20px;
-		border-radius: 30px;
-		background-color: $orange;
-		box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
-		transition: top .4s;
-		z-index: 11;
+	position: fixed;
+	top: -120px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	padding: 10px 20px;
+	max-width: 360px;
+	text-align: center;
+	font-weight: bold;
+	line-height: 30px;
+	font-size: 20px;
+	border-radius: 30px;
+	background-color: $orange;
+	box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
+	transition: top .4s;
+	z-index: 11;
 
-
-
-		@media (max-width: 400px) {
-			margin: 0 15px;
-			padding: 0px;
-			line-height: 45px;
-			font-size: 17px;
-		}
-
-		@media (max-width: 330px) {
-			line-height: 40px;
-			font-size: 16px;
-		}
-	}
-
-	&__title-bg {
+	&-bg {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -128,13 +96,24 @@ body {
 		transition: opacity .3s;
 	}
 
+	&__title,
 	&__subtitle {
 		font-size: 16px;
 		display: inline-block;
+
+		@media (max-width: 400px) {
+			line-height: normal;
+		}
 	}
 
 	&__btns {
 		display: inline-block;
+	}
+
+	@media (max-width: 400px) {
+		margin: 0 5vw;
+		padding: 3px 5px 10px;
+		border-radius: 20px;
 	}
 }
 
@@ -241,11 +220,12 @@ body {
 	}
 
 	&__list {
+		// position: relative;
 		margin-left: 8px;
 		padding: 10px 10px 10px 30px;
 		max-height: 70vh;
-		overflow-y: auto;
-		overflow-x: hidden;
+		overflow: hidden auto;
+		z-index: 11;
 		// * Застилізувати скролбар
 		// &::-webkit-scrollbar {
 		// 	background: gray;
@@ -297,6 +277,23 @@ body {
 			color: rgba(255, 0, 0, 0.548);
 		}
 
+		&.active {
+			position: relative;
+			z-index: 11;
+			font-size: 16px;
+			background-color: rgba($yellow, .1);
+			transition: all .3s;
+
+			span {
+				color: $light-orange !important;
+			}
+
+			.elements__item-btns>i {
+				display: none;
+			}
+		}
+
+
 		&.check {
 			transition: all .3s;
 			border-bottom: 2px solid;
@@ -327,6 +324,10 @@ body {
 			position: relative;
 			z-index: 11;
 			transition: all .3s;
+		}
+
+		@media (max-width: 400px) {
+			text-align: center;
 		}
 	}
 }

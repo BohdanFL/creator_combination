@@ -177,6 +177,7 @@ const countEnableBtn = document.querySelector(".random__more #count")
 const jumpEnableBtn = document.querySelector('#jump')
 const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
+const selectAll = document.querySelector(".select-all")
 let enableOptions = enableOptionsBtn.checked
 let elems = JSON.parse(localStorage.getItem('saveElems')) || []
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
@@ -296,8 +297,7 @@ const isRepeat = () => {
 	}
 }
 
-const toggleClass = (e) => {
-	e.target.closest(".elements__item").classList.toggle("check")
+const confirmToggleDisable = () => {
 	const confirmBtn = document.querySelector("#confirm")
 	let isContainsClass = false
 	elementsList.childNodes.forEach(i => {
@@ -310,15 +310,17 @@ const toggleClass = (e) => {
 	confirmBtn.disabled = !isContainsClass
 }
 
+const toggleClass = (e) => {
+	e.target.closest(".elements__item").classList.toggle("check")
+	confirmToggleDisable()
+}
+
 const enableRepeatElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	const repeatObj = isRepeat()
 	console.log(repeatObj)
 	if (repeatEnable) {
 		console.log("Enable check repeat");
-		repeatObj.repeatElems.forEach(i => {
-			i.classList.add("active")
-		})
 		if (repeatObj.isRepeatBool) {
 			const titleWrapper = createTitle("Виберіть елементи для заміни", 100, true)
 			titleWrapper.innerHTML += `
@@ -328,14 +330,17 @@ const enableRepeatElem = () => {
 					<button class="popup__btn btn" id="reject">Ні</button>
 				</div>
 			`
-			titleWrapper.style.lineHeight = "40px"
+			// titleWrapper.style.lineHeight = "40px"
+
+			repeatObj.repeatElems.forEach(i => {
+				i.classList.add("active")
+			})
 
 			sortable.destroy()
 			sortable.destroyed = true
 
 			const confirmBtn = document.querySelector("#confirm")
 			const rejectBtn = document.querySelector("#reject")
-			const selectAll = document.querySelector(".select-all")
 			selectAll.classList.remove("hide")
 
 			elementsList.addEventListener("mousedown", toggleClass)
@@ -350,21 +355,21 @@ const enableRepeatElem = () => {
 }
 
 const createTitle = (titleText, duration = 200, createBg) => {
-	if (document.querySelector(".popup__title")) {
-		document.querySelector(".popup__title").remove()
-	} else if (document.querySelector(".popup__title-bg")) {
-		document.querySelector(".popup__title-bg").remove()
+	if (document.querySelector(".popup")) {
+		document.querySelector(".popup").remove()
+	} else if (document.querySelector(".popup-bg")) {
+		document.querySelector(".popup-bg").remove()
 	}
 
-	const titleWrapper = document.createElement("h1")
-	titleWrapper.classList.add("popup__title")
+	const titleWrapper = document.createElement("div")
+	titleWrapper.classList.add("popup")
 	let titleBg
 	if (createBg) {
 		titleBg = document.createElement("div")
-		titleBg.classList.add("popup__title-bg")
+		titleBg.classList.add("popup-bg")
 	}
 
-	titleWrapper.innerHTML = titleText
+	titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`
 
 	document.body.appendChild(titleWrapper)
 	if (createBg) document.body.appendChild(titleBg)
@@ -692,6 +697,16 @@ customBtn.addEventListener('click', () => alert("In coming..."));
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 enableOptionsBtn.addEventListener('click', checkEnableOption)
+selectAll.addEventListener("click", () => {
+	elementsList.childNodes.forEach(i => {
+		if (i.textContent.trim()) {
+			if (i.classList.contains("active")) {
+				i.classList.add("check")
+			}
+		}
+	})
+	confirmToggleDisable()
+})
 addClickForOptions(countEnableBtn, "count", "input", () => {
 	if (countEnableBtn.value.length > 2) {
 		countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
@@ -714,10 +729,10 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
 /**
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * застилізувати настройки
- * * добавити кнопку "Select all" при активації опції "Повтор елементів"
  * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
- * * перемалювати лого на темно оранжевий
  */
+// // * * перемалювати лого на темно оранжевий - Done
+// // * * добавити кнопку "Select all" при активації опції "Повтор елементів" - Done
 // // * * добавити перевірку наявності елементів для добавлення і замінни без повтору - Done
 // //  * * переписати checkRepeatitons() - Done
 // // * * переписати createTitle - Done

@@ -56,21 +56,7 @@ body {
   cursor: auto;
 }
 
-.active {
-  position: relative;
-  z-index: 11;
-  font-size: 16px;
-  background-color: rgba(255, 249, 79, 0.1);
-  transition: all 0.3s;
-}
-.active .elements__item-text {
-  color: #d58936 !important;
-}
-.active .elements__item-btns > i {
-  display: none;
-}
-
-.popup__title {
+.popup {
   position: fixed;
   top: -120px;
   left: 0;
@@ -88,21 +74,7 @@ body {
   transition: top 0.4s;
   z-index: 11;
 }
-@media (max-width: 400px) {
-  .popup__title {
-    margin: 0 15px;
-    padding: 0px;
-    line-height: 45px;
-    font-size: 17px;
-  }
-}
-@media (max-width: 330px) {
-  .popup__title {
-    line-height: 40px;
-    font-size: 16px;
-  }
-}
-.popup__title-bg {
+.popup-bg {
   position: fixed;
   top: 0;
   left: 0;
@@ -113,12 +85,24 @@ body {
   z-index: 10;
   transition: opacity 0.3s;
 }
-.popup__subtitle {
+.popup__title, .popup__subtitle {
   font-size: 16px;
   display: inline-block;
 }
+@media (max-width: 400px) {
+  .popup__title, .popup__subtitle {
+    line-height: normal;
+  }
+}
 .popup__btns {
   display: inline-block;
+}
+@media (max-width: 400px) {
+  .popup {
+    margin: 0 5vw;
+    padding: 3px 5px 10px;
+    border-radius: 20px;
+  }
 }
 
 .wrapper {
@@ -223,8 +207,8 @@ body {
   margin-left: 8px;
   padding: 10px 10px 10px 30px;
   max-height: 70vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden auto;
+  z-index: 11;
 }
 @media (max-width: 680px) {
   .elements__list {
@@ -253,6 +237,19 @@ body {
 .elements__item i.fa-minus-circle:hover {
   color: rgba(255, 0, 0, 0.548);
 }
+.elements__item.active {
+  position: relative;
+  z-index: 11;
+  font-size: 16px;
+  background-color: rgba(255, 249, 79, 0.1);
+  transition: all 0.3s;
+}
+.elements__item.active span {
+  color: #d58936 !important;
+}
+.elements__item.active .elements__item-btns > i {
+  display: none;
+}
 .elements__item.check {
   transition: all 0.3s;
   border-bottom: 2px solid;
@@ -277,6 +274,11 @@ body {
   position: relative;
   z-index: 11;
   transition: all 0.3s;
+}
+@media (max-width: 400px) {
+  .elements__menu {
+    text-align: center;
+  }
 }
 
 .random__more summary,
