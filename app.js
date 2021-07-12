@@ -420,7 +420,9 @@ const rejectedRepeat = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
 	clearStyle()
-
+	repeatElemBtn.checked = false
+	optionsInRandom.repeatEnable = false
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 		sortable.destroyed = false
@@ -438,6 +440,9 @@ const confirmedRepeat = () => {
 			}
 		}
 	})
+	repeatElemBtn.checked = false
+	optionsInRandom.repeatEnable = false
+	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	elementsList.removeEventListener("mousedown", toggleClass)
 }
 

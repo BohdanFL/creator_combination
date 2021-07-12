@@ -126,7 +126,6 @@ body {
 }
 @media (max-width: 680px) {
   .wrapper {
-    min-height: 100%;
     flex-wrap: wrap-reverse;
   }
   .wrapper > div {
