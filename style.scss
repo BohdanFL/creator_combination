@@ -331,7 +331,11 @@ body {
 	}
 
 	&__menu {
-		margin: -11px 10px 10px;
+		margin: -11px 10px 0px;
+
+		.btn-small {
+			margin-bottom: 7px;
+		}
 
 		.select-all,
 		.unselect-all {

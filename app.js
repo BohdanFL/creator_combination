@@ -166,7 +166,6 @@ for (let i = 0; i < 11; i++) {
 }
 const log = (...text) => console.log(...text)
 
-const detectModile = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBook|IEMobile|MeeGo|mini|Fennec|Windows Phone|Kindle|Silk|Opera Mini/
 const randomBtn = document.querySelector('.random__simple-btn')
 const customBtn = document.querySelector('.custom__simple-btn')
 const elementsList = document.querySelector('.elements__list')
@@ -191,11 +190,10 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 const sortableOptions = {
 	draggable: 'li',
 	delay: {
-		mouse: 100,
+		mouse: 300,
 		drag: 0,
 		touch: 300
 	},
-	distance: !detectModile.test(navigator.userAgent) * 10,
 	classes: {
 		'source:dragging': ['active'],
 	}
@@ -320,7 +318,9 @@ const confirmToggleDisable = () => {
 }
 
 const toggleClass = (e) => {
-	e.target.closest(".elements__item").classList.toggle("check")
+	if (e.target.closest(".elements__item")) {
+		e.target.closest(".elements__item").classList.toggle("check")
+	}
 	confirmToggleDisable()
 }
 
