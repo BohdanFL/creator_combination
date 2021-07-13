@@ -54,7 +54,16 @@ body {
 }
 
 .draggable-mirror {
+  min-width: 200px;
+}
+.draggable-mirror::marker {
+  content: "";
+}
+.draggable-mirror i {
   display: none;
+}
+.draggable--over, .draggable-source--is-dragging {
+  opacity: 0;
 }
 
 .popup {
@@ -232,7 +241,7 @@ body {
   cursor: pointer;
   padding: 7px 0;
   border-bottom: 1px solid;
-  transition: all 0.3s;
+  transition: background-color 0.3s, font-size 0.3s, margin 0.3s, color 0.3s;
 }
 .elements__item-wrapper {
   display: flex;
@@ -264,8 +273,9 @@ body {
 .elements__item.active span {
   color: #d58936 !important;
 }
-.elements__item.active .elements__item-btns > i {
-  display: none;
+.elements__item.active .elements__item-btns i {
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 .elements__item.check {
   transition: all 0.3s;

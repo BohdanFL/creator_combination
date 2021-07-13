@@ -166,6 +166,7 @@ for (let i = 0; i < 11; i++) {
 }
 const log = (...text) => console.log(...text)
 
+const detectModile = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBook|IEMobile|MeeGo|mini|Fennec|Windows Phone|Kindle|Silk|Opera Mini/
 const randomBtn = document.querySelector('.random__simple-btn')
 const customBtn = document.querySelector('.custom__simple-btn')
 const elementsList = document.querySelector('.elements__list')
@@ -189,13 +190,19 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 }
 const sortableOptions = {
 	draggable: 'li',
-	delay: {
-		mouse: 300,
-		drag: 0,
-		touch: 300
+	// delay: {
+	// 	mouse: 300,
+	// 	drag: 0,
+	// 	touch: 300
+	// },
+	plugins: [SortAnimation.default],
+	sortAnimation: {
+		duration: 200,
+		easingFunction: 'ease-in-out',
 	},
 	classes: {
-		'source:dragging': ['active'],
+		// "source:dragging": ['hide'],
+		// "mirror": ['draggable-mirror', 'active']
 	}
 }
 
@@ -249,7 +256,6 @@ if (detectModile.test(navigator.userAgent)) {
 document.styleSheets[1].insertRule(btnEventStyle, 7);
 
 const random = (array) => Math.floor(Math.random() * array.length)
-
 const clearAndSaveElems = () => {
 	elems = []
 	for (let i = 0; i < elementsList.childNodes.length; i++) {
@@ -260,6 +266,32 @@ const clearAndSaveElems = () => {
 	localStorage.setItem("saveElems", JSON.stringify(elems))
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+
+// sortable.on('sortable:start', (e) => {
+// 	console.log('sortable:start')
+// });
+const elemWidth = elementsList.childNodes[1].offsetWidth
+sortable.on('sortable:sort', (e) => {
+	console.log('sortable:sort')
+	document.querySelector(".draggable-mirror").style.width = elemWidth + "px"
+	document.querySelector(".draggable-mirror").classList.add("mirror-active")
+});
+// sortable.on('sortable:sorted', () => {
+// 	console.log('sortable:sorted')
+// });
+// sortable.on('sortable:stop', () => {
+// 	console.log('sortable:stop')
+// });
+// sortable.on('drag:stopped', () => {
+// 	console.log('drag:stopped')
+// const placed = document.querySelector(".active")
+// log(placed)
+// console.log(placed.style)
+// if (placed.style.display === "none") {
+// 	placed.style.display = "list-item"
+// }
+// placed.style.background = "red"
+// });
 
 const isRepeat = () => {
 	let repeatNum = 0
@@ -612,7 +644,7 @@ const addRandomElem = () => {
 	let potentialItemCount = elemsLength + countValue
 	if (repeatEnable) {
 		if (potentialItemCount > arr.length) {
-			countEnableBtn.value = (arr.length - elemsLength) === 0 ? 1 : arr.length - elemsLength
+			countEnableBtn.value = (arr.length - elemsLength) <= 0 ? 1 : arr.length - elemsLength
 		}
 	}
 	for (let i = 0; i < countValue; i++) {
@@ -750,19 +782,27 @@ addClickForOptions(countEnableBtn, "count", "input", () => {
 addClickForOptions(jumpEnableBtn, "jumpEnable")
 addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
 addClickForOptions(repeatElemBtn, "repeatEnable")
-
 //` TODO: Global
 /**
+//  * * Можливості у самому custom - сортування, пошук, мультивибір
+ * * Опції custom - виключення елементів які вже є в списку, переключення на вибір зіскоків
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
  * * добавити гайд(текстовий) в правому-верхньому куті або для кожного налаштування іконки-гайди
  * * Назначити або переписати архітектуру коду
+ * * Добавити прикріплене меню зверху у ній мають бути - змінни мови, настройки, скарги, контактні силки
+ * * Настройки - виключення ітерацій, змінна теми, різні види дизайну, включення автоматичних змін елементів при включенній опції "повтор елементів", відключення плавного переміщення елементів
  */
 
 //` TODO: Local
 /**
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
+ * * Добавити кнопку "dublicate", в елемент списку
+ * * Скачати потрібні іконки і відключити fontAwesome
+ * * Пофіксити роботу перевірки наявності в опції "Зіскок"
+ * * Пофіксити збивання popup при багаторазовому визові
+ * * Написати плавне переміщення елементів
  */
 // // * * застилізувати настройки - Done
 // // * * пофіксити скрол при виборі елементів на заміну - Done
