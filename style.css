@@ -258,6 +258,7 @@ body {
   transition: all 0.3s;
 }
 .elements__item.active span {
+  transition: color 0.3s;
   color: #d58936;
 }
 .elements__item.active .elements__item-btns i {

@@ -360,7 +360,7 @@ const enableRepeatElem = () => {
 	if (repeatEnable) {
 		console.log("Enable check repeat");
 		if (repeatObj.isRepeatBool) {
-			const titleWrapper = createTitle("Виберіть елементи для заміни", 100, true)
+			const titleWrapper = createTitle("Виберіть елементи для заміни", 100, false, true)
 			titleWrapper.innerHTML += `
 				<h2 class="popup__subtitle">Готові здійснити заміну?</h2>
 				<div class="popup__btns">
@@ -389,44 +389,48 @@ const enableRepeatElem = () => {
 				once: true
 			})
 		} else {
-			createTitle("Немає елементів які повторюються", 0)
-			setTimeout(clearStyle, 1500)
+			createTitle("Немає елементів які повторюються", 0, 1500)
 		}
 	}
 }
 
-const createTitle = (titleText, duration = 200, createBg) => {
+const createTitle = (titleText, duration = 200, clearDuration = false, createBg) => {
 	if (document.querySelector(".popup")) {
-		document.querySelector(".popup").remove()
+		document.querySelector(".popup").remove();
 	} else if (document.querySelector(".popup-bg")) {
-		document.querySelector(".popup-bg").remove()
+		document.querySelector(".popup-bg").remove();
 	}
 
-	const titleWrapper = document.createElement("div")
-	titleWrapper.classList.add("popup")
-	let titleBg
+	const titleWrapper = document.createElement("div");
+	titleWrapper.classList.add("popup");
+	let titleBg;
 	if (createBg) {
-		titleBg = document.createElement("div")
-		titleBg.classList.add("popup-bg")
+		titleBg = document.createElement("div");
+		titleBg.classList.add("popup-bg");
 	}
 
-	titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`
+	titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`;
 
-	document.body.appendChild(titleWrapper)
-	if (createBg) document.body.appendChild(titleBg)
+	document.body.appendChild(titleWrapper);
+	if (createBg) document.body.appendChild(titleBg);
 
 	setTimeout(() => {
-		console.log()
 		if (window.innerWidth <= 400) {
-			titleWrapper.style.top = "5vw"
+			titleWrapper.style.top = "5vw";
 		} else {
-			titleWrapper.style.top = "10px"
+			titleWrapper.style.top = "10px";
 		}
-		if (createBg) titleBg.style.opacity = ".5"
-	}, duration)
+		if (createBg) titleBg.style.opacity = ".5";
+	}, duration);
+	if (clearDuration) {
+		setTimeout(() => {
+			titleWrapper.style.top = "-100px";
+			setTimeout(() => titleWrapper.remove(), 200)
+		}, clearDuration);
+	}
 
-	return titleWrapper
-}
+	return titleWrapper;
+};
 
 const clearStyle = () => {
 	let titleWrapper = document.querySelector(".popup")
@@ -538,7 +542,7 @@ const checkRepeatitons = (numIterate, changingElem, checkElems) => {
 	})
 }
 
-const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e, createItem) => {
+const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e, createItem = false) => {
 	return new Promise(resolve => {
 		elemNums = [];
 		newDataElemsE = [];
@@ -554,7 +558,12 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
 				}
 			});
 		})
-		if (elemNums.length) {
+		if (checkElems.length == elementsList.children.length) {
+			checkElems.forEach(i => newDataElemsE.push(i))
+			checkRepeatitons(numIterate, changingElem, checkElems).then(() => {
+				resolve()
+			})
+		} else if (elemNums.length) {
 			elemNums.forEach(i => {
 				newDataElemsE.push(checkElems[i])
 			})
@@ -566,8 +575,10 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
 				resolve()
 			})
 		} else {
-			createTitle("Неможливо замінити на унікальний елемент!")
-			setTimeout(clearStyle, 3000)
+			createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
+			setTimeout(() => {
+				resolve()
+			}, 3000);
 		}
 	})
 }
@@ -621,13 +632,11 @@ const addRandomElem = () => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	if (!repeatEnable) {
 		if (elemsLength >= 99) {
-			createTitle('Ви досягли ліміту елементів (99)')
-			setTimeout(clearStyle, 3000)
+			createTitle('Ви досягли ліміту елементів (99)', 200, 3000)
 		} else {
 			if (enableOptions) {
 				if (countEnableBtn.value > 99 || sumElem > 99) {
-					createTitle('Дія неможлива, ліміт елементів (99)')
-					setTimeout(clearStyle, 3000)
+					createTitle('Дія неможлива, ліміт елементів (99)', 200, 3000)
 				}
 			}
 		}
@@ -656,8 +665,7 @@ const addRandomElem = () => {
 		}
 		if (repeatEnable) {
 			if (potentialItemCount > arr.length) {
-				createTitle("Неможливо створити таку кількість унікальних елементів!")
-				setTimeout(clearStyle, 3000)
+				createTitle("Неможливо створити таку кількість унікальних елементів!", 200, 3000)
 				i = countValue
 			} else {
 				createNewDataElems(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr, true)
@@ -704,12 +712,18 @@ const changeAllList = () => {
 				arr = dataElems.j
 			}
 		}
-		iterate(1, item, arr).then(() => {
-			changeAllBtn.disabled = false
-			changeAllBtn.textContent = "Change all"
-		})
+
+
 		if (repeatEnable) {
-			createNewDataElems(1, item, arr)
+			createNewDataElems(1, item, arr).then(() => {
+				changeAllBtn.disabled = false
+				changeAllBtn.textContent = "Change all"
+			})
+		} else {
+			iterate(1, item, arr).then(() => {
+				changeAllBtn.disabled = false
+				changeAllBtn.textContent = "Change all"
+			})
 		}
 	})
 }
@@ -747,12 +761,10 @@ const addClickForOptions = (btn, value, event = "click", func) => {
 
 randomBtn.addEventListener('click', addRandomElem);
 customBtn.addEventListener('click', () => {
-	createTitle("У майбутньому...", 0)
-	setTimeout(clearStyle, 1500)
+	createTitle("У майбутньому...", 0, 1500)
 });
 document.querySelector(".elements__save").addEventListener('click', () => {
-	createTitle("У майбутньому...", 0)
-	setTimeout(clearStyle, 1500)
+	createTitle("У майбутньому...", 0, 1500)
 });
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
@@ -783,7 +795,7 @@ addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
 addClickForOptions(repeatElemBtn, "repeatEnable")
 //` TODO: Global
 /**
-//  * * Можливості у самому custom - сортування, пошук, мультивибір
+ * * Можливості у самому custom - сортування, пошук, мультивибір, згрупованність по типам елементів
  * * Опції custom - виключення елементів які вже є в списку, переключення на вибір зіскоків
  * * створити список template, створити функціонал створення, додавання, зберігання, переміщення і змінення templates 
  * * створити список saves, створити функціонал створення, переключення, зміни назви, видалення, редагування і переміщення
@@ -800,8 +812,9 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
  * * Скачати потрібні іконки і відключити fontAwesome
  * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
  * * Пофіксити роботу перевірки наявності в опції "Зіскок"
- * * Пофіксити збивання popup при багаторазовому визові
  */
+// // * * Пофіксити некоректну роботу popup в changeAllList() - Done
+// // * * Пофіксити збивання popup при багаторазовому визові - Done
 // // * * Написати плавне переміщення елементів - Done
 // // * * застилізувати настройки - Done
 // // * * пофіксити скрол при виборі елементів на заміну - Done
