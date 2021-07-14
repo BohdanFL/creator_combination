@@ -179,6 +179,7 @@ const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
 const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
+let elemWidth
 let enableOptions = enableOptionsBtn.checked
 let elems = JSON.parse(localStorage.getItem('saveElems')) || []
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
@@ -228,7 +229,7 @@ const createLi = (text) => {
 	elementsList.appendChild(li)
 
 	addBtnToLi(li)
-
+	elemWidth = elementsList.childNodes[1].offsetWidth
 	return li
 }
 
@@ -267,7 +268,9 @@ const clearAndSaveElems = () => {
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 
-const elemWidth = elementsList.childNodes[1].offsetWidth
+if (elementsList.childNodes[1]) {
+	elemWidth = elementsList.childNodes[1].offsetWidth
+}
 sortable.on('sortable:sort', () => {
 	const mirror = document.querySelector(".draggable-mirror")
 	const dragSource = document.querySelector(".draggable-source--is-dragging")
