@@ -203,7 +203,8 @@ const sortableOptions = {
 	},
 	classes: {
 		'source:dragging': ["draggable-source--is-dragging", 'active'],
-		'source:placed': ["draggable-source--placed", 'active']
+		'source:placed': ["draggable-source--placed", 'active'],
+		// 'mirror': ["draggable-mirror", "active"]
 	}
 }
 
@@ -268,12 +269,14 @@ const clearAndSaveElems = () => {
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 
-// if (elementsList.childNodes[1]) {
-// 	elemWidth = elementsList.childNodes[1].offsetWidth
-// }
+
+if (elementsList.childNodes[1]) {
+	elemWidth = elementsList.childNodes[1].offsetWidth
+}
 sortable.on('sortable:sort', () => {
 	const mirror = document.querySelector(".draggable-mirror")
 	const dragSource = document.querySelector(".draggable-source--is-dragging")
+	console.log(mirror, elemWidth)
 	mirror.style.width = elemWidth + "px"
 	setTimeout(() => {
 		if (mirror) mirror.classList.add("active")
@@ -665,8 +668,8 @@ const addRandomElem = () => {
 		left: 0,
 		top: elementsList.scrollHeight
 	})
-	// optionsInRandom.count = countEnableBtn.value
-	// localStorage.setItem('optionsInRandom', JSON.stringify(optionsInRandom))
+	sortable.destroy()
+	sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 }
 
 const deleteAllList = () => {
