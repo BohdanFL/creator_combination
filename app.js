@@ -268,9 +268,9 @@ const clearAndSaveElems = () => {
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 
-if (elementsList.childNodes[1]) {
-	elemWidth = elementsList.childNodes[1].offsetWidth
-}
+// if (elementsList.childNodes[1]) {
+// 	elemWidth = elementsList.childNodes[1].offsetWidth
+// }
 sortable.on('sortable:sort', () => {
 	const mirror = document.querySelector(".draggable-mirror")
 	const dragSource = document.querySelector(".draggable-source--is-dragging")
