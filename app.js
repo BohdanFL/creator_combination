@@ -268,26 +268,27 @@ const clearAndSaveElems = () => {
 	localStorage.setItem("saveElems", JSON.stringify(elems))
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-
-
 if (elementsList.childNodes[1]) {
 	elemWidth = elementsList.childNodes[1].offsetWidth
 }
-sortable.on('sortable:sort', () => {
+const smoothDisabled = () => {
+	setTimeout(() => {
+		document.querySelector(".draggable-source--placed").classList.remove("active")
+	}, 0)
+}
+
+const smoothEnabled = () => {
 	const mirror = document.querySelector(".draggable-mirror")
 	const dragSource = document.querySelector(".draggable-source--is-dragging")
-	console.log(mirror, elemWidth)
 	mirror.style.width = elemWidth + "px"
 	setTimeout(() => {
 		if (mirror) mirror.classList.add("active")
 		if (dragSource) dragSource.classList.remove("active")
 	}, 200)
-});
-sortable.on('drag:stopped', () => {
-	setTimeout(() => {
-		document.querySelector(".draggable-source--placed").classList.remove("active")
-	}, 0)
-});
+}
+sortable.on('sortable:sort', smoothEnabled);
+sortable.on('drag:stopped', smoothDisabled);
+
 
 const isRepeat = () => {
 	let repeatNum = 0
@@ -464,6 +465,8 @@ const rejectedRepeat = () => {
 	// localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+		sortable.on('sortable:sort', smoothEnabled);
+		sortable.on('drag:stopped', smoothDisabled);
 		sortable.destroyed = false
 	}
 }
@@ -600,6 +603,8 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 				}
 
 				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+				sortable.on('sortable:sort', smoothEnabled);
+				sortable.on('drag:stopped', smoothDisabled);
 				if (save) {
 					localStorage.setItem('saveElems', JSON.stringify(elems))
 				}
@@ -668,8 +673,6 @@ const addRandomElem = () => {
 		left: 0,
 		top: elementsList.scrollHeight
 	})
-	sortable.destroy()
-	sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 }
 
 const deleteAllList = () => {
