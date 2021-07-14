@@ -190,19 +190,19 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 }
 const sortableOptions = {
 	draggable: 'li',
-	// delay: {
-	// 	mouse: 300,
-	// 	drag: 0,
-	// 	touch: 300
-	// },
+	delay: {
+		mouse: 200,
+		drag: 0,
+		touch: 300
+	},
 	plugins: [SortAnimation.default],
 	sortAnimation: {
 		duration: 200,
-		easingFunction: 'ease-in-out',
+		easingFunction: 'linear',
 	},
 	classes: {
-		// "source:dragging": ['hide'],
-		// "mirror": ['draggable-mirror', 'active']
+		'source:dragging': ["draggable-source--is-dragging", 'active'],
+		'source:placed': ["draggable-source--placed", 'active']
 	}
 }
 
@@ -267,31 +267,21 @@ const clearAndSaveElems = () => {
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 
-// sortable.on('sortable:start', (e) => {
-// 	console.log('sortable:start')
-// });
 const elemWidth = elementsList.childNodes[1].offsetWidth
-sortable.on('sortable:sort', (e) => {
-	console.log('sortable:sort')
-	document.querySelector(".draggable-mirror").style.width = elemWidth + "px"
-	document.querySelector(".draggable-mirror").classList.add("mirror-active")
+sortable.on('sortable:sort', () => {
+	const mirror = document.querySelector(".draggable-mirror")
+	const dragSource = document.querySelector(".draggable-source--is-dragging")
+	mirror.style.width = elemWidth + "px"
+	setTimeout(() => {
+		if (mirror) mirror.classList.add("active")
+		if (dragSource) dragSource.classList.remove("active")
+	}, 200)
 });
-// sortable.on('sortable:sorted', () => {
-// 	console.log('sortable:sorted')
-// });
-// sortable.on('sortable:stop', () => {
-// 	console.log('sortable:stop')
-// });
-// sortable.on('drag:stopped', () => {
-// 	console.log('drag:stopped')
-// const placed = document.querySelector(".active")
-// log(placed)
-// console.log(placed.style)
-// if (placed.style.display === "none") {
-// 	placed.style.display = "list-item"
-// }
-// placed.style.background = "red"
-// });
+sortable.on('drag:stopped', () => {
+	setTimeout(() => {
+		document.querySelector(".draggable-source--placed").classList.remove("active")
+	}, 0)
+});
 
 const isRepeat = () => {
 	let repeatNum = 0
@@ -463,9 +453,9 @@ const rejectedRepeat = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
 	clearStyle()
-	repeatElemBtn.checked = false
-	optionsInRandom.repeatEnable = false
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+	// repeatElemBtn.checked = false
+	// optionsInRandom.repeatEnable = false
+	// localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 		sortable.destroyed = false
@@ -797,13 +787,13 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
 //` TODO: Local
 /**
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
- * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
  * * Добавити кнопку "dublicate", в елемент списку
  * * Скачати потрібні іконки і відключити fontAwesome
+ * * changeAll() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
  * * Пофіксити роботу перевірки наявності в опції "Зіскок"
  * * Пофіксити збивання popup при багаторазовому визові
- * * Написати плавне переміщення елементів
  */
+// // * * Написати плавне переміщення елементів - Done
 // // * * застилізувати настройки - Done
 // // * * пофіксити скрол при виборі елементів на заміну - Done
 // // * * перемалювати лого на темно оранжевий - Done

@@ -53,19 +53,6 @@ body {
   cursor: auto;
 }
 
-.draggable-mirror {
-  min-width: 200px;
-}
-.draggable-mirror::marker {
-  content: "";
-}
-.draggable-mirror i {
-  display: none;
-}
-.draggable--over, .draggable-source--is-dragging {
-  opacity: 0;
-}
-
 .popup {
   position: fixed;
   top: -120px;
@@ -271,20 +258,20 @@ body {
   transition: all 0.3s;
 }
 .elements__item.active span {
-  color: #d58936 !important;
+  color: #d58936;
 }
 .elements__item.active .elements__item-btns i {
   opacity: 0;
   transition: opacity 0.3s;
+  pointer-events: none;
 }
 .elements__item.check {
   transition: all 0.3s;
-  border-bottom: 2px solid;
   color: greenyellow;
   margin-left: -20px;
 }
 .elements__item.check span {
-  color: greenyellow !important;
+  color: greenyellow;
 }
 .elements__item.check::marker {
   content: "";
@@ -310,6 +297,28 @@ body {
   .elements__menu {
     text-align: center;
   }
+}
+
+.draggable-mirror {
+  min-width: 200px;
+  display: none;
+}
+.draggable-mirror::marker {
+  content: "";
+}
+.draggable-mirror i {
+  opacity: 0;
+  pointer-events: none;
+}
+.draggable-mirror.active {
+  transition: none;
+  display: block;
+}
+.draggable-source--is-dragging::marker {
+  content: "";
+}
+.draggable-source--is-dragging:not(.active) {
+  opacity: 0;
 }
 
 .random__more summary,

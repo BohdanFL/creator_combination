@@ -295,23 +295,23 @@ body {
 			transition: all .3s;
 
 			span {
-				color: $light-orange !important;
+				color: $light-orange;
 			}
 
 			.elements__item-btns i {
 				opacity: 0;
 				transition: opacity .3s;
+				pointer-events: none;
 			}
 		}
 
 
 		&.check {
 			transition: all .3s;
-			border-bottom: 2px solid;
 			color: greenyellow;
 
 			span {
-				color: greenyellow !important;
+				color: greenyellow;
 			}
 
 			&::marker {
@@ -350,33 +350,30 @@ body {
 
 .draggable {
 	&-mirror {
-		// color: $light-orange;
-		// font-weight: bold;
-		// font-size: 16px;
 		min-width: 200px;
+		display: none;
 
 		&::marker {
 			content: '';
 		}
 
 		i {
-			display: none;
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		&.active {
+			transition: none;
+			display: block;
 		}
 	}
 
-	&--over,
-	&-source--is-dragging {
-		opacity: 0;
+	&-source--is-dragging::marker {
+		content: '';
 	}
-}
 
-.mirror-active {
-	font-size: 16px;
-	background-color: rgba($yellow, .1);
-	transition: all .3s;
-
-	span {
-		color: $light-orange !important;
+	&-source--is-dragging:not(.active) {
+		opacity: 0;
 	}
 }
 
