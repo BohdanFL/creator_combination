@@ -123,17 +123,22 @@ body {
 		flex: 0 1 50%;
 		margin: 0 15px;
 
-		@media (max-width: 955px) {
-			flex: none;
+		@media (max-width: 1000px) {
+			&.elements {
+				flex: none;
+			}
 		}
 
+		@media (max-width: 905px) {
+			flex: none;
+		}
 	}
 
 	@media (max-width: 680px) {
 		flex-wrap: wrap-reverse;
 
 		>div {
-			flex: 0 1 100%;
+			flex: 0 1 100% !important;
 			margin: 0 0 15px;
 		}
 	}
@@ -156,11 +161,18 @@ body {
 			width: 100%;
 		}
 
-		@media (max-width: 955px) {
+		@media (max-width: 1000px) {
 			margin: 0 0 20px 0;
 
-			&:last-child {
+			&:first-child {
 				margin-bottom: 0;
+				margin-right: 5px;
+			}
+		}
+
+		@media (max-width: 905px) {
+			&:first-child {
+				margin-right: 0;
 			}
 		}
 
@@ -169,9 +181,12 @@ body {
 		}
 	}
 
-	@media (max-width: 955px) {
-		flex-direction: column;
+	@media (max-width: 1000px) {
 		justify-content: space-between;
+	}
+
+	@media (max-width: 905px) {
+		flex-direction: column-reverse;
 	}
 
 	@media (max-width: 680px) {
@@ -181,6 +196,7 @@ body {
 
 		>div:last-child {
 			margin-left: 10px;
+			margin-bottom: 0;
 		}
 	}
 
@@ -190,11 +206,15 @@ body {
 
 		>div {
 			flex: 0 1 100%;
-			margin: 0 0 10px;
+
+			&:first-child {
+				margin-bottom: 10px;
+			}
 
 			&:last-child {
 				margin-left: 0;
 			}
+
 		}
 	}
 }
@@ -268,9 +288,18 @@ body {
 			align-items: center;
 		}
 
+		&-btns {
+			display: flex;
+			flex-wrap: nowrap;
+		}
+
 		i {
 			font-size: 18px;
 			transition: color .2s;
+
+			&:first-child {
+				margin-right: 4px;
+			}
 
 			@media (max-width: 360px) {
 				font-size: 16px;

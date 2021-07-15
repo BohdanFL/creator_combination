@@ -112,7 +112,12 @@ body {
   flex: 0 1 50%;
   margin: 0 15px;
 }
-@media (max-width: 955px) {
+@media (max-width: 1000px) {
+  .wrapper > div.elements {
+    flex: none;
+  }
+}
+@media (max-width: 905px) {
   .wrapper > div {
     flex: none;
   }
@@ -122,7 +127,7 @@ body {
     flex-wrap: wrap-reverse;
   }
   .wrapper > div {
-    flex: 0 1 100%;
+    flex: 0 1 100% !important;
     margin: 0 0 15px;
   }
 }
@@ -143,12 +148,18 @@ body {
 .inner > div .btn {
   width: 100%;
 }
-@media (max-width: 955px) {
+@media (max-width: 1000px) {
   .inner > div {
     margin: 0 0 20px 0;
   }
-  .inner > div:last-child {
+  .inner > div:first-child {
     margin-bottom: 0;
+    margin-right: 5px;
+  }
+}
+@media (max-width: 905px) {
+  .inner > div:first-child {
+    margin-right: 0;
   }
 }
 @media (max-width: 460px) {
@@ -156,10 +167,14 @@ body {
     min-width: 175px;
   }
 }
-@media (max-width: 955px) {
+@media (max-width: 1000px) {
   .inner {
-    flex-direction: column;
     justify-content: space-between;
+  }
+}
+@media (max-width: 905px) {
+  .inner {
+    flex-direction: column-reverse;
   }
 }
 @media (max-width: 680px) {
@@ -170,6 +185,7 @@ body {
   }
   .inner > div:last-child {
     margin-left: 10px;
+    margin-bottom: 0;
   }
 }
 @media (max-width: 400px) {
@@ -178,7 +194,9 @@ body {
   }
   .inner > div {
     flex: 0 1 100%;
-    margin: 0 0 10px;
+  }
+  .inner > div:first-child {
+    margin-bottom: 10px;
   }
   .inner > div:last-child {
     margin-left: 0;
@@ -235,9 +253,16 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.elements__item-btns {
+  display: flex;
+  flex-wrap: nowrap;
+}
 .elements__item i {
   font-size: 18px;
   transition: color 0.2s;
+}
+.elements__item i:first-child {
+  margin-right: 4px;
 }
 @media (max-width: 360px) {
   .elements__item i {
