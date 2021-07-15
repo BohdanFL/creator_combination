@@ -562,15 +562,13 @@ const checkRepeatitons = (numIterate, changingElem, checkElems) => {
 	}).then((repeat) => {
 		if (repeat > 1) {
 			createNewDataElems(32, changingElem, checkElems)
-			// return "repeat"
 		} else {
 			clearAndSaveElems()
-			// return "don't repeat"
 		}
 	})
 }
 
-const createNewDataElems = (numIterate, changingElem, checkElems, createItem) => {
+const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e, createItem = false) => {
 	return new Promise(resolve => {
 		enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
 		createElemNums(checkElems)
@@ -591,7 +589,6 @@ const createNewDataElems = (numIterate, changingElem, checkElems, createItem) =>
 			createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
 			setTimeout(() => {
 				resolve()
-
 			}, 3000);
 		} else if (checkElems.length == elementsList.children.length) {
 			checkElems.forEach(i => newDataElemsE.push(i))
@@ -607,54 +604,46 @@ const createNewDataElems = (numIterate, changingElem, checkElems, createItem) =>
 	})
 }
 
-const checkRepeat = (numIterate = 1, changingElem, checkElems = dataElems.e, createItem = false) => {
-	return new Promise(resolve => {
-		createNewDataElems(numIterate, changingElem, checkElems, createItem).then(() => resolve("complete"))
-	}).then(m => console.log(m))
-}
-
-const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 50, only) => {
+const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 5, only) => {
 	// const iterate = (i, opt) => {
 	return new Promise((resolve) => {
-		setTimeout(() => {
-			const interval = setInterval(() => {
-				if (i === 1 || i === 32) {
-					only = array[random(array)];
-					console.log("iterate");
-				}
-				i++;
-				elem.textContent = iterableArr[random(iterableArr)]
-				sortable.destroy()
+		const interval = setInterval(() => {
+			if (i === 1 || i === 32) {
+				only = array[random(array)];
+				console.log("iterate");
+			}
+			i++;
+			elem.textContent = iterableArr[random(iterableArr)]
+			sortable.destroy()
 
-				if (i > 30) {
-					clearInterval(interval);
+			if (i > 30) {
+				clearInterval(interval);
 
-					if (!change) {
-						elem.textContent = only
-						elems.push(elem.textContent)
-					} else {
-						const findText = elem.textContent
-						for (const key in elementsList.children) {
-							const elem = elementsList.children[key];
-							if (typeof elem === "object") {
-								if (elem.textContent.trim() === findText) {
-									elems.splice(key, 1, findText)
-								}
+				if (!change) {
+					elem.textContent = only
+					elems.push(elem.textContent)
+				} else {
+					const findText = elem.textContent
+					for (const key in elementsList.children) {
+						const elem = elementsList.children[key];
+						if (typeof elem === "object") {
+							if (elem.textContent.trim() === findText) {
+								elems.splice(key, 1, findText)
 							}
 						}
 					}
-
-					sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-					sortable.on('sortable:sort', smoothEnabled);
-					sortable.on('drag:stopped', smoothDisabled);
-					if (save) {
-						localStorage.setItem('saveElems', JSON.stringify(elems))
-					}
-
-					resolve(only);
 				}
-			}, duration);
-		}, 1000);
+
+				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+				sortable.on('sortable:sort', smoothEnabled);
+				sortable.on('drag:stopped', smoothDisabled);
+				if (save) {
+					localStorage.setItem('saveElems', JSON.stringify(elems))
+				}
+
+				resolve(only);
+			}
+		}, duration);
 	});
 }
 
@@ -761,7 +750,7 @@ const changeAllList = () => {
 		}
 
 		if (repeatEnable) {
-			checkRepeat(1, item, arr).then((newDataElems) => {
+			createNewDataElems(1, item, arr).then(() => {
 				changeAllBtn.disabled = false
 				changeAllBtn.textContent = "Change all"
 			})
