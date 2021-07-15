@@ -849,12 +849,12 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
 /**
  * * замінити dateElems на json файл і брати елементи з файлу або закинути dataElems на сервер і брати данні з серверу
  * * Добавити кнопку "dublicate", в елемент списку
- * * Скачати потрібні іконки і відключити fontAwesome
  * * changeAllList() - включати кнопку "Change all" тільки після завершення всіх фукнцій iterate()
  * * Пофіксити роботу перевірки наявності для замінни з опцією "Зіскок" - almost done
  * * Переписати prompt в deleteAllList() і changeAllList() на createTitle з інпутом 
  */
 
+// // * * Скачати fontAwesome і оптимізувати його під свої потреби - Done
 // // * * Пофіксити некоректну роботу popup в changeAllList() - Done
 // // * * Пофіксити збивання popup при багаторазовому визові - Done
 // // * * Написати плавне переміщення елементів - Done
