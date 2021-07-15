@@ -270,10 +270,10 @@ body {
   }
 }
 .elements__item i.fa-sync-alt:hover {
-  color: rgba(0, 110, 255, 0.479);
+  color: #373E7E;
 }
 .elements__item i.fa-minus-circle:hover {
-  color: rgba(255, 0, 0, 0.548);
+  color: #B80906;
 }
 .elements__item.active {
   position: relative;
