@@ -863,6 +863,6 @@ addClickForOptions(repeatElemBtn, "repeatEnable")
 // // * * перемалювати лого на темно оранжевий - Done
 // // * * добавити кнопку "Select all" при активації опції "Повтор елементів" - Done
 // // * * добавити перевірку наявності елементів для добавлення і замінни без повтору - Done
-// //  * * переписати checkRepeatitons() - Done
+// // * * переписати checkRepeatitons() - Done
 // // * * переписати createTitle - Done
 // // * * запускати функції які потребую запускатись після iterate через new Promise().then() - Done
