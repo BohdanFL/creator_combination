@@ -1,5 +1,5 @@
 const dataElems = {
-	e: [
+  e: [
 		"360",
 		"360 різнохватом",
 		"360 нижнім",
@@ -125,7 +125,7 @@ const dataElems = {
 		"Скльопка з розвороту на 180",
 		"Скльопка з зворотньої санжировки"
 	],
-	j: [
+  j: [
 		"Гейнер",
 		"Гейнер нижнім",
 		"Гейнер зворотнім",
@@ -162,7 +162,7 @@ const dataElems = {
 let elemNums = []
 let newDataElemsE = []
 for (let i = 0; i < 11; i++) {
-	dataElems.e.splice(i, 11)
+  dataElems.e.splice(i, 11)
 }
 const log = (...text) => console.log(...text)
 
@@ -183,652 +183,677 @@ let elemWidth
 let enableOptions = enableOptionsBtn.checked
 let elems = JSON.parse(localStorage.getItem('saveElems')) || []
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
-	enableOptions: false,
-	count: 1,
-	jumpEnable: false,
-	changeJumpEnable: false,
-	repeatEnable: false
+  enableOptions: false,
+  count: 1,
+  jumpEnable: false,
+  changeJumpEnable: false,
+  repeatEnable: false
 }
 const sortableOptions = {
-	draggable: 'li',
-	delay: {
-		mouse: 300,
-		drag: 0,
-		touch: 300
-	},
-	plugins: [SortAnimation.default],
-	sortAnimation: {
-		duration: 200,
-		easingFunction: 'linear',
-	},
-	classes: {
-		'source:dragging': ["draggable-source--is-dragging", 'active'],
-		'source:placed': ["draggable-source--placed", 'active'],
-		// 'mirror': ["draggable-mirror", "active"]
-	}
+  draggable: 'li',
+  delay: {
+    mouse: 300,
+    drag: 0,
+    touch: 300
+  },
+  plugins: [SortAnimation.default],
+  sortAnimation: {
+    duration: 200,
+    easingFunction: 'linear',
+  },
+  classes: {
+    'source:dragging': ["draggable-source--is-dragging", 'active'],
+    'source:placed': ["draggable-source--placed", 'active'],
+    // 'mirror': ["draggable-mirror", "active"]
+  }
 }
 
 const addBtnToLi = (li) => {
-	let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
-	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
+  let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
+  let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
 
-	deleteElemBtn.addEventListener('click', () => deletingElem(deleteElemBtn))
-	changeElemBtn.addEventListener('click', () => changingElem(changeElemBtn))
+  deleteElemBtn.addEventListener('click', () => deletingElem(deleteElemBtn))
+  changeElemBtn.addEventListener('click', () => changingElem(changeElemBtn))
 }
 
 const createLi = (text) => {
-	const li = document.createElement('li')
-	text = text === '' ? dataElems.e[random(dataElems.e)] : text
-	li.classList.add('elements__item')
-	li.innerHTML = `<div class="elements__item-wrapper">
+  const li = document.createElement('li')
+  text = text === '' ? dataElems.e[random(dataElems.e)] : text
+  li.classList.add('elements__item')
+  li.innerHTML = `<div class="elements__item-wrapper">
                     <span class="elements__item-text">${text}</span>  
                     <div class="elements__item-btns">
                         <i class="fas fa-sync-alt"></i> 
                         <i class="fas fa-minus-circle"></i>
                     </div>
                 </div>`
-	elementsList.appendChild(li)
+  elementsList.appendChild(li)
 
-	addBtnToLi(li)
-	if (elementsList.childNodes[1]) {
-		elemWidth = elementsList.childNodes[1].offsetWidth
-	} else if (elementsList.childNodes[0].textContent.trim()) {
-		elemWidth = elementsList.childNodes[0].offsetWidth
-	} else {
-		elemWidth = elementsList.childNodes[2].offsetWidth
-	}
-	return li
+  addBtnToLi(li)
+  if (elementsList.childNodes[1]) {
+    elemWidth = elementsList.childNodes[1].offsetWidth
+  } else if (elementsList.childNodes[0].textContent.trim()) {
+    elemWidth = elementsList.childNodes[0].offsetWidth
+  } else {
+    elemWidth = elementsList.childNodes[2].offsetWidth
+  }
+  return li
 }
 
 elems ? elems.forEach(elem => createLi(elem)) : false
 if (elems.a) {
-	elems = elems.a
-	localStorage.removeItem("saveElems")
-	localStorage.setItem("saveElems", JSON.stringify(elems))
+  elems = elems.a
+  localStorage.setItem("saveElems", JSON.stringify(elems))
 }
 
 if (optionsInRandom) {
-	enableOptionsBtn.checked = optionsInRandom.enableOptions
-	countEnableBtn.value = optionsInRandom.count
-	jumpEnableBtn.checked = optionsInRandom.jumpEnable
-	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
-	repeatElemBtn.checked = optionsInRandom.repeatEnable
+  enableOptionsBtn.checked = optionsInRandom.enableOptions
+  countEnableBtn.value = optionsInRandom.count
+  jumpEnableBtn.checked = optionsInRandom.jumpEnable
+  changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
+  repeatElemBtn.checked = optionsInRandom.repeatEnable
 }
 
 let btnEventStyle
 if (detectModile.test(navigator.userAgent)) {
-	btnEventStyle = ".btn:active {background-color: transparent;}"
+  btnEventStyle = ".btn:active {background-color: transparent;}"
 } else {
-	btnEventStyle = ".btn:hover {background-color: transparent;}"
+  btnEventStyle = ".btn:hover {background-color: transparent;}"
 }
 document.styleSheets[1].insertRule(btnEventStyle, 7);
 
 const random = (array) => Math.floor(Math.random() * array.length)
 const clearAndSaveElems = () => {
-	elems = []
-	for (let i = 0; i < elementsList.childNodes.length; i++) {
-		if (elementsList.childNodes[i].textContent.trim()) {
-			elems.push(elementsList.childNodes[i].textContent.trim())
-		}
-	}
-	localStorage.setItem("saveElems", JSON.stringify(elems))
+  elems = []
+  for (let i = 0; i < elementsList.childNodes.length; i++) {
+    if (elementsList.childNodes[i].textContent.trim()) {
+      elems.push(elementsList.childNodes[i].textContent.trim())
+    }
+  }
+  localStorage.setItem("saveElems", JSON.stringify(elems))
 }
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 if (elementsList.childNodes[1]) {
-	elemWidth = elementsList.childNodes[1].offsetWidth
+  elemWidth = elementsList.childNodes[1].offsetWidth
 }
 const smoothDisabled = () => {
-	setTimeout(() => {
-		document.querySelector(".draggable-source--placed").classList.remove("active")
-	}, 0)
+  setTimeout(() => {
+    document.querySelector(".draggable-source--placed").classList.remove("active")
+  }, 0)
 }
 
 const smoothEnabled = () => {
-	const mirror = document.querySelector(".draggable-mirror")
-	const dragSource = document.querySelector(".draggable-source--is-dragging")
-	mirror.style.width = elemWidth + "px"
-	setTimeout(() => {
-		if (mirror) mirror.classList.add("active")
-		if (dragSource) dragSource.classList.remove("active")
-	}, 200)
+  const mirror = document.querySelector(".draggable-mirror")
+  const dragSource = document.querySelector(".draggable-source--is-dragging")
+  mirror.style.width = elemWidth + "px"
+  setTimeout(() => {
+    if (mirror) mirror.classList.add("active")
+    if (dragSource) dragSource.classList.remove("active")
+  }, 200)
 }
 sortable.on('sortable:sort', smoothEnabled);
 sortable.on('drag:stopped', smoothDisabled);
 
 
 const isRepeat = () => {
-	let repeatNum = 0
-	let elem = elementsList.childNodes
-	const repeatElems = []
-	const ignoreList = []
+  let repeatNum = 0
+  let elem = elementsList.childNodes
+  const repeatElems = []
+  const ignoreList = []
 
-	for (let n = 0; n < elem.length; n++) {
-		let addFirstElem = true;
-		const isWas = ignoreList.indexOf(elem[n].textContent.trim())
-		if (!ignoreList[isWas]) {
-			elem.forEach((i, nI) => {
-				if (elem[n].textContent.trim() && elem[nI].textContent.trim()) {
-					if (n < nI) {
-						if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
-							let ignoreListNotRepeat = true
-							ignoreList.forEach(ignoreItem => {
-								if (ignoreItem === elem[n].textContent.trim()) {
-									ignoreListNotRepeat = false
-								}
-							})
-							if (ignoreListNotRepeat) {
-								ignoreList.push(elem[n].textContent.trim())
-							}
-							repeatNum++
-							if (addFirstElem) {
-								repeatElems.push(elem[n])
-								addFirstElem = false;
-							}
-							repeatElems.push(elem[nI])
-						}
-					}
-				}
-			});
-		}
-	}
+  for (let n = 0; n < elem.length; n++) {
+    let addFirstElem = true;
+    const isWas = ignoreList.indexOf(elem[n].textContent.trim())
+    if (!ignoreList[isWas]) {
+      elem.forEach((i, nI) => {
+        if (elem[n].textContent.trim() && elem[nI].textContent.trim()) {
+          if (n < nI) {
+            if (elem[n].textContent.trim() === elem[nI].textContent.trim()) {
+              let ignoreListNotRepeat = true
+              ignoreList.forEach(ignoreItem => {
+                if (ignoreItem === elem[n].textContent.trim()) {
+                  ignoreListNotRepeat = false
+                }
+              })
+              if (ignoreListNotRepeat) {
+                ignoreList.push(elem[n].textContent.trim())
+              }
+              repeatNum++
+              if (addFirstElem) {
+                repeatElems.push(elem[n])
+                addFirstElem = false;
+              }
+              repeatElems.push(elem[nI])
+            }
+          }
+        }
+      });
+    }
+  }
 
-	return {
-		repeatElems,
-		repeatNum,
-		isRepeatBool: !!repeatNum
-	}
+  return {
+    repeatElems,
+    repeatNum,
+    isRepeatBool: !!repeatNum
+  }
 }
 
 const confirmToggleDisable = () => {
-	const confirmBtn = document.querySelector("#confirm")
-	let isContainsClass = false
-	elementsList.childNodes.forEach(i => {
-		if (i.textContent.trim()) {
-			if (i.classList.contains("check")) {
-				isContainsClass = true
-			}
-		}
-	})
-	confirmBtn.disabled = !isContainsClass
+  const confirmBtn = document.querySelector("#confirm")
+  let isContainsClass = false
+  elementsList.childNodes.forEach(i => {
+    if (i.textContent.trim()) {
+      if (i.classList.contains("check")) {
+        isContainsClass = true
+      }
+    }
+  })
+  confirmBtn.disabled = !isContainsClass
 }
 
 const toggleClass = (e) => {
-	if (e.target.closest(".elements__item")) {
-		e.target.closest(".elements__item").classList.toggle("check")
-	}
-	confirmToggleDisable()
+  if (e.target.closest(".elements__item")) {
+    e.target.closest(".elements__item").classList.toggle("check")
+  }
+  confirmToggleDisable()
 }
 
 const enableRepeatElem = () => {
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-	const repeatObj = isRepeat()
-	console.log(repeatObj)
-	if (repeatEnable) {
-		console.log("Enable check repeat");
-		if (repeatObj.isRepeatBool) {
-			const titleWrapper = createTitle("Виберіть елементи для заміни", 100, false, true)
-			titleWrapper.innerHTML += `
+  enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+  const repeatObj = isRepeat()
+  console.log(repeatObj)
+  if (repeatEnable) {
+    console.log("Enable check repeat");
+    if (repeatObj.isRepeatBool) {
+      const titleWrapper = createTitle("Виберіть елементи для заміни", 100, false, true)
+      titleWrapper.innerHTML += `
 				<h2 class="popup__subtitle">Готові здійснити заміну?</h2>
 				<div class="popup__btns">
 					<button class="popup__btn btn" id="confirm" disabled>Так</button>
 					<button class="popup__btn btn" id="reject">Ні</button>
 				</div>
 			`
-			elementsList.classList.add("elements__list-active")
-			repeatObj.repeatElems.forEach(i => {
-				i.classList.add("active")
-			})
+      elementsList.classList.add("elements__list-active")
+      repeatObj.repeatElems.forEach(i => {
+        i.classList.add("active")
+      })
 
-			sortable.destroy()
-			sortable.destroyed = true
+      sortable.destroy()
+      sortable.destroyed = true
 
-			const confirmBtn = document.querySelector("#confirm")
-			const rejectBtn = document.querySelector("#reject")
-			selectAll.classList.remove("hide")
-			unselectAll.classList.remove("hide")
+      const confirmBtn = document.querySelector("#confirm")
+      const rejectBtn = document.querySelector("#reject")
+      selectAll.classList.remove("hide")
+      unselectAll.classList.remove("hide")
 
-			elementsList.addEventListener("mousedown", toggleClass)
-			confirmBtn.addEventListener("click", confirmedRepeat, {
-				once: true
-			})
-			rejectBtn.addEventListener("click", rejectedRepeat, {
-				once: true
-			})
-		} else {
-			createTitle("Немає елементів які повторюються", 0, 1500)
-		}
-	}
+      elementsList.addEventListener("mousedown", toggleClass)
+      confirmBtn.addEventListener("click", confirmedRepeat, {
+        once: true
+      })
+      rejectBtn.addEventListener("click", rejectedRepeat, {
+        once: true
+      })
+    } else {
+      createTitle("Немає елементів які повторюються", 0, 1500)
+    }
+  }
 }
 
-const createTitle = (titleText, duration = 200, clearDuration = false, createBg) => {
-	if (document.querySelector(".popup")) {
-		document.querySelector(".popup").remove();
-	} else if (document.querySelector(".popup-bg")) {
-		document.querySelector(".popup-bg").remove();
-	}
+const createTitle = (titleText, duration = 200, clearDuration = 0, createBg) => {
+  if (document.querySelector(".popup")) {
+    document.querySelector(".popup").remove();
+  } else if (document.querySelector(".popup-bg")) {
+    document.querySelector(".popup-bg").remove();
+  }
 
-	const titleWrapper = document.createElement("div");
-	titleWrapper.classList.add("popup");
-	let titleBg;
-	if (createBg) {
-		titleBg = document.createElement("div");
-		titleBg.classList.add("popup-bg");
-	}
+  const titleWrapper = document.createElement("div");
+  titleWrapper.classList.add("popup");
+  let titleBg;
+  if (createBg) {
+    titleBg = document.createElement("div");
+    titleBg.classList.add("popup-bg");
+  }
 
-	titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`;
+  titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`;
 
-	document.body.appendChild(titleWrapper);
-	if (createBg) document.body.appendChild(titleBg);
+  document.body.appendChild(titleWrapper);
+  if (createBg) document.body.appendChild(titleBg);
 
-	setTimeout(() => {
-		if (window.innerWidth <= 400) {
-			titleWrapper.style.top = "5vw";
-		} else {
-			titleWrapper.style.top = "10px";
-		}
-		if (createBg) titleBg.style.opacity = ".5";
-	}, duration);
-	if (clearDuration) {
-		setTimeout(() => {
-			titleWrapper.style.top = "-100px";
-			setTimeout(() => titleWrapper.remove(), 200)
-		}, clearDuration);
-	}
+  setTimeout(() => {
+    if (window.innerWidth <= 400) {
+      titleWrapper.style.top = "5vw";
+    } else {
+      titleWrapper.style.top = "10px";
+    }
+    if (createBg) titleBg.style.opacity = ".5";
+  }, duration);
+  if (clearDuration) {
+    setTimeout(() => {
+      titleWrapper.style.top = "-100px";
+      setTimeout(() => titleWrapper.remove(), 200)
+    }, clearDuration);
+  }
 
-	return titleWrapper;
+  return titleWrapper;
 };
 
+const createPrompt = (title, duration) => {
+  const wrapper = createTitle(title, duration)
+  wrapper.innerHTML += `<input id="prompt-response" placeholder="ТАК або НІ" value="ТАК">
+  				<div class="popup__btns">
+  					<button class="popup__btn btn" id="prompt-confirm">ОК</button>
+  					<button class="popup__btn btn" id="prompt-reject">Скасувати</button>
+  				</div>`
+  const confirmBtn = wrapper.querySelector('#prompt-confirm')
+  const rejectBtn = wrapper.querySelector('#prompt-reject')
+  let response
+  return { confirmBtn, rejectBtn, response }
+}
+
 const clearStyle = () => {
-	let titleWrapper = document.querySelector(".popup")
-	let titleBg = document.querySelector(".popup-bg")
+  let titleWrapper = document.querySelector(".popup")
+  let titleBg = document.querySelector(".popup-bg")
 
-	if (titleWrapper) {
-		titleWrapper.style.top = "-100px"
-		if (titleBg) titleBg.style.opacity = "0"
-		if (selectAll) selectAll.classList.add("hide")
-		if (unselectAll) unselectAll.classList.add("hide")
-		if (elementsList.classList.contains("elements__list-active")) elementsList.classList.remove("elements__list-active")
-		setTimeout(() => {
-			titleWrapper.remove()
-			if (titleBg) titleBg.remove()
-		}, 200)
+  if (titleWrapper) {
+    titleWrapper.style.top = "-100px"
+    if (titleBg) titleBg.style.opacity = "0"
+    if (selectAll) selectAll.classList.add("hide")
+    if (unselectAll) unselectAll.classList.add("hide")
+    if (elementsList.classList.contains("elements__list-active")) elementsList.classList.remove("elements__list-active")
+    setTimeout(() => {
+      titleWrapper.remove()
+      if (titleBg) titleBg.remove()
+    }, 200)
 
-		elementsList.childNodes.forEach((i) => {
-			if (i.textContent.trim()) {
-				if (i.classList.contains("active")) {
-					i.classList.remove("active")
-				}
-				if (i.classList.contains("check")) {
-					i.classList.remove("check")
-				}
-			}
-		});
-	}
+    elementsList.childNodes.forEach((i) => {
+      if (i.textContent.trim()) {
+        if (i.classList.contains("active")) {
+          i.classList.remove("active")
+        }
+        if (i.classList.contains("check")) {
+          i.classList.remove("check")
+        }
+      }
+    });
+  }
 }
 
 const rejectedRepeat = () => {
-	log("reject")
-	elementsList.removeEventListener("mousedown", toggleClass)
-	clearStyle()
-	// repeatElemBtn.checked = false
-	// optionsInRandom.repeatEnable = false
-	// localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-	if (sortable.destroyed) {
-		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-		sortable.on('sortable:sort', smoothEnabled);
-		sortable.on('drag:stopped', smoothDisabled);
-		sortable.destroyed = false
-	}
+  log("reject")
+  elementsList.removeEventListener("mousedown", toggleClass)
+  clearStyle()
+  // repeatElemBtn.checked = false
+  // optionsInRandom.repeatEnable = false
+  // localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+  if (sortable.destroyed) {
+    sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+    sortable.on('sortable:sort', smoothEnabled);
+    sortable.on('drag:stopped', smoothDisabled);
+    sortable.destroyed = false
+  }
 }
 
 const confirmedRepeat = () => {
-	console.log("confirm")
-	enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
-	let arr = changeJumpEnable ? dataElems.j : dataElems.e
+  console.log("confirm")
+  enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
+  let arr = changeJumpEnable ? dataElems.j : dataElems.e
 
-	elementsList.childNodes.forEach(i => {
-		if (i.textContent.trim()) {
-			if (i.classList.contains("check")) {
-				createNewDataElems(1, i.querySelector(".elements__item-text"), arr).then(() => {
-					clearStyle()
-				})
-			}
-		}
-	})
-	repeatElemBtn.checked = false
-	optionsInRandom.repeatEnable = false
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-	elementsList.removeEventListener("mousedown", toggleClass)
+  elementsList.childNodes.forEach(i => {
+    if (i.textContent.trim()) {
+      if (i.classList.contains("check")) {
+        createNewDataElems(1, i.querySelector(".elements__item-text"), arr).then(() => {
+          clearStyle()
+        })
+      }
+    }
+  })
+  repeatElemBtn.checked = false
+  optionsInRandom.repeatEnable = false
+  localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+  elementsList.removeEventListener("mousedown", toggleClass)
 }
 
 const checkEnableOption = () => {
-	enableOptions = enableOptionsBtn.checked
-	if (!enableOptions) {
-		countEnableBtn.disabled = true
-		jumpEnableBtn.disabled = true
-		changeJumpEnableBtn.disabled = true
-		repeatElemBtn.disabled = true
-		repeatElemBtn.removeEventListener('click', enableRepeatElem)
-	} else {
-		countEnableBtn.disabled = false
-		jumpEnableBtn.disabled = false
-		changeJumpEnableBtn.disabled = false
-		repeatElemBtn.disabled = false
-		console.log(repeatElemBtn.checked)
-		if (repeatElemBtn.checked) {
+  enableOptions = enableOptionsBtn.checked
+  if (!enableOptions) {
+    countEnableBtn.disabled = true
+    jumpEnableBtn.disabled = true
+    changeJumpEnableBtn.disabled = true
+    repeatElemBtn.disabled = true
+    repeatElemBtn.removeEventListener('click', enableRepeatElem)
+  } else {
+    countEnableBtn.disabled = false
+    jumpEnableBtn.disabled = false
+    changeJumpEnableBtn.disabled = false
+    repeatElemBtn.disabled = false
+    console.log(repeatElemBtn.checked)
+    if (repeatElemBtn.checked) {
 
-			enableRepeatElem()
-		}
-		repeatElemBtn.addEventListener('click', enableRepeatElem)
-	}
-	optionsInRandom.enableOptions = enableOptions
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+      enableRepeatElem()
+    }
+    repeatElemBtn.addEventListener('click', enableRepeatElem)
+  }
+  optionsInRandom.enableOptions = enableOptions
+  localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 }
 checkEnableOption()
 
 const createElemNums = (arr) => {
-	elemNums = [];
-	arr.forEach((_, n) => elemNums.push(n))
-	arr.forEach((i, n) => {
-		let repeat = -1
-		elementsList.childNodes.forEach((i2) => {
-			if (i2.textContent.trim() === i) {
-				repeat++
-				if (!repeat > 0) {
-					elemNums.splice(elemNums.indexOf(n), 1)
-				}
-			}
-		});
-	})
-	return elemNums
+  elemNums = [];
+  arr.forEach((_, n) => elemNums.push(n))
+  arr.forEach((i, n) => {
+    let repeat = -1
+    elementsList.childNodes.forEach((i2) => {
+      if (i2.textContent.trim() === i) {
+        repeat++
+        if (!repeat > 0) {
+          elemNums.splice(elemNums.indexOf(n), 1)
+        }
+      }
+    });
+  })
+  return elemNums
 }
 
 const checkRepeatitons = (numIterate, changingElem, checkElems) => {
-	return new Promise(resolve => {
-		let repeat = 0
-		let elem = elementsList.childNodes
-		if (changingElem) {
-			iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false).then(only => {
-				elem.forEach((i) => {
-					if (i.textContent.trim()) {
-						if (only === i.textContent.trim()) {
-							repeat++
-						}
-					}
-				});
-				resolve(repeat)
-			})
-		}
-	}).then((repeat) => {
-		if (repeat > 1) {
-			createNewDataElems(32, changingElem, checkElems)
-		} else {
-			clearAndSaveElems()
-		}
-	})
+  return new Promise(resolve => {
+    let repeat = 0
+    let elem = elementsList.childNodes
+    if (changingElem) {
+      iterate(numIterate, changingElem, newDataElemsE, checkElems, false, false).then(only => {
+        elem.forEach((i) => {
+          if (i.textContent.trim()) {
+            if (only === i.textContent.trim()) {
+              repeat++
+            }
+          }
+        });
+        resolve(repeat)
+      })
+    }
+  }).then((repeat) => {
+    if (repeat > 1) {
+      createNewDataElems(32, changingElem, checkElems)
+    } else {
+      clearAndSaveElems()
+    }
+  })
 }
 
 const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e, createItem = false) => {
-	return new Promise(resolve => {
-		enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
-		createElemNums(checkElems)
-		newDataElemsE = [];
-		if (elemNums.length) {
-			elemNums.forEach(i => {
-				newDataElemsE.push(checkElems[i])
-			})
-			if (createItem) {
-				createLi('')
-				changingElem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
-			}
-			checkRepeatitons(numIterate, changingElem, checkElems).then(() => {
-				resolve()
-			})
+  return new Promise(resolve => {
+    enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
+    createElemNums(checkElems)
+    newDataElemsE = [];
+    if (elemNums.length) {
+      elemNums.forEach(i => {
+        newDataElemsE.push(checkElems[i])
+      })
+      if (createItem) {
+        createLi('')
+        changingElem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
+      }
+      checkRepeatitons(numIterate, changingElem, checkElems).then(() => {
+        resolve()
+      })
 
-		} else if (checkElems.length < elementsList.children.length && !jumpEnable) {
-			createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
-			setTimeout(() => {
-				resolve()
-			}, 3000);
-		} else if (checkElems.length == elementsList.children.length) {
-			checkElems.forEach(i => newDataElemsE.push(i))
-			checkRepeatitons(numIterate, changingElem, checkElems).then(() => {
-				resolve()
-			})
-		} else {
-			createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
-			setTimeout(() => {
-				resolve()
-			}, 3000);
-		}
-	})
+    } else if (checkElems.length < elementsList.children.length && !jumpEnable) {
+      createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
+      setTimeout(() => {
+        resolve()
+      }, 3000);
+    } else if (checkElems.length == elementsList.children.length) {
+      checkElems.forEach(i => newDataElemsE.push(i))
+      checkRepeatitons(numIterate, changingElem, checkElems).then(() => {
+        resolve()
+      })
+    } else {
+      createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
+      setTimeout(() => {
+        resolve()
+      }, 3000);
+    }
+  })
 }
 
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 5, only) => {
-	// const iterate = (i, opt) => {
-	return new Promise((resolve) => {
-		const interval = setInterval(() => {
-			if (i === 1 || i === 32) {
-				only = array[random(array)];
-				console.log("iterate");
-			}
-			i++;
-			elem.textContent = iterableArr[random(iterableArr)]
-			sortable.destroy()
+  // const iterate = (i, opt) => {
+  return new Promise((resolve) => {
+    const interval = setInterval(() => {
+      if (i === 1 || i === 32) {
+        only = array[random(array)];
+        console.log("iterate");
+      }
+      i++;
+      elem.textContent = iterableArr[random(iterableArr)]
+      sortable.destroy()
 
-			if (i > 30) {
-				clearInterval(interval);
+      if (i > 30) {
+        clearInterval(interval);
 
-				if (!change) {
-					elem.textContent = only
-					elems.push(elem.textContent)
-				} else {
-					const findText = elem.textContent
-					for (const key in elementsList.children) {
-						const elem = elementsList.children[key];
-						if (typeof elem === "object") {
-							if (elem.textContent.trim() === findText) {
-								elems.splice(key, 1, findText)
-							}
-						}
-					}
-				}
+        if (!change) {
+          elem.textContent = only
+          elems.push(elem.textContent)
+        } else {
+          const findText = elem.textContent
+          for (const key in elementsList.children) {
+            const elem = elementsList.children[key];
+            if (typeof elem === "object") {
+              if (elem.textContent.trim() === findText) {
+                elems.splice(key, 1, findText)
+              }
+            }
+          }
+        }
 
-				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
-				sortable.on('sortable:sort', smoothEnabled);
-				sortable.on('drag:stopped', smoothDisabled);
-				if (save) {
-					localStorage.setItem('saveElems', JSON.stringify(elems))
-				}
+        sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+        sortable.on('sortable:sort', smoothEnabled);
+        sortable.on('drag:stopped', smoothDisabled);
+        if (save) {
+          localStorage.setItem('saveElems', JSON.stringify(elems))
+        }
 
-				resolve(only);
-			}
-		}, duration);
-	});
+        resolve(only);
+      }
+    }, duration);
+  });
 }
 
 const addRandomElem = () => {
-	const elemsLength = elementsList.children.length
-	const sumElem = elemsLength + parseInt(countEnableBtn.value)
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-	if (!repeatEnable) {
-		if (elemsLength >= 99) {
-			createTitle('Ви досягли ліміту елементів (99)', 200, 3000)
-		} else {
-			if (enableOptions) {
-				if (countEnableBtn.value > 99 || sumElem > 99) {
-					createTitle('Дія неможлива, ліміт елементів (99)', 200, 3000)
-				}
-			}
-		}
-		if (elemsLength >= 99 || countEnableBtn.value > 99 || sumElem > 99) {
-			if (enableOptions) {
-				countEnableBtn.value = (99 - elemsLength) || 1
-			}
-			return
-		}
-	}
+  const elemsLength = elementsList.children.length
+  const sumElem = elemsLength + parseInt(countEnableBtn.value)
+  enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+  if (!repeatEnable) {
+    if (elemsLength >= 99) {
+      createTitle('Ви досягли ліміту елементів (99)', 200, 3000)
+    } else {
+      if (enableOptions) {
+        if (countEnableBtn.value > 99 || sumElem > 99) {
+          createTitle('Дія неможлива, ліміт елементів (99)', 200, 3000)
+        }
+      }
+    }
+    if (elemsLength >= 99 || countEnableBtn.value > 99 || sumElem > 99) {
+      if (enableOptions) {
+        countEnableBtn.value = (99 - elemsLength) || 1
+      }
+      return
+    }
+  }
 
-	enableOptions ? countValue = parseInt(countEnableBtn.value) : countValue = 1
-	enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
-	let arr = dataElems.e
-	let potentialItemCount = elemsLength + countValue
-	let arrLength = arr.length
+  enableOptions ? countValue = parseInt(countEnableBtn.value) : countValue = 1
+  enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
+  let arr = dataElems.e
+  let potentialItemCount = elemsLength + countValue
+  let arrLength = arr.length
 
-	createElemNums(arr)
-	if (repeatEnable) {
-		if (jumpEnable) {
-			arrLength = arr.length + 1
-		}
-		if (potentialItemCount > arr.length && !elemNums.length) {
-			countEnableBtn.value = (arr.length - elemsLength) <= 0 ? 1 : arrLength - elemsLength
-		}
-	}
-	for (let i = 0; i < countValue; i++) {
-		if (jumpEnable) {
-			if (i === (countValue - 1)) {
-				arr = dataElems.j
-			}
-		}
-		arrLength = arr.length
+  createElemNums(arr)
+  if (repeatEnable) {
+    if (jumpEnable) {
+      arrLength = arr.length + 1
+    }
+    if (potentialItemCount > arr.length && !elemNums.length) {
+      countEnableBtn.value = (arr.length - elemsLength) <= 0 ? 1 : arrLength - elemsLength
+    }
+  }
+  for (let i = 0; i < countValue; i++) {
+    if (jumpEnable) {
+      if (i === (countValue - 1)) {
+        arr = dataElems.j
+      }
+    }
+    arrLength = arr.length
 
-		createElemNums(arr)
-		if (repeatEnable) {
-			if (potentialItemCount > arrLength) {
-				createTitle("Неможливо створити таку кількість унікальних елементів!", 200, 3000)
-				i = countValue
-			} else {
-				createNewDataElems(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr, true)
+    createElemNums(arr)
+    if (repeatEnable) {
+      if (potentialItemCount > arrLength) {
+        createTitle("Неможливо створити таку кількість унікальних елементів!", 200, 3000)
+        i = countValue
+      } else {
+        createNewDataElems(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr, true)
 
-			}
-		} else {
-			createLi('')
-			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
-		}
-	}
+      }
+    } else {
+      createLi('')
+      iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
+    }
+  }
 
-	elementsList.scrollTo({
-		behavior: "smooth",
-		left: 0,
-		top: elementsList.scrollHeight
-	})
-	optionsInRandom.count = countEnableBtn.value
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+  elementsList.scrollTo({
+    behavior: "smooth",
+    left: 0,
+    top: elementsList.scrollHeight
+  })
+  optionsInRandom.count = countEnableBtn.value
+  localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 }
 
 const deleteAllList = () => {
-	// let confirm = prompt("You know what you do? If yes, write YES, else NO", "NO")
-	// if (confirm === "YES") {
-	elementsList.innerHTML = ''
-	elems = []
-	localStorage.setItem('saveElems', JSON.stringify(elems))
-	// } else if (confirm === "NO" || confirm === null) {
-	// 	return
-	// } else {
-	// 	deleteAllList()
-	// }
+  const modal = createPrompt("Готові здійснити видалення?", 200)
+  modal.confirmBtn.addEventListener("click", () => {
+    modal.response = document.querySelector('#prompt-response').value
+  
+    if (modal.response === "ТАК") {
+      clearStyle()
+      elementsList.innerHTML = ''
+      elems = []
+      localStorage.setItem('saveElems', JSON.stringify(elems))
+    } else if (modal.response === "НІ") {
+      clearStyle()
+      return
+    } else changeAllList()
+   })
+  modal.rejectBtn.addEventListener("click", clearStyle)
 }
 
 const changeAllList = () => {
-	// let confirm = prompt("You know what you do? If yes, write YES, else NO", "NO")
-	// if (confirm === "YES") {
-
-	changeAllBtn.disabled = true
-	changeAllBtn.textContent = "Disabled"
-
-	const elementsItemList = elementsList.querySelectorAll(".elements__item .elements__item-text")
-	elems = []
-	enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-
-	let arr = dataElems.e
-	elementsItemList.forEach((item, num) => {
-		if (jumpEnable) {
-			if (num === (elementsList.children.length - 1)) {
-				arr = dataElems.j
-			}
-		}
-
-		if (repeatEnable) {
-			createNewDataElems(1, item, arr).then(() => {
-				changeAllBtn.disabled = false
-				changeAllBtn.textContent = "Change all"
-			})
-		} else {
-			iterate(1, item, arr).then(() => {
-				changeAllBtn.disabled = false
-				changeAllBtn.textContent = "Change all"
-			})
-		}
-	})
-	// } else if (confirm === "NO" || confirm === null) {
-	// 	return
-	// } else {
-	// 	changeAllList()
-	// }
+  if (elementsList.childElementCount) {
+    const modal = createPrompt("Готові здійснити заміну?", 200)
+		modal.confirmBtn.addEventListener("click", () => {
+		  modal.response = document.querySelector('#prompt-response').value
+		  
+		  if (modal.response === "ТАК") {
+		  	clearStyle()
+		    changeAllBtn.disabled = true
+		    changeAllBtn.textContent = "Disabled"
+		  
+		    const elementsItemList = elementsList.querySelectorAll(".elements__item .elements__item-text")
+		    elems = []
+		    enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
+		    enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+		  
+		    let arr = dataElems.e
+		    elementsItemList.forEach((item, num) => {
+		      if (jumpEnable) {
+		        if (num === (elementsList.children.length - 1)) {
+		          arr = dataElems.j
+		        }
+		      }
+		  
+		      if (repeatEnable) {
+		        createNewDataElems(1, item, arr).then(() => {
+		          changeAllBtn.disabled = false
+		          changeAllBtn.textContent = "Change all"
+		        })
+		      } else {
+		        iterate(1, item, arr).then(() => {
+		          changeAllBtn.disabled = false
+		          changeAllBtn.textContent = "Change all"
+		        })
+		      }
+		    })
+		  } else if (modal.response=== "НІ") {
+		    clearStyle()
+		    return
+		  } else changeAllList()
+		})
+		
+		modal.rejectBtn.addEventListener("click", clearStyle)
+		
+  } else createTitle("Немає елементів", 0, 1000)
 }
 
 const deletingElem = (elem) => {
-	console.log('DELETE');
-	const parent = elem.parentNode.parentNode.parentNode
-	parent.remove()
-	clearAndSaveElems()
+  console.log('DELETE');
+  const parent = elem.parentNode.parentNode.parentNode
+  parent.remove()
+  clearAndSaveElems()
 }
 
 const changingElem = (elem) => {
-	console.log('CHANGE');
-	enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-	let arr = dataElems.e
+  console.log('CHANGE');
+  enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
+  enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+  let arr = dataElems.e
 
-	if (changeJumpEnable) {
-		arr = dataElems.j
-	}
-	if (repeatEnable) {
-		createNewDataElems(1, elem.parentNode.previousSibling.previousSibling, arr)
-	} else {
-		iterate(1, elem.parentNode.previousSibling.previousSibling, arr, arr, true)
-	}
+  if (changeJumpEnable) {
+    arr = dataElems.j
+  }
+  if (repeatEnable) {
+    createNewDataElems(1, elem.parentNode.previousSibling.previousSibling, arr)
+  } else {
+    iterate(1, elem.parentNode.previousSibling.previousSibling, arr, arr, true)
+  }
 
 }
 
 const addClickForOptions = (btn, value, event = "click", func) => {
-	btn.addEventListener(event, () => {
-		typeof func === "function" ? func() : optionsInRandom[value] = btn.checked
-		localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
-	})
+  btn.addEventListener(event, () => {
+    typeof func === "function" ? func() : optionsInRandom[value] = btn.checked
+    localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+  })
 }
 
 randomBtn.addEventListener('click', addRandomElem);
 customBtn.addEventListener('click', () => {
-	createTitle("У майбутньому...", 0, 1500)
+  createTitle("У майбутньому...", 0, 1500)
 });
 document.querySelector(".elements__save").addEventListener('click', () => {
-	createTitle("У майбутньому...", 0, 1500)
+  createTitle("У майбутньому...", 0, 1500)
 });
 deleteAllBtn.addEventListener('click', deleteAllList);
 changeAllBtn.addEventListener('click', changeAllList)
 enableOptionsBtn.addEventListener('click', checkEnableOption)
 const selectAndUnselect = (btn, action) => {
-	btn.addEventListener("click", () => {
-		elementsList.childNodes.forEach(i => {
-			if (i.textContent.trim()) {
-				if (i.classList.contains("active")) {
-					i.classList[action]("check")
-				}
-			}
-		})
-		confirmToggleDisable()
-	})
+  btn.addEventListener("click", () => {
+    elementsList.childNodes.forEach(i => {
+      if (i.textContent.trim()) {
+        if (i.classList.contains("active")) {
+          i.classList[action]("check")
+        }
+      }
+    })
+    confirmToggleDisable()
+  })
 }
 selectAndUnselect(selectAll, "add")
 selectAndUnselect(unselectAll, "remove")
 
 addClickForOptions(countEnableBtn, "count", "input", () => {
-	if (countEnableBtn.value.length > 2) {
-		countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
-	}
-	countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
+  if (countEnableBtn.value.length > 2) {
+    countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
+  }
+  countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
 })
 addClickForOptions(jumpEnableBtn, "jumpEnable")
 addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")

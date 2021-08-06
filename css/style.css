@@ -56,7 +56,7 @@ body {
 
 .popup {
   position: fixed;
-  top: -120px;
+  top: -150px;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -233,7 +233,7 @@ body {
 }
 @media (max-width: 680px) {
   .elements__list {
-    max-height: 290px;
+    max-height: 47vh;
   }
 }
 @media (max-width: 460px) {
