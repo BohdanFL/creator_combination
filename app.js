@@ -431,7 +431,12 @@ const checkRepeatitons = (numIterate, changingElem, checkElems) => {
     if (repeat > 1) {
       createNewDataElems(32, changingElem, checkElems)
     } else {
+      console.log("finish")
       clearAndSaveElems()
+      if (changeAllBtn.disabled) {
+        changeAllBtn.disabled = false
+        changeAllBtn.textContent = "Change All"
+      }
     }
   })
 }
@@ -472,7 +477,7 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
   })
 }
 
-const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 5, only) => {
+const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 1000, only) => {
   // const iterate = (i, opt) => {
   return new Promise((resolve) => {
     const interval = setInterval(() => {
@@ -484,7 +489,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
       elem.textContent = iterableArr[random(iterableArr)]
       sortable.destroy()
 
-      if (i > 30) {
+      if (i > 10) {
         clearInterval(interval);
 
         if (!change) {
@@ -628,13 +633,13 @@ const changeAllList = () => {
 		  
 		      if (repeatEnable) {
 		        createNewDataElems(1, item, arr).then(() => {
-		          changeAllBtn.disabled = false
-		          changeAllBtn.textContent = "Change all"
+		          //changeAllBtn.disabled = false
+		          //changeAllBtn.textContent = "Change all"
 		        })
 		      } else {
 		        iterate(1, item, arr).then(() => {
-		          changeAllBtn.disabled = false
-		          changeAllBtn.textContent = "Change all"
+		          //changeAllBtn.disabled = false
+		          //changeAllBtn.textContent = "Change all"
 		        })
 		      }
 		    })
