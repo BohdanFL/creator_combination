@@ -31,3 +31,52 @@ const toggleClass = (e) => {
 	}
 	confirmToggleDisable()
 }
+
+const root = document.documentElement
+const themesBtns = document.querySelectorAll(".themes__radio")
+
+const themes = {
+	standart: [
+		'#3B1719',
+		'#69140e',
+		'#a44200',
+		'#d58936',
+		'#fff94f',
+	],
+	light: ['grey'],
+	dark: ['black'],
+	blue: [
+		'#0d1b2a',
+		'#1b263b',
+		'#415a77',
+		'#778da9',
+		'#e0e1dd'
+	],
+	greyBlue: [
+		'#212529',
+		'#343a40',
+		'#495057',
+		'#adb5bd',
+		'#e9ecef'
+	]
+}
+
+themesBtns.forEach(item => {
+	item.addEventListener("change", () => {
+		const themeValue = item.getAttribute("theme")
+		let mainBg, submainBg, popupAndTitleBg, btnBg, btnFontAndBorder
+		if (themeValue) {
+			mainBg = themes[themeValue][0]
+			submainBg = themes[themeValue][1]
+			popupAndTitleBg = themes[themeValue][2]
+			btnBg = themes[themeValue][3]
+			btnFontAndBorder = themes[themeValue][4]
+		}
+
+		root.style.setProperty('--main-bg', mainBg)
+		root.style.setProperty('--submain-bg', submainBg)
+		root.style.setProperty('--popup-and-title-bg', popupAndTitleBg)
+		root.style.setProperty('--btn-bg', btnBg)
+		root.style.setProperty('--btn-font-and-border', btnFontAndBorder)
+	})
+})
