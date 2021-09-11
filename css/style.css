@@ -580,9 +580,14 @@ body {
 
 /*# sourceMappingURL=style.css.map */
 
+.themes {
+	display: flex;
+	justify-content: space-around;
+
+}
 
 .themes__radio {
 	margin: 5px;
-	width: 20px;
-	height: 20px;
+	width: 40px;
+	height: 40px;
 }
