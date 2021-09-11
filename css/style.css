@@ -1,5 +1,4 @@
 :root {
-	--item-bg: #fff94f1a;
 	--item-check: greenyellow;
 	--change-btn: #373E7E;
 	--delete-btn: #B80906;
@@ -11,6 +10,7 @@
 	--popup-and-title-bg: #a44200;
 	--btn-bg: #d58936;
 	--btn-font-and-border: #fff94f;
+	--item-bg: #fff94f1a;
 
 	/* --main-bg: var(--d-fogra);
 	--submain-bg: var(--d-black);
@@ -52,7 +52,7 @@
 	margin: 0;
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	transition: none;
+	transition: none !important;
 }
 
 body,

@@ -84,5 +84,6 @@ themesBtns.forEach(item => {
 		root.style.setProperty('--popup-and-title-bg', popupAndTitleBg)
 		root.style.setProperty('--btn-bg', btnBg)
 		root.style.setProperty('--btn-font-and-border', btnFontAndBorder)
+		root.style.setProperty('--item-bg', btnFontAndBorder + "1a")
 	})
 })

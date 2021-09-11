@@ -51,7 +51,9 @@ const checkingOptions = (once = true) => {
 		jumpEnableBtn.disabled = true
 		changeJumpEnableBtn.disabled = true
 		repeatElemBtn.disabled = true
-		repeatElemBtn.removeEventListener('click', popupCheckRepeations)
+		if (once) {
+			repeatElemBtn.addEventListener('click', popupCheckRepeations)
+		}
 	} else {
 		countEnableBtn.disabled = false
 		jumpEnableBtn.disabled = false
