@@ -44,7 +44,13 @@ const themes = {
 		'#fff94f',
 	],
 	light: ['grey'],
-	dark: ['black'],
+	dark: [
+		'#111111',
+		'#212121',
+		'#262626',
+		'#404040',
+		'#7A7A7A',
+	],
 	blue: [
 		'#0d1b2a',
 		'#1b263b',
