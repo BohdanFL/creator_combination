@@ -6,29 +6,28 @@ const addBtnToLi = (li) => {
 	changeElemBtn.addEventListener('click', () => changingElem(li))
 }
 
-const deletingElem = (elem) => {
+const deletingElem = (li) => {
 	console.log('DELETE');
-	const parent = elem.parentNode.parentNode.parentNode
-	parent.remove()
+	li.remove()
 	clearAndSaveElems()
 }
 
-const changingElem = (elem) => {
+const changingElem = (li) => {
 	console.log('CHANGE');
 	let changeJumpEnable, repeatEnable
 	enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	let arr = dataElems.e
 
-	if (changeJumpEnable && !elem.nextElementSibling) {
+	if (changeJumpEnable && !li.nextElementSibling) {
 		arr = dataElems.j
 	}
 
-	elem = elem.querySelector(".elements__item-text")
+	li = li.querySelector(".elements__item-text")
 	if (repeatEnable) {
-		createNewDataElems(1, elem, arr)
+		createNewDataElems(1, li, arr)
 	} else {
-		iterate(1, elem, arr, arr, true)
+		iterate(1, li, arr, arr, true)
 	}
 }
 
