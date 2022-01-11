@@ -2,8 +2,8 @@ const addBtnToLi = (li) => {
 	let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
 	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
 
-	deleteElemBtn.addEventListener('click', () => deletingElem(deleteElemBtn))
-	changeElemBtn.addEventListener('click', () => changingElem(changeElemBtn))
+	deleteElemBtn.addEventListener('click', () => deletingElem(li))
+	changeElemBtn.addEventListener('click', () => changingElem(li))
 }
 
 const deletingElem = (elem) => {
@@ -20,29 +20,38 @@ const changingElem = (elem) => {
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 	let arr = dataElems.e
 
-	if (changeJumpEnable) {
+	if (changeJumpEnable && !elem.nextElementSibling) {
 		arr = dataElems.j
 	}
+
+	elem = elem.querySelector(".elements__item-text")
 	if (repeatEnable) {
-		createNewDataElems(1, elem.parentNode.previousSibling.previousSibling, arr)
+		createNewDataElems(1, elem, arr)
 	} else {
-		iterate(1, elem.parentNode.previousSibling.previousSibling, arr, arr, true)
+		iterate(1, elem, arr, arr, true)
 	}
 }
 
-const createLi = (text) => {
+const createLi = (text, pos, lastItem) => {
 	const li = document.createElement('li')
-	text = text === '' ? dataElems.e[random(dataElems).e] : text
+	text = text === '' ? dataElems.e[random(dataElems.e)] : text
 	li.classList.add('elements__item')
-	li.innerHTML = `<div class="elements__item-wrapper">
+	li.innerHTML = `
+			<div class="elements__item-wrapper">
 				<span class="elements__item-text">${text}</span>  
 				<div class="elements__item-btns">
 					<i class="fas fa-sync-alt"></i> 
 					<i class="fas fa-minus-circle"></i>
 				</div>
 			</div>`
-	elementsList.appendChild(li)
-
+	// console.log(pos)
+	if (pos) {
+		if (lastItem) {
+			lastItem.closest(".elements__item").insertAdjacentElement('beforebegin', li)
+		}
+	} else {
+		elementsList.append(li)
+	}
 	addBtnToLi(li)
 	if (elementsList.childNodes[1]) {
 		elemWidth = elementsList.childNodes[1].offsetWidth

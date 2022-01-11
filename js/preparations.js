@@ -44,7 +44,7 @@ sortable.on('sortable:sort', smoothEnabled);
 sortable.on('drag:stopped', smoothDisabled);
 
 const checkingOptions = (once = true) => {
-	console.log("once:" + once)
+	// console.log("once: " + once)
 	enableOptions = enableOptionsBtn.checked
 	if (!enableOptions) {
 		countEnableBtn.disabled = true
@@ -59,7 +59,7 @@ const checkingOptions = (once = true) => {
 		jumpEnableBtn.disabled = false
 		changeJumpEnableBtn.disabled = false
 		repeatElemBtn.disabled = false
-		console.log(repeatElemBtn.checked)
+		// console.log(repeatElemBtn.checked)
 		if (repeatElemBtn.checked && once) {
 			popupCheckRepeations()
 		}

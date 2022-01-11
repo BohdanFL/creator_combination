@@ -77,19 +77,13 @@ const checkRepetition = (numIterate, changingElem, checkElems) => {
 	}).then((repeat) => {
 		if (repeat > 1) {
 			createNewDataElems(32, changingElem, checkElems)
-		} else {
-			console.log("finish")
-			clearAndSaveElems()
-			if (changeAllBtn.disabled) {
-				changeAllBtn.disabled = false
-				changeAllBtn.textContent = "Change All"
-			}
-		}
+		} else clearAndSaveElems()
 	})
 }
 
-const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e, createItem = false) => {
+const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e) => {
 	return new Promise(resolve => {
+		changingElem = changingElem.querySelector(".elements__item-text") || changingElem
 		let jumpEnable
 		enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
 		createElemNums(checkElems)
@@ -98,10 +92,6 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
 			elemNums.forEach(i => {
 				newDataElemsE.push(checkElems[i])
 			})
-			if (createItem) {
-				createLi('')
-				changingElem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
-			}
 			checkRepetition(numIterate, changingElem, checkElems).then(() => {
 				resolve()
 			})
@@ -126,14 +116,16 @@ const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems
 }
 
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 30, only) => {
-	// const iterate = (i, opt) => {
 	return new Promise((resolve) => {
+		if (!i || !elem || !array) return
+		elem = elem.querySelector(".elements__item-text") || elem
 		const interval = setInterval(() => {
 			if (i === 1 || i === 32) {
 				only = array[random(array)];
 				console.log("iterate");
 			}
 			i++;
+
 			elem.textContent = iterableArr[random(iterableArr)]
 			sortable.destroy()
 
@@ -197,6 +189,7 @@ const addRandomElem = (dataElems) => {
 	let potentialItemCount = elemsLength + countValue
 	let arrLength = arr.length
 
+
 	createElemNums(arr)
 	if (repeatEnable) {
 		if (jumpEnable) {
@@ -206,13 +199,20 @@ const addRandomElem = (dataElems) => {
 			countEnableBtn.value = (arr.length - elemsLength) <= 0 ? 1 : arrLength - elemsLength
 		}
 	}
+
+	const lastItem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
+	const isLastJump = !!dataElems.j.find(i => lastItem ? i === lastItem.textContent : false)
+
 	for (let i = 0; i < countValue; i++) {
-		if (jumpEnable) {
+		if (jumpEnable && !isLastJump) {
 			if (i === (countValue - 1)) {
 				arr = dataElems.j
 			}
 		}
 		arrLength = arr.length
+		if (jumpEnable) {
+			arrLength = arrLength + 1
+		}
 
 		createElemNums(arr)
 		if (repeatEnable) {
@@ -220,12 +220,10 @@ const addRandomElem = (dataElems) => {
 				createTitle("Неможливо створити таку кількість унікальних елементів!", 200, 3000)
 				i = countValue
 			} else {
-				createNewDataElems(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr, true)
-
+				createNewDataElems(1, createLi('', isLastJump, lastItem), arr)
 			}
 		} else {
-			createLi('')
-			iterate(1, elementsList.querySelector(".elements__item:last-child .elements__item-text"), arr)
+			iterate(1, createLi('', isLastJump, lastItem), arr)
 		}
 	}
 

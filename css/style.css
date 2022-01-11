@@ -146,6 +146,13 @@ body {
 	display: inline-block;
 }
 
+#prompt-response {
+	border: none;
+	outline: none;
+	max-width: 130px;
+	padding: 5px;
+}
+
 @media (max-width: 400px) {
 
 	.popup__title,
