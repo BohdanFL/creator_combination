@@ -23,12 +23,9 @@ const repeatElemBtn = document.querySelector('#repeat-elem')
 const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
 
-let enableOptions = enableOptionsBtn.checked
-
 let elems = JSON.parse(localStorage.getItem('saveElems')) || []
 
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
-	enableOptions: false,
 	count: 1,
 	jumpEnable: false,
 	changeJumpEnable: false,

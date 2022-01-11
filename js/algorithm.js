@@ -84,8 +84,7 @@ const checkRepetition = (numIterate, changingElem, checkElems) => {
 const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e) => {
 	return new Promise(resolve => {
 		changingElem = changingElem.querySelector(".elements__item-text") || changingElem
-		let jumpEnable
-		enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
+		let jumpEnable = jumpEnableBtn.checked
 		createElemNums(checkElems)
 		newDataElemsE = [];
 		if (elemNums.length) {
@@ -163,32 +162,27 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 const addRandomElem = (dataElems) => {
 	const elemsLength = elementsList.children.length
 	const sumElem = elemsLength + parseInt(countEnableBtn.value)
-	let repeatEnable, countValue, jumpEnable
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+	let repeatEnable = repeatElemBtn.checked
+	let countValue = parseInt(countEnableBtn.value)
+	let jumpEnable = jumpEnableBtn.checked
+
 	if (!repeatEnable) {
 		if (elemsLength >= 99) {
 			createTitle('Ви досягли ліміту елементів (99)', 200, 3000)
 		} else {
-			if (enableOptions) {
-				if (countEnableBtn.value > 99 || sumElem > 99) {
-					createTitle('Дія неможлива, ліміт елементів (99)', 200, 3000)
-				}
+			if (countEnableBtn.value > 99 || sumElem > 99) {
+				createTitle('Дія неможлива, ліміт елементів (99)', 200, 3000)
 			}
 		}
 		if (elemsLength >= 99 || countEnableBtn.value > 99 || sumElem > 99) {
-			if (enableOptions) {
-				countEnableBtn.value = (99 - elemsLength) || 1
-			}
+			countEnableBtn.value = (99 - elemsLength) || 1
 			return
 		}
 	}
 
-	enableOptions ? countValue = parseInt(countEnableBtn.value) : countValue = 1
-	enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
 	let arr = dataElems.e
 	let potentialItemCount = elemsLength + countValue
 	let arrLength = arr.length
-
 
 	createElemNums(arr)
 	if (repeatEnable) {

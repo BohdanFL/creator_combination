@@ -1,6 +1,5 @@
 const popupCheckRepeations = () => {
-	let repeatEnable
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+	let repeatEnable = repeatElemBtn.checked
 	const repeatObj = isRepeat()
 	if (repeatEnable) {
 		if (repeatObj.isRepeatBool) {
@@ -55,8 +54,7 @@ const rejectedCheckRepeation = () => {
 
 const confirmedCheckRepeation = () => {
 	console.log("confirm")
-	let changeJumpEnable
-	enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
+	let changeJumpEnable = changeJumpEnableBtn.checked
 	let arr = changeJumpEnable ? dataElems.j : dataElems.e
 
 	elementsList.childNodes.forEach(i => {
@@ -72,13 +70,4 @@ const confirmedCheckRepeation = () => {
 	optionsInRandom.repeatEnable = false
 	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	elementsList.removeEventListener("mousedown", toggleClass)
-}
-
-if (!enableOptions) {
-	repeatElemBtn.removeEventListener('click', popupCheckRepeations)
-} else {
-	if (repeatElemBtn.checked) {
-		popupCheckRepeations()
-	}
-	repeatElemBtn.addEventListener('click', popupCheckRepeations)
 }

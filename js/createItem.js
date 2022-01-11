@@ -12,9 +12,8 @@ const deletingElem = (li) => {
 }
 
 const changingElem = (li) => {
-	let changeJumpEnable, repeatEnable
-	enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
-	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
+	let changeJumpEnable = changeJumpEnableBtn.checked
+	let repeatEnable = repeatElemBtn.checke
 	let arr = dataElems.e
 
 	if (changeJumpEnable && !li.nextElementSibling) {
