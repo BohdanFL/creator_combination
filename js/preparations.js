@@ -11,20 +11,6 @@ if (optionsInRandom) {
 	repeatElemBtn.checked = optionsInRandom.repeatEnable
 }
 
-if (MOBILE_DEVICE.test(navigator.userAgent)) {
-	btnEventStyle = ".btn:active {background-color: transparent;}"
-	btnChangeStyle = ".elements__item i.fa-sync-alt:active {color: var(--change-btn);}"
-	btnDeleteStyle = ".elements__item i.fa-minus-circle:hover {color: var(--delete-btn);}"
-} else {
-	btnEventStyle = ".btn:hover {background-color: transparent;}"
-	btnChangeStyle = ".elements__item i.fa-sync-alt:hover {color: var(--change-btn);}"
-	btnDeleteStyle = ".elements__item i.fa-minus-circle:hover {color: var(--delete-btn);}"
-
-}
-document.styleSheets[1].insertRule(btnEventStyle, 7);
-document.styleSheets[0].insertRule(btnChangeStyle, 5);
-document.styleSheets[0].insertRule(btnDeleteStyle, 6);
-
 // * Потребує оптимізування on('drag:stopped', clearAndSaveElems);
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
 

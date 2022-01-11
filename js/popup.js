@@ -38,7 +38,6 @@ const createTitle = (titleText, duration = 200, clearDuration = 0, createBg) => 
 
 const createPrompt = (title, duration) => {
 	const wrapper = createTitle(title, duration)
-	/*`<input id="prompt-response" placeholder="ТАК або НІ" value="ТАК">*/
 	wrapper.innerHTML += `
 	<div class="popup__btns">
 		<button class="popup__btn btn" id="prompt-confirm">ОК</button>

@@ -1,47 +1,13 @@
 :root {
 	--item-check: greenyellow;
-	--change-btn: #373E7E;
-	--delete-btn: #B80906;
 	--check-sign-color: #fff;
 	--input-bg: #eee;
-	/*  */
 	--main-bg: #3B1719;
 	--submain-bg: #69140e;
 	--popup-and-title-bg: #a44200;
 	--btn-bg: #d58936;
 	--btn-font-and-border: #fff94f;
 	--item-bg: #fff94f1a;
-
-	/* --main-bg: var(--d-fogra);
-	--submain-bg: var(--d-black);
-	--popup-and-title-bg: var(--d-black-2);
-	--btn-bg: var(--d-onyx);
-	--btn-font-and-border: var(--d-grey); */
-	/* --text-color: var(--d-grey); */
-
-	/*  */
-	--d-fogra: #111111;
-	--d-black: #212121;
-	--d-black-2: #262626;
-	--d-onyx: #404040;
-	--d-grey: #7A7A7A;
-	--d-lgrey: #A3A3A3;
-	/** Grey-blue - done */
-	--charleston-green: #212529;
-	--gunmetal: #343a40;
-	--davys-grey: #495057;
-	/* --slate-gray: #6c757d; */
-	--cadet-blue-crayola: #adb5bd;
-	/* --light-gray: #ced4da; */
-	/* --gainsboro: #dee2e6; */
-	--cultured-2: #e9ecef;
-	/** Blue - done */
-	--fogra: #0d1b2a;
-	--oxford: #1b263b;
-	--bdazzled: #415a77;
-	--shadow: #778da9;
-	--platinum: #e0e1dd;
-
 }
 
 
@@ -96,6 +62,10 @@ body {
 	padding: 0 10px;
 	line-height: 20px;
 	font-size: 10px;
+}
+
+.btn:hover {
+	background-color: transparent;
 }
 
 .btn:disabled {
@@ -337,7 +307,6 @@ body {
 }
 
 .elements__item {
-	/* color: var(--text-color); */
 	font-weight: 700;
 	cursor: pointer;
 	padding: 7px 0;
@@ -371,13 +340,41 @@ body {
 	}
 }
 
-/* .elements__item i.fa-sync-alt:hover {
-	color: var(--change-btn);
-} */
+.elements__item i.fa-sync-alt:hover {
+	color: var(--btn-font-and-border);
+}
 
-/* .elements__item i.fa-minus-circle:hover {
-	color: var(--delete-btn);
-} */
+.elements__item i.fa-minus-circle:hover {
+	color: var(--btn-font-and-border);
+}
+
+@media (max-width: 769px) {
+
+	.elements__item i.fa-sync-alt:hover,
+	.elements__item i.fa-minus-circle:hover {
+		color: inherit;
+	}
+
+	.elements__item i.fa-sync-alt:active {
+		color: var(--btn-font-and-border);
+	}
+
+	.elements__item i.fa-minus-circle:active {
+		color: var(--btn-font-and-border);
+	}
+
+	.btn:hover {
+		background-color: var(--btn-bg);
+	}
+
+	.btn:active {
+		background-color: transparent;
+	}
+}
+
+
+
+
 
 .elements__item.active {
 	position: relative;
@@ -500,7 +497,6 @@ body {
 	display: flex;
 	justify-content: space-between;
 	line-height: 22px;
-	/* color: var(--text-color); */
 }
 
 .random__more .more__wrapper label .custom-checkbox,
