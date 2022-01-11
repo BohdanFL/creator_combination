@@ -1,15 +1,8 @@
 const checkResponsefromDelete = (modal) => {
-	modal.response = document.querySelector('#prompt-response').value
-
-	if (modal.response === "ТАК") {
-		clearStyle()
-		elementsList.innerHTML = ''
-		elems = []
-		localStorage.setItem('saveElems', JSON.stringify(elems))
-	} else if (modal.response === "НІ") {
-		clearStyle()
-		return
-	} else deleteAllList()
+	clearStyle()
+	elementsList.innerHTML = ''
+	elems = []
+	localStorage.setItem('saveElems', JSON.stringify(elems))
 }
 
 const deleteAllList = () => {
@@ -35,43 +28,36 @@ const deleteAllList = () => {
 }
 
 const checkResponsefromChange = (modal) => {
-	modal.response = document.querySelector('#prompt-response').value
+	clearStyle()
+	changeAllBtn.disabled = true
+	changeAllBtn.textContent = "Disabled"
 
-	if (modal.response === "ТАК") {
-		clearStyle()
-		changeAllBtn.disabled = true
-		changeAllBtn.textContent = "Disabled"
+	const elementsItemList = elementsList.querySelectorAll(".elements__item .elements__item-text")
+	elems = []
+	let jumpEnable, repeatEnable
+	enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
+	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
 
-		const elementsItemList = elementsList.querySelectorAll(".elements__item .elements__item-text")
-		elems = []
-		let jumpEnable, repeatEnable
-		enableOptions ? jumpEnable = jumpEnableBtn.checked : jumpEnable = false
-		enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
-
-		let arr = dataElems.e
-		elementsItemList.forEach((item, num) => {
-			if (jumpEnable) {
-				if (num === (elementsList.children.length - 1)) {
-					arr = dataElems.j
-				}
+	let arr = dataElems.e
+	elementsItemList.forEach((item, num) => {
+		if (jumpEnable) {
+			if (num === (elementsList.children.length - 1)) {
+				arr = dataElems.j
 			}
+		}
 
-			if (repeatEnable) {
-				createNewDataElems(1, item, arr).then(() => {
-					changeAllBtn.disabled = false
-					changeAllBtn.textContent = "Change all"
-				})
-			} else {
-				iterate(1, item, arr).then(() => {
-					changeAllBtn.disabled = false
-					changeAllBtn.textContent = "Change all"
-				})
-			}
-		})
-	} else if (modal.response === "НІ") {
-		clearStyle()
-		return
-	} else changeAllList()
+		if (repeatEnable) {
+			createNewDataElems(1, item, arr).then(() => {
+				changeAllBtn.disabled = false
+				changeAllBtn.textContent = "Change all"
+			})
+		} else {
+			iterate(1, item, arr).then(() => {
+				changeAllBtn.disabled = false
+				changeAllBtn.textContent = "Change all"
+			})
+		}
+	})
 }
 
 const changeAllList = () => {

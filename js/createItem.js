@@ -7,13 +7,11 @@ const addBtnToLi = (li) => {
 }
 
 const deletingElem = (li) => {
-	console.log('DELETE');
 	li.remove()
 	clearAndSaveElems()
 }
 
 const changingElem = (li) => {
-	console.log('CHANGE');
 	let changeJumpEnable, repeatEnable
 	enableOptions ? changeJumpEnable = changeJumpEnableBtn.checked : changeJumpEnable = false
 	enableOptions ? repeatEnable = repeatElemBtn.checked : repeatEnable = false
@@ -43,7 +41,6 @@ const createLi = (text, pos, lastItem) => {
 					<i class="fas fa-minus-circle"></i>
 				</div>
 			</div>`
-	// console.log(pos)
 	if (pos) {
 		if (lastItem) {
 			lastItem.closest(".elements__item").insertAdjacentElement('beforebegin', li)

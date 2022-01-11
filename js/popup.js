@@ -38,18 +38,17 @@ const createTitle = (titleText, duration = 200, clearDuration = 0, createBg) => 
 
 const createPrompt = (title, duration) => {
 	const wrapper = createTitle(title, duration)
-	wrapper.innerHTML += `<input id="prompt-response" placeholder="ТАК або НІ" value="ТАК">
-			  <div class="popup__btns">
-				  <button class="popup__btn btn" id="prompt-confirm">ОК</button>
-				  <button class="popup__btn btn" id="prompt-reject">Скасувати</button>
-			  </div>`
+	/*`<input id="prompt-response" placeholder="ТАК або НІ" value="ТАК">*/
+	wrapper.innerHTML += `
+	<div class="popup__btns">
+		<button class="popup__btn btn" id="prompt-confirm">ОК</button>
+		<button class="popup__btn btn" id="prompt-reject">Скасувати</button>
+	</div>`
 	const confirmBtn = wrapper.querySelector('#prompt-confirm')
 	const rejectBtn = wrapper.querySelector('#prompt-reject')
-	let response
 	return {
 		confirmBtn,
-		rejectBtn,
-		response
+		rejectBtn
 	}
 }
 

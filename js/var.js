@@ -1,6 +1,7 @@
-let dataElems, elemNums = [],
+let dataElems = [],
+	elemNums = [],
 	newDataElemsE = [],
-	elemWidth, btnEventStyle
+	elemWidth, btnEventStyle, btnChangeStyle, btnDeleteStyle
 
 const MOBILE_DEVICE = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBook|IEMobile|MeeGo|mini|Fennec|Windows Phone|Kindle|Silk|Opera Mini/
 
@@ -51,3 +52,4 @@ const sortableOptions = {
 		// 'mirror': ["draggable-mirror", "active"]
 	}
 }
+// draggable-container--is-dragging
