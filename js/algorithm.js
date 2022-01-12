@@ -83,7 +83,9 @@ const checkRepetition = (numIterate, changingElem, checkElems) => {
 
 const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e) => {
 	return new Promise(resolve => {
-		changingElem = changingElem.querySelector(".elements__item-text") || changingElem
+		if (changingElem.textContent.trim()) {
+			changingElem = changingElem.querySelector(".elements__item-text") || changingElem
+		}
 		createElemNums(checkElems)
 		newDataElemsE = [];
 

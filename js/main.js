@@ -28,7 +28,6 @@ const deleteAllList = () => {
 }
 
 const checkResponsefromChange = (modal) => {
-	clearStyle()
 	changeAllBtn.disabled = true
 	changeAllBtn.textContent = "Disabled"
 
@@ -39,7 +38,7 @@ const checkResponsefromChange = (modal) => {
 	let arr = dataElems.e
 	elementsList.childNodes.forEach((item, num) => {
 		if (jumpEnable) {
-			if (num === (elementsList.children.length - 1)) {
+			if (num === elementsList.childNodes.length - 1) {
 				arr = dataElems.j
 			}
 		}
@@ -56,6 +55,7 @@ const checkResponsefromChange = (modal) => {
 			})
 		}
 	})
+	clearStyle()
 }
 
 const changeAllList = () => {
