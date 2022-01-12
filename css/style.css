@@ -293,10 +293,12 @@ body {
 .elements__list {
 	position: relative;
 	margin: 0 4px 0 8px;
-	padding: 0 10px 10px 30px;
+	/* padding: 0 10px 10px 30px; */
+	padding: 0 10px 10px 10px;
 	max-height: 70vh;
 	overflow: hidden auto;
 	z-index: 11;
+	list-style: none;
 }
 
 .elements__list-active li:not(.active) {
