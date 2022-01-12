@@ -54,20 +54,16 @@ const rejectedCheckRepeation = () => {
 
 const confirmedCheckRepeation = () => {
 	console.log("confirm")
-	let changeJumpEnable = changeJumpEnableBtn.checked
-	let arr = changeJumpEnable ? dataElems.j : dataElems.e
 
 	elementsList.childNodes.forEach(i => {
 		if (i.textContent.trim()) {
 			if (i.classList.contains("check")) {
-				createNewDataElems(1, i.querySelector(".elements__item-text"), arr).then(() => {
-					clearStyle()
-				})
+				createNewDataElems(1, i).then(clearStyle)
 			}
 		}
 	})
 	repeatElemBtn.checked = false
-	optionsInRandom.repeatEnable = false
+	optionsInRandom.repeatEnable = repeatElemBtn.checked
 	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	elementsList.removeEventListener("mousedown", toggleClass)
 }

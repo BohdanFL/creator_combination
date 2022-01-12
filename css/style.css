@@ -21,6 +21,16 @@
 	/* transition: none !important; */
 }
 
+::-webkit-scrollbar {
+	background: transparent;
+	width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--btn-bg);
+	border-radius: 20px;
+}
+
 body,
 html {
 	height: 100vh;
@@ -287,7 +297,6 @@ body {
 	max-height: 70vh;
 	overflow: hidden auto;
 	z-index: 11;
-	ma
 }
 
 .elements__list-active li:not(.active) {
@@ -595,23 +604,4 @@ body {
 	margin: 0 5px;
 	width: 30px;
 	height: 30px;
-}
-
-.elements__list::-webkit-scrollbar,
-body::-webkit-scrollbar {
-	background: transparent;
-	width: 8px;
-}
-
-.elements__list::-webkit-scrollbar-track,
-.elements__list::-webkit-scrollbar-button,
-body::-webkit-scrollbar-track,
-body::-webkit-scrollbar-button {
-	display: none;
-}
-
-.elements__list::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
-	background: var(--btn-bg);
-	border-radius: 20px;
 }

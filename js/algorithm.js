@@ -84,39 +84,22 @@ const checkRepetition = (numIterate, changingElem, checkElems) => {
 const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e) => {
 	return new Promise(resolve => {
 		changingElem = changingElem.querySelector(".elements__item-text") || changingElem
-		let jumpEnable = jumpEnableBtn.checked
 		createElemNums(checkElems)
 		newDataElemsE = [];
-		if (elemNums.length) {
-			elemNums.forEach(i => {
-				newDataElemsE.push(checkElems[i])
-			})
-			checkRepetition(numIterate, changingElem, checkElems).then(() => {
-				resolve()
-			})
 
-		} else if (checkElems.length < elementsList.children.length && !jumpEnable) {
-			createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
-			setTimeout(() => {
-				resolve()
-			}, 3000);
-		} else if (checkElems.length == elementsList.children.length) {
-			checkElems.forEach(i => newDataElemsE.push(i))
-			checkRepetition(numIterate, changingElem, checkElems).then(() => {
-				resolve()
-			})
-		} else {
-			createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
-			setTimeout(() => {
-				resolve()
-			}, 3000);
+		if (elemNums.length || (checkElems.length == elementsList.children.length)) {
+			elemNums.forEach(i => newDataElemsE.push(checkElems[i]))
+			checkRepetition(numIterate, changingElem, checkElems).then(resolve)
+			return
 		}
+		createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
+		setTimeout(resolve, 3000);
 	})
 }
 
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 30, only) => {
 	return new Promise((resolve) => {
-		if (!i || !elem || !array) return
+		if (!i || !elem.textContent.trim() || !array) return
 		elem = elem.querySelector(".elements__item-text") || elem
 		const interval = setInterval(() => {
 			if (i === 1 || i === 32) {
@@ -228,4 +211,17 @@ const addRandomElem = (dataElems) => {
 	})
 	optionsInRandom.count = countEnableBtn.value
 	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+}
+
+const preCheckRepetions = () => {
+	let repeatEnable = repeatElemBtn.checked
+	if (repeatEnable) {
+		if (createElemNums(dataElems.e).length || (dataElems.e.length == elementsList.children.length)) {
+			popupCheckRepeations()
+			return
+		}
+
+		createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
+		setTimeout(clearStyle, 3000)
+	}
 }

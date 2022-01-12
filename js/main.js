@@ -32,13 +32,12 @@ const checkResponsefromChange = (modal) => {
 	changeAllBtn.disabled = true
 	changeAllBtn.textContent = "Disabled"
 
-	const elementsItemList = elementsList.querySelectorAll(".elements__item .elements__item-text")
 	elems = []
 	let jumpEnable = jumpEnableBtn.checked
 	let repeatEnable = repeatElemBtn.checked
 
 	let arr = dataElems.e
-	elementsItemList.forEach((item, num) => {
+	elementsList.childNodes.forEach((item, num) => {
 		if (jumpEnable) {
 			if (num === (elementsList.children.length - 1)) {
 				arr = dataElems.j
@@ -100,8 +99,8 @@ const selectAndUnselect = (btn, action) => {
 	})
 }
 
-readTextFile("data.json", function (text) {
-	dataElems = JSON.parse(text);
+readTextFile("data.json", function (data) {
+	dataElems = JSON.parse(data);
 
 	for (let i = 0; i < 11; i++) {
 		dataElems.e.splice(i, 11)
@@ -116,7 +115,6 @@ readTextFile("data.json", function (text) {
 	});
 	deleteAllBtn.addEventListener('click', deleteAllList);
 	changeAllBtn.addEventListener('click', changeAllList)
-	// enableOptionsBtn.addEventListener('click', checkingOptions)
 
 	selectAndUnselect(selectAll, "add")
 	selectAndUnselect(unselectAll, "remove")
@@ -130,6 +128,7 @@ readTextFile("data.json", function (text) {
 	addClickForOptions(jumpEnableBtn, "jumpEnable")
 	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
 	addClickForOptions(repeatElemBtn, "repeatEnable")
-	repeatElemBtn.addEventListener('click', popupCheckRepeations)
+	repeatElemBtn.addEventListener('click', preCheckRepetions)
+	// repeatElemBtn.addEventListener('click', popupCheckRepeations)
 
 });

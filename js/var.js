@@ -7,6 +7,7 @@ const MOBILE_DEVICE = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBoo
 
 const randomBtn = document.querySelector('.random__simple-btn')
 const customBtn = document.querySelector('.custom__simple-btn')
+const saveBtn = document.querySelector('.elements__save')
 
 const elementsList = document.querySelector('.elements__list')
 
