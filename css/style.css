@@ -18,12 +18,17 @@
 	margin: 0;
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	/* transition: none !important; */
 }
 
 ::-webkit-scrollbar {
 	background: transparent;
 	width: 8px;
+}
+
+@media (max-width: 769px) {
+	::-webkit-scrollbar {
+		width: 5px;
+	}
 }
 
 ::-webkit-scrollbar-thumb {
