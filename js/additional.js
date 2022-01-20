@@ -1,6 +1,6 @@
 const log = (...text) => console.log(...text)
 
-const random = (array) => Math.floor(Math.random() * array.length)
+const random = (array) => array[Math.floor(Math.random() * array.length)]
 
 const clearAndSave = (arr = elems, list = elementsList.childNodes, name = "elems") => {
 	arr = []

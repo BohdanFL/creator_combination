@@ -30,7 +30,7 @@ const changingElem = (li) => {
 
 const createLi = (text, pos, lastItem) => {
 	const li = document.createElement('li')
-	text = text === '' ? dataElems.e[random(dataElems.e)] : text
+	text = text === '' ? random(dataElems.e) : text
 	li.classList.add('elements__item')
 	li.innerHTML = `
 			<div class="elements__item-wrapper">
@@ -40,6 +40,7 @@ const createLi = (text, pos, lastItem) => {
 					<i class="fas fa-minus-circle"></i>
 				</div>
 			</div>`
+
 	if (pos) {
 		if (lastItem) {
 			lastItem.closest(".elements__item").insertAdjacentElement('beforebegin', li)

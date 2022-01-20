@@ -26,13 +26,13 @@ const activateSave = (item) => {
 	if (findedSave) {
 		elementsList.innerHTML = ''
 		elems = []
-		for (const value in findedSave) {
-			const item = findedSave[value];
-			if (value !== "id") {
+		Object.keys(findedSave).forEach(key => {
+			const item = findedSave[key];
+			if (key !== "id") {
 				elems.push(item)
 				createLi(item)
 			}
-		}
+		})
 		localStorage.setItem('elems', JSON.stringify(elems))
 	}
 }

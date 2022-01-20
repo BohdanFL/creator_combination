@@ -105,12 +105,12 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 		elem = elem.querySelector(".elements__item-text") || elem
 		const interval = setInterval(() => {
 			if (i === 1 || i === 32) {
-				only = array[random(array)];
+				only = random(array);
 				console.log("iterate");
 			}
 			i++;
 
-			elem.textContent = iterableArr[random(iterableArr)]
+			elem.textContent = random(iterableArr)
 			sortable.destroy()
 
 			if (i > 10) {
@@ -132,6 +132,8 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 				}
 
 				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
+				sortable.on('drag:start', toggleActiveItem);
+				sortable.on('drag:stopped', toggleActiveItem);
 				sortable.on('sortable:sort', smoothEnabled);
 				sortable.on('drag:stopped', smoothDisabled);
 				if (save) {
