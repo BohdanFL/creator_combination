@@ -389,7 +389,7 @@ i.fas:hover {
 	z-index: 11;
 	font-size: 16px;
 	background-color: var(--item-bg);
-	transition: all 0.3s;
+	/* transition: all 0.3s; */
 }
 
 .elements__item.active .elements__item-btns i {
