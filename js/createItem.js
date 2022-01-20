@@ -9,12 +9,14 @@ const addBtnToLi = (li) => {
 const deletingElem = (li) => {
 	li.remove()
 	clearAndSave(elems, elementsList.childNodes)
+	addSelectorInListItem(saveList, null, "active")
 }
 
 const changingElem = (li) => {
 	let changeJumpEnable = changeJumpEnableBtn.checked
 	let repeatEnable = repeatElemBtn.checke
 	let arr = dataElems.e
+	addSelectorInListItem(saveList, null, "active")
 
 	if (changeJumpEnable && !li.nextElementSibling) {
 		arr = dataElems.j

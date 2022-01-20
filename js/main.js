@@ -1,21 +1,22 @@
-const checkResponsefromDelete = (modal) => {
+const deleteAllList = (modal) => {
 	clearStyle()
+	addSelectorInListItem(saveList, null, "active")
 	elementsList.innerHTML = ''
 	elems = []
 	localStorage.setItem('elems', JSON.stringify(elems))
 }
 
-const deleteAllList = () => {
+const checkResponsefromDelete = () => {
 	if (elementsList.childElementCount) {
 
 		const modal = createPrompt("Готові здійснити видалення?", 200)
 
 		const checkClickforDelete = (e) => {
-			checkResponsefromDelete(modal)
+			deleteAllList(modal)
 			modal.confirmBtn.removeEventListener("click", checkClickforDelete)
 		}
 		const checkEnterDownforDelete = (e) => {
-			if (e.key === "Enter" || e.keyCode === 13) checkResponsefromDelete(modal)
+			if (e.key === "Enter" || e.keyCode === 13) deleteAllList(modal)
 			window.removeEventListener("keydown", checkEnterDownforDelete)
 		}
 
@@ -27,9 +28,10 @@ const deleteAllList = () => {
 	} else createTitle("Немає елементів", 0, 1000)
 }
 
-const checkResponsefromChange = (modal) => {
+const changeAllList = (modal) => {
 	changeAllBtn.disabled = true
 	changeAllBtn.textContent = "Disabled"
+	addSelectorInListItem(saveList, null, "active")
 
 	elems = []
 	let jumpEnable = jumpEnableBtn.checked
@@ -58,16 +60,16 @@ const checkResponsefromChange = (modal) => {
 	clearStyle()
 }
 
-const changeAllList = () => {
+const checkResponsefromChange = () => {
 	if (elementsList.childElementCount) {
 		const modal = createPrompt("Готові здійснити заміну?", 200)
 
 		const checkClickforChange = (e) => {
-			checkResponsefromChange(modal)
+			changeAllList(modal)
 			modal.confirmBtn.removeEventListener("click", checkClickforChange)
 		}
 		const checkEnterDownforChange = (e) => {
-			if (e.key === "Enter" || e.keyCode === 13) checkResponsefromChange(modal)
+			if (e.key === "Enter" || e.keyCode === 13) changeAllList(modal)
 			window.removeEventListener("keydown", checkEnterDownforChange)
 		}
 
