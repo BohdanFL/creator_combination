@@ -103,7 +103,7 @@ const selectAndUnselect = (btn, action) => {
 
 readTextFile("data.json", function (data) {
 	dataElems = JSON.parse(data);
-	console.log(dataElems)
+
 	for (let i = 0; i < 11; i++) {
 		dataElems.e.splice(i, 11)
 	}

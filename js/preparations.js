@@ -29,17 +29,19 @@ const smoothEnabled = () => {
 }
 
 const toggleActiveItem = () => {
-	// const item = elementsList.lastChild
+	const item = elementsList.lastChild
+	let style
+	const isJump = !!dataElems.j.find(i => i === item.textContent.trim())
 
-	// const isJump = !!dataElems.j.find(i => i === item.textContent.trim())
-
-	// if (isJump) {
-	// 	let style
-	// 	if (!item.style.pointerEvents) {
-	// 		style = "pointer-events: none;"
-	// 	} else style = ''
-	// 	item.style = style
-	// }
+	if (isJump) {
+		item.querySelectorAll("i.fas").forEach(i => {
+			if (!i.style.pointerEvents) {
+				i.style.pointerEvents = 'none'
+			} else {
+				i.style = ''
+			}
+		})
+	}
 }
 
 sortable.on('drag:start', toggleActiveItem);
