@@ -101,9 +101,13 @@ const selectAndUnselect = (btn, action) => {
 
 readTextFile("data.json", function (data) {
 	dataElems = JSON.parse(data);
+	console.log(dataElems)
 	for (let i = 0; i < 11; i++) {
 		dataElems.e.splice(i, 11)
 	}
+
+	elems ? elems.forEach(elem => createLi(elem)) : false
+	saves ? saves.forEach(save => createSaveForList(save)) : false
 
 	randomBtn.addEventListener('click', () => addRandomElem(dataElems));
 	customBtn.addEventListener('click', () => {

@@ -351,6 +351,10 @@ body {
 	font-size: 18px;
 }
 
+.elements__item[style="pointer-events: none;"] i {
+	pointer-events: auto;
+}
+
 .elements__item i:first-child {
 	margin-right: 4px;
 }

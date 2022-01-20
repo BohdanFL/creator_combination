@@ -40,6 +40,7 @@ const createLi = (text, pos, lastItem) => {
 					<i class="fas fa-minus-circle"></i>
 				</div>
 			</div>`
+	let isJump
 
 	if (pos) {
 		if (lastItem) {
@@ -49,6 +50,12 @@ const createLi = (text, pos, lastItem) => {
 		elementsList.append(li)
 	}
 	addBtnToLi(li)
+	if (elementsList.childNodes.length === elems.length && dataElems.j) {
+		const item = elementsList.lastChild
+		isJump = !!dataElems.j.find(i => i === item.textContent.trim())
+		if (isJump) item.style.pointerEvents = 'none'
+	}
+
 	if (elementsList.childNodes[1]) {
 		elemWidth = elementsList.childNodes[1].offsetWidth
 	} else if (elementsList.childNodes[0].textContent.trim()) {

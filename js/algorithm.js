@@ -116,6 +116,13 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 			if (i > 10) {
 				clearInterval(interval);
 
+				const isJump = !!dataElems.j.find(i => i === elem.textContent.trim())
+				if (isJump) {
+					elem.closest(".elements__item").style.pointerEvents = 'none'
+				}
+
+				if (elem.textContent)
+					log(elem)
 				if (!change) {
 					elem.textContent = only
 					elems.push(elem.textContent)

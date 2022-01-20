@@ -1,6 +1,3 @@
-elems ? elems.forEach(elem => createLi(elem)) : false
-saves ? saves.forEach(save => createSaveForList(save)) : false
-
 if (optionsInRandom) {
 	countEnableBtn.value = optionsInRandom.count
 	jumpEnableBtn.checked = optionsInRandom.jumpEnable
@@ -32,17 +29,17 @@ const smoothEnabled = () => {
 }
 
 const toggleActiveItem = () => {
-	const item = elementsList.lastChild
+	// const item = elementsList.lastChild
 
-	const isJump = !!dataElems.j.find(i => item ? i === item.textContent.trim() : false)
+	// const isJump = !!dataElems.j.find(i => i === item.textContent.trim())
 
-	if (isJump) {
-		let style
-		if (!item.style.pointerEvents) {
-			style = "pointer-events: none;"
-		} else style = ''
-		item.style = style
-	}
+	// if (isJump) {
+	// 	let style
+	// 	if (!item.style.pointerEvents) {
+	// 		style = "pointer-events: none;"
+	// 	} else style = ''
+	// 	item.style = style
+	// }
 }
 
 sortable.on('drag:start', toggleActiveItem);
