@@ -1,8 +1,5 @@
-if (elems.a) {
-	elems = elems.a
-	localStorage.setItem("saveElems", JSON.stringify(elems))
-}
 elems ? elems.forEach(elem => createLi(elem)) : false
+saves ? saves.forEach(save => createSaveForList(save)) : false
 
 if (optionsInRandom) {
 	countEnableBtn.value = optionsInRandom.count
@@ -12,7 +9,7 @@ if (optionsInRandom) {
 }
 
 // * Потребує оптимізування on('drag:stopped', clearAndSaveElems);
-let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
 
 if (elementsList.childNodes[1]) {
 	elemWidth = elementsList.childNodes[1].offsetWidth

@@ -8,7 +8,7 @@ const addBtnToLi = (li) => {
 
 const deletingElem = (li) => {
 	li.remove()
-	clearAndSaveElems()
+	clearAndSave(elems, elementsList.childNodes)
 }
 
 const changingElem = (li) => {

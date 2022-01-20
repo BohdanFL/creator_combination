@@ -77,7 +77,7 @@ const checkRepetition = (numIterate, changingElem, checkElems) => {
 	}).then((repeat) => {
 		if (repeat > 1) {
 			createNewDataElems(32, changingElem, checkElems)
-		} else clearAndSaveElems()
+		} else clearAndSave()
 	})
 }
 
@@ -131,11 +131,11 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 					}
 				}
 
-				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSaveElems);
+				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
 				sortable.on('sortable:sort', smoothEnabled);
 				sortable.on('drag:stopped', smoothDisabled);
 				if (save) {
-					localStorage.setItem('saveElems', JSON.stringify(elems))
+					localStorage.setItem('elems', JSON.stringify(elems))
 				}
 
 				resolve(only);
@@ -150,6 +150,7 @@ const addRandomElem = (dataElems) => {
 	let repeatEnable = repeatElemBtn.checked
 	let countValue = parseInt(countEnableBtn.value)
 	let jumpEnable = jumpEnableBtn.checked
+	addSelectorInListItem(saveList, null, "active")
 
 	if (!repeatEnable) {
 		if (elemsLength >= 99) {

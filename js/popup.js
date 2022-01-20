@@ -1,4 +1,4 @@
-const createTitle = (titleText, duration = 200, clearDuration = 0, createBg) => {
+const createTitle = (titleText, duration = 200, clearDuration = duration + 1000, createBg) => {
 	if (document.querySelector(".popup")) {
 		document.querySelector(".popup").remove();
 	} else if (document.querySelector(".popup-bg")) {
@@ -30,7 +30,7 @@ const createTitle = (titleText, duration = 200, clearDuration = 0, createBg) => 
 		setTimeout(() => {
 			titleWrapper.style.top = "-100px";
 			setTimeout(() => titleWrapper.remove(), 200)
-		}, clearDuration);
+		}, duration + clearDuration);
 	}
 
 	return titleWrapper;

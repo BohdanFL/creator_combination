@@ -15,6 +15,11 @@
 		<div class="elements">
 			<h2 class="elements__title">
 				Elements
+				<!-- <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="elements__item-context-menu">
+					<path
+						d="M2 6.5a1.5 1.5 0 10-.001 2.999A1.5 1.5 0 002 6.5zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 10-.001 2.999A1.5 1.5 0 0014 6.5z">
+					</path>
+				</svg> -->
 			</h2>
 			<div class="elements__menu">
 				<button type="button" class="elements__menu-item delete-all btn btn-small">Delete All</button>
@@ -22,9 +27,7 @@
 				<button type="button" class="elements__menu-item select-all btn btn-small hide">Select All</button>
 				<button type="button" class="elements__menu-item unselect-all btn btn-small hide">Unselect All</button>
 			</div>
-			<ol class="elements__list">
-			</ol>
-			<button type="button" class="elements__save btn">Save elements list</button>
+			<ol class="elements__list list"></ol>
 		</div>
 		<div class="inner">
 			<div class="custom">
@@ -40,11 +43,6 @@
 				<details class="random__more more" open>
 					<summary>Settings</summary>
 					<div class="more__wrapper">
-						<!-- <label for="enable">
-							Увімкнути:
-							<input type="checkbox" id="enable">
-							<span class="custom-checkbox"></span>
-						</label> -->
 						<label for="count">
 							К-сть елементів:
 							<input type="number" id="count" min="1" max="99" value="1">
@@ -67,6 +65,11 @@
 					</div>
 				</details>
 			</div>
+			<div class="save">
+				<button class="save__simple-btn btn">Save</button>
+				<ol class="save__list list">
+				</ol>
+			</div>
 		</div>
 	</div>
 	<div class="themes">
@@ -85,11 +88,11 @@
 	<script src="js/popup.js"></script>
 	<script src="js/createItem.js"></script>
 	<script src="js/additional.js"></script>
+	<script src="js/save.js"></script>
 	<script src="js/preparations.js"></script>
 	<script src="js/algorithm.js"></script>
 	<script src="js/visualCheckRepeations.js"></script>
 	<script src="js/main.js"></script>
-	<script src="js/todo.js"></script>
 </body>
 
 </html>

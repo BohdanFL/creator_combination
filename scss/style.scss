@@ -242,23 +242,6 @@ body {
 		max-height: 70vh;
 		overflow: hidden auto;
 		z-index: 11;
-		// * Застилізувати скролбар
-		// &::-webkit-scrollbar {
-		// 	background: gray;
-		// }
-
-		// &::-webkit-scrollbar-track {
-		// 	background: green;
-		// }
-
-		// &::-webkit-scrollbar-button {
-		// 	background: blue;
-		// }
-
-		// &::-webkit-scrollbar-thumb {
-		// 	background: red;
-		// }
-		// *
 
 		&-active li:not(.active) {
 			opacity: .5;

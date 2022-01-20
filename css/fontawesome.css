@@ -21,6 +21,10 @@
 	content: "\f056";
 }
 
+.fa-check-circle:before {
+	content: "\f058";
+}
+
 @font-face {
 	font-family: 'Font Awesome 5 Free';
 	font-style: normal;

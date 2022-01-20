@@ -2,14 +2,14 @@ const log = (...text) => console.log(...text)
 
 const random = (array) => Math.floor(Math.random() * array.length)
 
-const clearAndSaveElems = () => {
-	elems = []
-	for (let i = 0; i < elementsList.childNodes.length; i++) {
-		if (elementsList.childNodes[i].textContent.trim()) {
-			elems.push(elementsList.childNodes[i].textContent.trim())
+const clearAndSave = (arr = elems, list = elementsList.childNodes, name = "elems") => {
+	arr = []
+	for (let i = 0; i < list.length; i++) {
+		if (list[i].textContent.trim()) {
+			arr.push(list[i].textContent.trim())
 		}
 	}
-	localStorage.setItem("saveElems", JSON.stringify(elems))
+	localStorage.setItem(name, JSON.stringify(arr))
 }
 
 const confirmToggleDisable = () => {
@@ -23,6 +23,14 @@ const confirmToggleDisable = () => {
 		}
 	})
 	confirmBtn.disabled = !isContainsClass
+}
+const addSelectorInListItem = (list, item, selector) => {
+	list.childNodes.forEach(i => {
+		if (i.textContent.trim()) i.classList.remove(selector)
+	})
+	if (item) {
+		item.classList.add(selector)
+	}
 }
 
 const toggleClass = (e) => {

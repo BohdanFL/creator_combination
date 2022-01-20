@@ -7,9 +7,10 @@ const MOBILE_DEVICE = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBoo
 
 const randomBtn = document.querySelector('.random__simple-btn')
 const customBtn = document.querySelector('.custom__simple-btn')
-const saveBtn = document.querySelector('.elements__save')
+const saveBtn = document.querySelector('.save__simple-btn')
 
 const elementsList = document.querySelector('.elements__list')
+const saveList = document.querySelector('.save__list')
 
 const deleteAllBtn = document.querySelector('.delete-all')
 const changeAllBtn = document.querySelector('.change-all')
@@ -24,7 +25,8 @@ const repeatElemBtn = document.querySelector('#repeat-elem')
 const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
 
-let elems = JSON.parse(localStorage.getItem('saveElems')) || []
+let elems = JSON.parse(localStorage.getItem('elems')) || []
+let saves = JSON.parse(localStorage.getItem('saves')) || []
 
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	count: 1,
@@ -50,4 +52,3 @@ const sortableOptions = {
 		// 'mirror': ["draggable-mirror", "active"]
 	}
 }
-// draggable-container--is-dragging

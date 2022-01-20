@@ -2,7 +2,7 @@ const checkResponsefromDelete = (modal) => {
 	clearStyle()
 	elementsList.innerHTML = ''
 	elems = []
-	localStorage.setItem('saveElems', JSON.stringify(elems))
+	localStorage.setItem('elems', JSON.stringify(elems))
 }
 
 const deleteAllList = () => {
@@ -110,9 +110,7 @@ readTextFile("data.json", function (data) {
 	customBtn.addEventListener('click', () => {
 		createTitle("У майбутньому...", 0, 1500)
 	});
-	document.querySelector(".elements__save").addEventListener('click', () => {
-		createTitle("У майбутньому...", 0, 1500)
-	});
+	saveBtn.addEventListener('click', savingList);
 	deleteAllBtn.addEventListener('click', deleteAllList);
 	changeAllBtn.addEventListener('click', changeAllList)
 
@@ -129,6 +127,4 @@ readTextFile("data.json", function (data) {
 	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
 	addClickForOptions(repeatElemBtn, "repeatEnable")
 	repeatElemBtn.addEventListener('click', preCheckRepetions)
-	// repeatElemBtn.addEventListener('click', popupCheckRepeations)
-
 });
