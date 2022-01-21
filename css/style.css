@@ -619,10 +619,13 @@ i.fas:hover {
 	font-size: 16px;
 }
 
-.save__item li.save__item.active .save__item-name {
-	font-size: 14px;
+li.save__item.active {
 	position: static;
 	z-index: auto;
+}
+
+li.save__item.active .save__item-name {
+	font-size: 14px;
 }
 
 .save__item.active i.fa-check-circle {
