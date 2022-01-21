@@ -35,7 +35,7 @@ const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	repeatEnable: false
 }
 const sortableOptions = {
-	draggable: 'li',
+	draggable: 'li:not(.jump)',
 	delay: {
 		mouse: 300,
 		drag: 0,

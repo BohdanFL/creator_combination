@@ -468,6 +468,10 @@ i.fas:hover {
 	opacity: 0;
 }
 
+.draggable-container--is-dragging .jump {
+	opacity: .5;
+}
+
 .random__more summary,
 .custom__more summary {
 	cursor: pointer;
@@ -606,13 +610,13 @@ i.fas:hover {
 .save__list {
 	padding: 0 10px;
 	margin: 10px 2px;
-	font-size: 14px;
 	max-height: 33vh;
 }
 
 .save__item {
 	display: flex;
 	justify-content: space-between;
+	font-size: 15px;
 }
 
 .save__item i {
@@ -622,10 +626,7 @@ i.fas:hover {
 li.save__item.active {
 	position: static;
 	z-index: auto;
-}
-
-li.save__item.active .save__item-name {
-	font-size: 14px;
+	font-size: 15px;
 }
 
 .save__item.active i.fa-check-circle {
@@ -644,10 +645,5 @@ li.save__item.active .save__item-name {
 
 	.save__item i {
 		font-size: 20px;
-	}
-
-	.save__list,
-	li.save__item.active .save__item-name {
-		font-size: 15px;
 	}
 }

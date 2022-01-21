@@ -9,7 +9,7 @@ const deleteAllList = (modal) => {
 const checkResponsefromDelete = () => {
 	if (elementsList.childElementCount) {
 
-		const modal = createPrompt("Готові здійснити видалення?", 200, 4000)
+		const modal = createPrompt("Готові здійснити видалення?", 200, false)
 
 		const checkClickforDelete = (e) => {
 			deleteAllList(modal)
@@ -62,7 +62,7 @@ const changeAllList = (modal) => {
 
 const checkResponsefromChange = () => {
 	if (elementsList.childElementCount) {
-		const modal = createPrompt("Готові здійснити заміну?", 200, 4000)
+		const modal = createPrompt("Готові здійснити заміну?", 200, false)
 
 		const checkClickforChange = (e) => {
 			changeAllList(modal)

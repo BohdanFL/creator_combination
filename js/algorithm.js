@@ -117,7 +117,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 
 				const isJump = !!dataElems.j.find(i => i === elem.textContent.trim())
 				if (isJump) {
-					elem.closest(".elements__item").style.pointerEvents = 'none'
+					elem.closest(".elements__item").classList.add("jump")
 				}
 
 				if (!change) {
@@ -136,8 +136,6 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 				}
 
 				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
-				sortable.on('drag:start', toggleActiveItem);
-				sortable.on('drag:stopped', toggleActiveItem);
 				sortable.on('sortable:sort', smoothEnabled);
 				sortable.on('drag:stopped', smoothDisabled);
 				if (save) {

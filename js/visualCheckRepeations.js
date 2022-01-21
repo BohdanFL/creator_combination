@@ -46,8 +46,6 @@ const rejectedCheckRepeation = () => {
 	// localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
-		sortable.on('drag:start', toggleActiveItem);
-		sortable.on('drag:stopped', toggleActiveItem);
 		sortable.on('sortable:sort', smoothEnabled);
 		sortable.on('drag:stopped', smoothDisabled);
 		sortable.destroyed = false

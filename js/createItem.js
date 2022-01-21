@@ -55,7 +55,7 @@ const createLi = (text, pos, lastItem) => {
 	if (elementsList.childNodes.length === elems.length && dataElems.j) {
 		const item = elementsList.lastChild
 		isJump = !!dataElems.j.find(i => i === item.textContent.trim())
-		if (isJump) item.style.pointerEvents = 'none'
+		if (isJump) item.classList.add("jump")
 	}
 
 	if (elementsList.childNodes[1]) {

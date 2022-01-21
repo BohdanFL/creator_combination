@@ -7,7 +7,6 @@ if (optionsInRandom) {
 
 // * Потребує оптимізування on('drag:stopped', clearAndSaveElems);
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
-
 if (elementsList.childNodes[1]) {
 	elemWidth = elementsList.childNodes[1].offsetWidth
 }
@@ -28,23 +27,6 @@ const smoothEnabled = () => {
 	}, 200)
 }
 
-const toggleActiveItem = () => {
-	const item = elementsList.lastChild
-	const isJump = !!dataElems.j.find(i => i === item.textContent.trim())
-
-	if (isJump) {
-		item.querySelectorAll("i.fas").forEach(i => {
-			if (!i.style.pointerEvents) {
-				i.style.pointerEvents = 'none'
-			} else {
-				i.style = ''
-			}
-		})
-	}
-}
-
-sortable.on('drag:start', toggleActiveItem);
-sortable.on('drag:stopped', toggleActiveItem);
 
 sortable.on('sortable:sort', smoothEnabled);
 sortable.on('drag:stopped', smoothDisabled);

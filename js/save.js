@@ -1,14 +1,13 @@
-const addBtnsToSaveItem = (item) => {
+const addBtnsToSaveItem = (item, id) => {
 	const deleteBtn = item.querySelector(".fa-minus-circle")
 	const activeBtn = item.querySelector(".fa-check-circle")
 
-	deleteBtn.addEventListener("click", () => deleteSave(item))
-	activeBtn.addEventListener("dblclick", () => activateSave(item))
+	deleteBtn.addEventListener("click", () => deleteSave(item, id))
+	activeBtn.addEventListener("dblclick", () => activateSave(item, id))
+	item.addEventListener("dblclick", () => changeName(item, id))
 }
 
-const deleteSave = (item) => {
-	const id = item.querySelector(".save__item-name").textContent.trim()
-
+const deleteSave = (item, id) => {
 	saves.forEach((i, n) => {
 		if (i.id === id) saves.splice(n, 1)
 	})
@@ -17,8 +16,8 @@ const deleteSave = (item) => {
 	localStorage.setItem("saves", JSON.stringify(saves))
 }
 
-const activateSave = (item) => {
-	const id = item.querySelector(".save__item-name").textContent.trim()
+const activateSave = (item, id) => {
+	// const id = item.querySelector(".save__item-name").textContent.trim()
 	addSelectorInListItem(saveList, item, "active")
 
 	const findedSave = saves.find((i, n) => i.id === id)
@@ -28,7 +27,7 @@ const activateSave = (item) => {
 		elems = []
 		Object.keys(findedSave).forEach(key => {
 			const item = findedSave[key];
-			if (key !== "id") {
+			if (key !== "id" && key !== "name") {
 				elems.push(item)
 				createLi(item)
 			}
@@ -37,19 +36,27 @@ const activateSave = (item) => {
 	}
 }
 
+const changeName = (item, id) => {
+
+}
+
 
 const createSaveForList = (save) => {
-	let id
+	let id, name
 
 	if (!save) {
 		let ms = new Date().getMilliseconds()
 		id = new Date().toLocaleTimeString() + ":" + ms
-	} else id = save.id
+		name = `Save ${saveList.childNodes.length}`
+	} else {
+		id = save.id
+		name = save.name
+	}
 
 	const item = document.createElement("li")
 	item.classList.add("save__item")
 	item.innerHTML = `
-		<span class="save__item-name">${id}</span>
+		<span class="save__item-name">${name}</span>
 		<div class="save__item-btns">
 			<i class="fas fa-minus-circle"></i>
 			<i class="fas fa-check-circle"></i>
@@ -57,16 +64,23 @@ const createSaveForList = (save) => {
 	`
 	saveList.insertAdjacentElement('beforeend', item)
 
-	addBtnsToSaveItem(item)
-	return id
+	addBtnsToSaveItem(item, id)
+	return {
+		id,
+		name
+	}
 }
 
 const savingList = () => {
 	if (elementsList.childNodes.length) {
-		const id = createSaveForList()
+		const {
+			id,
+			name
+		} = createSaveForList()
 
 		let tempSaves = {
-			id: id
+			id,
+			name
 		}
 
 		elementsList.childNodes.forEach((i, n, arr) => {

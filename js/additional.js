@@ -77,7 +77,6 @@ const themes = {
 
 const setTheme = (themeValue) => {
 	let mainBg, submainBg, popupAndTitleBg, btnBg, btnFontAndBorder
-	console.log(themeValue)
 	if (themeValue) {
 		mainBg = themes[themeValue][0]
 		submainBg = themes[themeValue][1]
