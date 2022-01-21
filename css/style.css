@@ -645,4 +645,9 @@ li.save__item.active .save__item-name {
 	.save__item i {
 		font-size: 20px;
 	}
+
+	.save__list,
+	li.save__item.active .save__item-name {
+		font-size: 15px;
+	}
 }

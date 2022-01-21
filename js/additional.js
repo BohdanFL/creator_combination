@@ -75,23 +75,34 @@ const themes = {
 	]
 }
 
+const setTheme = (themeValue) => {
+	let mainBg, submainBg, popupAndTitleBg, btnBg, btnFontAndBorder
+	console.log(themeValue)
+	if (themeValue) {
+		mainBg = themes[themeValue][0]
+		submainBg = themes[themeValue][1]
+		popupAndTitleBg = themes[themeValue][2]
+		btnBg = themes[themeValue][3]
+		btnFontAndBorder = themes[themeValue][4]
+	}
+
+	root.style.setProperty('--main-bg', mainBg)
+	root.style.setProperty('--submain-bg', submainBg)
+	root.style.setProperty('--popup-and-title-bg', popupAndTitleBg)
+	root.style.setProperty('--btn-bg', btnBg)
+	root.style.setProperty('--btn-font-and-border', btnFontAndBorder)
+	root.style.setProperty('--item-bg', btnFontAndBorder + "1a")
+}
+
+let themeValue = localStorage.getItem("active-theme") || "standart"
+
+setTheme(themeValue)
+
 themesBtns.forEach(item => {
 	item.addEventListener("change", () => {
-		const themeValue = item.getAttribute("theme")
-		let mainBg, submainBg, popupAndTitleBg, btnBg, btnFontAndBorder
-		if (themeValue) {
-			mainBg = themes[themeValue][0]
-			submainBg = themes[themeValue][1]
-			popupAndTitleBg = themes[themeValue][2]
-			btnBg = themes[themeValue][3]
-			btnFontAndBorder = themes[themeValue][4]
-		}
+		themeValue = item.getAttribute("theme")
+		setTheme(themeValue)
 
-		root.style.setProperty('--main-bg', mainBg)
-		root.style.setProperty('--submain-bg', submainBg)
-		root.style.setProperty('--popup-and-title-bg', popupAndTitleBg)
-		root.style.setProperty('--btn-bg', btnBg)
-		root.style.setProperty('--btn-font-and-border', btnFontAndBorder)
-		root.style.setProperty('--item-bg', btnFontAndBorder + "1a")
+		localStorage.setItem("active-theme", themeValue)
 	})
 })
