@@ -30,7 +30,6 @@ const smoothEnabled = () => {
 
 const toggleActiveItem = () => {
 	const item = elementsList.lastChild
-	let style
 	const isJump = !!dataElems.j.find(i => i === item.textContent.trim())
 
 	if (isJump) {
@@ -49,3 +48,4 @@ sortable.on('drag:stopped', toggleActiveItem);
 
 sortable.on('sortable:sort', smoothEnabled);
 sortable.on('drag:stopped', smoothDisabled);
+sortable.on('drag:stopped', () => addSelectorInListItem(saveList, null, "active"));

@@ -36,8 +36,8 @@ const createTitle = (titleText, duration = 200, clearDuration = duration + 1000,
 	return titleWrapper;
 };
 
-const createPrompt = (title, duration) => {
-	const wrapper = createTitle(title, duration)
+const createPrompt = (title, duration, clearDuration) => {
+	const wrapper = createTitle(title, duration, clearDuration)
 	wrapper.innerHTML += `
 	<div class="popup__btns">
 		<button class="popup__btn btn" id="prompt-confirm">ОК</button>

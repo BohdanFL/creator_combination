@@ -56,6 +56,7 @@ const rejectedCheckRepeation = () => {
 
 const confirmedCheckRepeation = () => {
 	console.log("confirm")
+	addSelectorInListItem(saveList, null, "active")
 
 	elementsList.childNodes.forEach(i => {
 		if (i.textContent.trim()) {

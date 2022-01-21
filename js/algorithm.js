@@ -106,7 +106,6 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 		const interval = setInterval(() => {
 			if (i === 1 || i === 32) {
 				only = random(array);
-				console.log("iterate");
 			}
 			i++;
 
@@ -121,8 +120,6 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 					elem.closest(".elements__item").style.pointerEvents = 'none'
 				}
 
-				if (elem.textContent)
-					log(elem)
 				if (!change) {
 					elem.textContent = only
 					elems.push(elem.textContent)

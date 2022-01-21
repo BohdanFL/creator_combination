@@ -360,9 +360,9 @@ body {
 }
 
 @media (max-width: 360px) {
-	.elements__item i {
+	/* .elements__item i {
 		font-size: 16px;
-	}
+	} */
 }
 
 i.fas:hover {
@@ -434,6 +434,10 @@ i.fas:hover {
 @media (max-width: 400px) {
 	.elements__menu {
 		text-align: center;
+	}
+
+	.elements__item i {
+		font-size: 20px;
 	}
 }
 
@@ -611,11 +615,31 @@ i.fas:hover {
 	justify-content: space-between;
 }
 
-li.save__item.active {
+.save__item i {
+	font-size: 16px;
+}
+
+.save__item li.save__item.active .save__item-name {
 	font-size: 14px;
+	position: static;
+	z-index: auto;
 }
 
 .save__item.active i.fa-check-circle {
 	pointer-events: none;
 	color: var(--btn-font-and-border);
+}
+
+@media (max-width: 769px) {
+
+	.save__item i {
+		font-size: 18px;
+	}
+}
+
+@media (max-width: 400px) {
+
+	.save__item i {
+		font-size: 20px;
+	}
 }
