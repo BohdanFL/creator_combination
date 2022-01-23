@@ -1,0 +1,52 @@
+.save__list {
+	padding: 0 10px;
+	margin: 10px 2px;
+	max-height: 33vh;
+}
+
+.save__list::before {
+	content: 'Немає збережень';
+}
+
+.save__list:empty {
+	margin: 12px 0 0 0;
+}
+
+.save__item {
+	display: flex;
+	justify-content: space-between;
+	font-size: 15px;
+}
+
+.save__item i {
+	font-size: 16px;
+}
+
+li.save__item.active {
+	position: static;
+	z-index: auto;
+	font-size: 15px;
+}
+
+.save__item.active i.fa-check-circle {
+	pointer-events: none;
+	color: var(--btn-font-and-border);
+}
+
+.save__item-name {
+	outline: none;
+}
+
+@media (max-width: 769px) {
+
+	.save__item i {
+		font-size: 18px;
+	}
+}
+
+@media (max-width: 400px) {
+
+	.save__item i {
+		font-size: 20px;
+	}
+}

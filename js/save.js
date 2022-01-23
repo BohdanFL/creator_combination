@@ -2,11 +2,10 @@ const addBtnsToSaveItem = (item, id) => {
 	const deleteBtn = item.querySelector(".fa-minus-circle")
 	const activeBtn = item.querySelector(".fa-check-circle")
 	const itemName = item.querySelector(".save__item-name")
-	// let itemNameText = itemName.textContent.trim()
 
 	deleteBtn.addEventListener("click", () => deleteSave(item, id))
 	activeBtn.addEventListener("dblclick", () => activateSave(item, id))
-	// itemName.addEventListener("focusout", (e) => changeName(itemName, id, e))
+	itemName.addEventListener("focusout", (e) => changeName(itemName, id, e))
 	itemName.addEventListener("keydown", (e) => changeName(itemName, id, e))
 }
 
@@ -17,9 +16,6 @@ const deleteSave = (item, id) => {
 
 	// updateSaveList()
 	item.remove()
-	// if (!saveList.children.length) {
-	// 	saveList.innerHTML = 'Збереженнь немає'
-	// }
 	localStorage.setItem("saves", JSON.stringify(saves))
 }
 

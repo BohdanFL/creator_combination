@@ -109,14 +109,11 @@ readTextFile("data.json", function (data) {
 	}
 
 	console.time()
-	// console.timeStamp()
-
 
 	elems ? elems.forEach(elem => createLi(elem)) : false
 	saves ? saves.forEach(save => createSaveForList(save)) : false
 
-	// console.timeEnd()
-	console.timeLog()
+	console.timeEnd()
 
 	randomBtn.addEventListener('click', () => addRandomElem(dataElems));
 	customBtn.addEventListener('click', () => {

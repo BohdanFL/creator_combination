@@ -1,0 +1,117 @@
+.random__more summary,
+.custom__more summary {
+	cursor: pointer;
+	outline: none;
+	margin-bottom: 5px;
+}
+
+.random__more .more__wrapper,
+.custom__more .more__wrapper {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	margin: 0 5px;
+}
+
+@media (max-width: 460px) {
+
+	.random__more .more__wrapper,
+	.custom__more .more__wrapper {
+		font-size: 14px;
+	}
+}
+
+.random__more .more__wrapper *,
+.custom__more .more__wrapper * {
+	cursor: pointer;
+}
+
+.random__more .more__wrapper label,
+.custom__more .more__wrapper label {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	line-height: 22px;
+}
+
+.random__more .more__wrapper label .custom-checkbox,
+.custom__more .more__wrapper label .custom-checkbox,
+.random__more .more__wrapper label input#count,
+.custom__more .more__wrapper label input#count {
+	height: 22px;
+	width: 22px;
+	background-color: var(--input-bg);
+	border: solid var(--submain-bg) 1px;
+}
+
+.random__more .more__wrapper label .custom-checkbox::after,
+.custom__more .more__wrapper label .custom-checkbox::after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.random__more .more__wrapper label input,
+.custom__more .more__wrapper label input {
+	position: absolute;
+	cursor: pointer;
+	opacity: 0;
+	height: 0;
+	width: 0;
+}
+
+.random__more .more__wrapper label input#count,
+.custom__more .more__wrapper label input#count {
+	right: 0;
+	opacity: 1;
+	text-align: center;
+	-moz-appearance: textfield;
+	outline: none;
+}
+
+.random__more .more__wrapper label input#count:disabled,
+.custom__more .more__wrapper label input#count:disabled {
+	opacity: 0.3;
+}
+
+.random__more .more__wrapper label input#count::-webkit-outer-spin-button,
+.random__more .more__wrapper label input#count::-webkit-inner-spin-button,
+.custom__more .more__wrapper label input#count::-webkit-outer-spin-button,
+.custom__more .more__wrapper label input#count::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.random__more .more__wrapper label input:checked~.custom-checkbox,
+.custom__more .more__wrapper label input:checked~.custom-checkbox {
+	background-color: var(--submain-bg);
+}
+
+.random__more .more__wrapper label input:checked~.custom-checkbox::after,
+.custom__more .more__wrapper label input:checked~.custom-checkbox::after {
+	display: block;
+}
+
+.random__more .more__wrapper label input:disabled~.custom-checkbox,
+.custom__more .more__wrapper label input:disabled~.custom-checkbox {
+	opacity: 0.3;
+}
+
+.random__more .more__wrapper label .custom-checkbox:after,
+.custom__more .more__wrapper label .custom-checkbox:after {
+	right: 7px;
+	top: 0px;
+	width: 8px;
+	height: 16px;
+	border: solid var(--check-sign-color);
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.random__simple-btn,
+.custom__simple-btn {
+	padding: 0 30px;
+	margin-bottom: 10px;
+}

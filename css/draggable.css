@@ -1,0 +1,30 @@
+.draggable-mirror {
+	min-width: 200px;
+	display: none;
+}
+
+.draggable-mirror i {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.draggable-mirror.active {
+	transition: none;
+	display: block;
+}
+
+.draggable-mirror::marker {
+	content: "";
+}
+
+.draggable-source--is-dragging::marker {
+	content: "";
+}
+
+.draggable-source--is-dragging:not(.active) {
+	opacity: 0;
+}
+
+.draggable-container--is-dragging .jump {
+	opacity: .5;
+}

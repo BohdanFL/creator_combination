@@ -1,0 +1,119 @@
+.elements {
+	border-radius: 20px;
+	background-color: var(--submain-bg);
+	width: 350px !important;
+	font-size: 14px;
+	height: min-content;
+}
+
+.elements__title {
+	background-color: var(--popup-and-title-bg);
+	width: 100%;
+	text-align: center;
+	border-radius: 20px 20px 0px 0px;
+	font-size: 40px;
+	padding: 10px 0px;
+}
+
+.elements__menu {
+	margin: -11px 10px 0px;
+}
+
+.elements__menu .btn-small {
+	margin-bottom: 7px;
+}
+
+.elements__menu .select-all,
+.elements__menu .unselect-all {
+	position: relative;
+	z-index: 11;
+	transition: all 0.3s;
+}
+
+.elements__list {
+	position: relative;
+	max-height: 70vh;
+	z-index: 11;
+}
+
+.elements__list:before {
+	content: 'Немає елементів';
+	font-size: 18px;
+	letter-spacing: 4px;
+}
+
+.elements__list:empty {
+	margin: 6px 0;
+	height: 25px;
+}
+
+.elements__list-active li:not(.active) {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.elements__item i {
+	font-size: 18px;
+}
+
+.elements__item[style="pointer-events: none;"] i {
+	pointer-events: auto;
+}
+
+.elements__item i:first-child {
+	margin-right: 4px;
+}
+
+.elements__item.active .elements__item-btns i {
+	opacity: 0;
+	transition: opacity 0.3s;
+	pointer-events: none;
+}
+
+.elements__item.check {
+	transition: all 0.3s;
+	color: var(--item-check);
+	margin-left: -10px;
+}
+
+.elements__item.check span {
+	color: var(--item-check);
+}
+
+.elements__item.check::marker {
+	content: "";
+}
+
+
+.elements__item-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.elements__item-btns {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+@media (max-width: 680px) {
+	.elements__list {
+		max-height: 47vh;
+	}
+}
+
+@media (max-width: 400px) {
+	.elements__menu {
+		text-align: center;
+	}
+
+	.elements__item i {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 360px) {
+	/* .elements__item i {
+		font-size: 16px;
+	} */
+}
