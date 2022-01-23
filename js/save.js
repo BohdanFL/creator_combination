@@ -1,10 +1,13 @@
 const addBtnsToSaveItem = (item, id) => {
 	const deleteBtn = item.querySelector(".fa-minus-circle")
 	const activeBtn = item.querySelector(".fa-check-circle")
+	const itemName = item.querySelector(".save__item-name")
+	// let itemNameText = itemName.textContent.trim()
 
 	deleteBtn.addEventListener("click", () => deleteSave(item, id))
 	activeBtn.addEventListener("dblclick", () => activateSave(item, id))
-	item.addEventListener("dblclick", () => changeName(item, id))
+	// itemName.addEventListener("focusout", (e) => changeName(itemName, id, e))
+	itemName.addEventListener("keydown", (e) => changeName(itemName, id, e))
 }
 
 const deleteSave = (item, id) => {
@@ -12,15 +15,18 @@ const deleteSave = (item, id) => {
 		if (i.id === id) saves.splice(n, 1)
 	})
 
+	// updateSaveList()
 	item.remove()
+	// if (!saveList.children.length) {
+	// 	saveList.innerHTML = 'Збереженнь немає'
+	// }
 	localStorage.setItem("saves", JSON.stringify(saves))
 }
 
 const activateSave = (item, id) => {
-	// const id = item.querySelector(".save__item-name").textContent.trim()
 	addSelectorInListItem(saveList, item, "active")
 
-	const findedSave = saves.find((i, n) => i.id === id)
+	const findedSave = saves.find((i) => i.id === id)
 
 	if (findedSave) {
 		elementsList.innerHTML = ''
@@ -36,8 +42,24 @@ const activateSave = (item, id) => {
 	}
 }
 
-const changeName = (item, id) => {
+const changeName = (itemName, id, e) => {
+	let itemNameText = saves.find((i) => i.id === id).name
 
+	if (e.type === 'focusout' || (e.type === 'keydown' && (e.key === "Enter" || e.keyCode === 13))) {
+		e.target.innerText = e.target.innerText.trim()
+		if (e.type === 'keydown') itemName.blur()
+		if (!e.target.innerText) {
+			itemName.textContent = itemNameText
+		} else if (itemNameText === e.target.innerText) {
+			return
+		} else {
+			saves.forEach((i, n) => {
+				if (i.id === id) saves[n].name = e.target.innerText
+			})
+		}
+	}
+
+	localStorage.setItem("saves", JSON.stringify(saves))
 }
 
 
@@ -47,7 +69,7 @@ const createSaveForList = (save) => {
 	if (!save) {
 		let ms = new Date().getMilliseconds()
 		id = new Date().toLocaleTimeString() + ":" + ms
-		name = `Save ${saveList.childNodes.length}`
+		name = `Save ${saveList.childNodes.length + 1}`
 	} else {
 		id = save.id
 		name = save.name
@@ -56,7 +78,7 @@ const createSaveForList = (save) => {
 	const item = document.createElement("li")
 	item.classList.add("save__item")
 	item.innerHTML = `
-		<span class="save__item-name">${name}</span>
+		<span class="save__item-name" contenteditable="true">${name}</span>
 		<div class="save__item-btns">
 			<i class="fas fa-minus-circle"></i>
 			<i class="fas fa-check-circle"></i>

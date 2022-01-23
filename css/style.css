@@ -634,6 +634,10 @@ li.save__item.active {
 	color: var(--btn-font-and-border);
 }
 
+.save__item-name {
+	outline: none;
+}
+
 @media (max-width: 769px) {
 
 	.save__item i {

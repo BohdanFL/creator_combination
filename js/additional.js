@@ -75,7 +75,10 @@ const themes = {
 	]
 }
 
-const setTheme = (themeValue) => {
+
+// ` TODO: It need opmization
+const setTheme = (themeValue, once = false) => {
+	if (themeValue === 'standart' && once) return
 	let mainBg, submainBg, popupAndTitleBg, btnBg, btnFontAndBorder
 	if (themeValue) {
 		mainBg = themes[themeValue][0]
@@ -95,7 +98,7 @@ const setTheme = (themeValue) => {
 
 let themeValue = localStorage.getItem("active-theme") || "standart"
 
-setTheme(themeValue)
+setTheme(themeValue, true)
 
 themesBtns.forEach(item => {
 	item.addEventListener("change", () => {
