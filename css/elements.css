@@ -4,6 +4,7 @@
 	width: 350px !important;
 	font-size: 14px;
 	height: min-content;
+	padding-bottom: 10px;
 }
 
 .elements__title {

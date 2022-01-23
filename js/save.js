@@ -76,8 +76,8 @@ const createSaveForList = (save) => {
 	item.innerHTML = `
 		<span class="save__item-name" contenteditable="true">${name}</span>
 		<div class="save__item-btns">
-			<i class="fas fa-minus-circle"></i>
-			<i class="fas fa-check-circle"></i>
+			<i title="Видалення" class="fas fa-minus-circle"></i>
+			<i title="Активація" class="fas fa-check-circle"></i>
 		</div>
 	`
 	saveList.insertAdjacentElement('beforeend', item)
@@ -90,7 +90,12 @@ const createSaveForList = (save) => {
 }
 
 const savingList = () => {
-	if (elementsList.childNodes.length) {
+	const saveItemsLimit = 50
+	if (!(saveList.children.length < saveItemsLimit)) {
+		createTitle(`Ви досягли ліміту збережень (${saveItemsLimit})`, 200, 2000)
+		return
+	}
+	if (elementsList.children.length) {
 		const {
 			id,
 			name

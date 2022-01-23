@@ -38,8 +38,8 @@ const createLi = (text, pos, lastItem) => {
 			<div class="elements__item-wrapper">
 				<span class="elements__item-text">${text}</span>  
 				<div class="elements__item-btns">
-					<i class="fas fa-sync-alt"></i> 
-					<i class="fas fa-minus-circle"></i>
+					<i title="Зміна" class="fas fa-sync-alt"></i> 
+					<i title="Видалення" class="fas fa-minus-circle"></i>
 				</div>
 			</div>`
 	let isJump
