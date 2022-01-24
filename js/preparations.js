@@ -27,7 +27,12 @@ const smoothEnabled = () => {
 	}, 200)
 }
 
+const hideContextMenuOnDrag = (e) => {
+	const contextMenu = e.data.originalSource.querySelector('.context-menu')
+	if (contextMenu) contextMenu.classList.add('hide')
+}
 
+sortable.on('drag:start', hideContextMenuOnDrag)
 sortable.on('sortable:sort', smoothEnabled);
 sortable.on('drag:stopped', smoothDisabled);
 sortable.on('drag:stopped', () => addSelectorInListItem(saveList, null, "active"));

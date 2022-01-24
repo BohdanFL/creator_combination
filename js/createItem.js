@@ -1,14 +1,52 @@
 const addBtnToLi = (li) => {
 	let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
 	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
-
+	let contextElemBtn = li.querySelector('.fas.fa-ellipsis-v')
+	// console.log(deleteElemBtn)
 	deleteElemBtn.addEventListener('click', () => deletingElem(li))
 	changeElemBtn.addEventListener('click', () => changingElem(li))
+	contextElemBtn.addEventListener('click', () => openContextMenu(li))
 }
+
+const openContextMenu = (li) => {
+	const contextMenu = li.querySelector('.context-menu')
+	elementsList.childNodes.forEach((i) => {
+		const contextMenu = i.querySelector('.context-menu')
+		if (i.textContent.trim()) {
+			contextMenu.classList.add('hide')
+		}
+	})
+	if (contextMenu.classList.contains('hide')) {
+		contextMenu.classList.remove('hide')
+	}
+}
+
+const closeContextMenu = (e) => {
+	const list = document.querySelectorAll('.list')
+	const li = e.target.closest('li')
+	if (e.target.classList.contains('context-menu__opener') && !li.querySelector('.context-menu.hide')) return
+
+	if (!e.target.closest('.context-menu')) {
+		if (list.length) {
+			list.forEach(l => {
+				l.childNodes.forEach((i) => {
+					if (i.textContent.trim()) {
+						const contextMenu = i.querySelector('.context-menu')
+						if (!contextMenu.classList.contains('hide')) {
+							contextMenu.classList.add('hide')
+						}
+					}
+				})
+			})
+		}
+	}
+}
+
+// window.addEventListener("touchstart", closeContextMenu)
 
 const deletingElem = (li) => {
 	li.remove()
-	clearAndSave(elems, elementsList.childNodes)
+	clearAndSave()
 	addSelectorInListItem(saveList, null, "active")
 }
 
@@ -17,6 +55,7 @@ const changingElem = (li) => {
 	let repeatEnable = repeatElemBtn.checke
 	let arr = dataElems.e
 	addSelectorInListItem(saveList, null, "active")
+	li.querySelector('.context-menu').classList.add('hide')
 
 	if (changeJumpEnable && !li.nextElementSibling) {
 		arr = dataElems.j
@@ -35,13 +74,18 @@ const createLi = (text, pos, lastItem) => {
 	text = text === '' ? random(dataElems.e) : text
 	li.classList.add('elements__item')
 	li.innerHTML = `
-			<div class="elements__item-wrapper">
-				<span class="elements__item-text">${text}</span>  
-				<div class="elements__item-btns">
-					<i title="Зміна" class="fas fa-sync-alt"></i> 
-					<i title="Видалення" class="fas fa-minus-circle"></i>
-				</div>
-			</div>`
+	<div class="elements__item-wrapper">
+		<span class="elements__item-text">${text}</span>  
+		<i title="Опції" class="elements__item-opener context-menu__opener fas fa-ellipsis-v"></i>
+		<div class="elements__context-menu context-menu hide">
+			<i class="fas fa-sync-alt context-menu__btn">
+				<span class="context-menu__btn-name">Змінити</span>
+			</i> 
+			<i class="fas fa-minus-circle context-menu__btn">
+				<span class="context-menu__btn-name">Видалити</span>
+			</i>
+		</div>
+	</div>`
 	let isJump
 	if (pos) {
 		if (lastItem) {

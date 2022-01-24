@@ -25,6 +25,10 @@
 	content: "\f058";
 }
 
+.fa-ellipsis-v:before {
+	content: "\f142"
+}
+
 @font-face {
 	font-family: 'Font Awesome 5 Free';
 	font-style: normal;

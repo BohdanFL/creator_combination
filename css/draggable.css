@@ -3,10 +3,10 @@
 	display: none;
 }
 
-.draggable-mirror i {
-	opacity: 0;
+/* .draggable-mirror .context-menu {
+	display: none;
 	pointer-events: none;
-}
+} */
 
 .draggable-mirror.active {
 	transition: none;
@@ -27,4 +27,8 @@
 
 .draggable-container--is-dragging .jump {
 	opacity: .5;
+}
+
+.draggable-container--is-dragging .context-menu {
+	display: none;
 }

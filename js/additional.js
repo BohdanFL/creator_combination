@@ -5,8 +5,8 @@ const random = (array) => array[Math.floor(Math.random() * array.length)]
 const clearAndSave = (arr = elems, list = elementsList.childNodes, name = "elems") => {
 	arr = []
 	for (let i = 0; i < list.length; i++) {
-		if (list[i].textContent.trim()) {
-			arr.push(list[i].textContent.trim())
+		if (list[i].querySelector('.elements__item-text').textContent.trim()) {
+			arr.push(list[i].querySelector('.elements__item-text').textContent.trim())
 		}
 	}
 	localStorage.setItem(name, JSON.stringify(arr))

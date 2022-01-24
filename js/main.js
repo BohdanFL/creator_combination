@@ -1,22 +1,22 @@
-const deleteAllList = (modal) => {
+const deleteAllList = (list, arr, arrName) => {
 	clearStyle()
 	addSelectorInListItem(saveList, null, "active")
-	elementsList.innerHTML = ''
-	elems = []
-	localStorage.setItem('elems', JSON.stringify(elems))
+	list.innerHTML = ''
+	arr = []
+	localStorage.setItem(arrName, JSON.stringify(arr))
 }
 
-const checkResponsefromDelete = () => {
-	if (elementsList.childElementCount) {
+const checkResponsefromDelete = (list, arr, arrName) => {
+	if (list.childElementCount) {
 
 		const modal = createPrompt("Готові здійснити видалення?", 200, false)
 
 		const checkClickforDelete = (e) => {
-			deleteAllList(modal)
+			deleteAllList(list, arr, arrName)
 			modal.confirmBtn.removeEventListener("click", checkClickforDelete)
 		}
 		const checkEnterDownforDelete = (e) => {
-			if (e.key === "Enter" || e.keyCode === 13) deleteAllList(modal)
+			if (e.key === "Enter" || e.keyCode === 13) deleteAllList(list, arr, arrName)
 			window.removeEventListener("keydown", checkEnterDownforDelete)
 		}
 
@@ -28,7 +28,7 @@ const checkResponsefromDelete = () => {
 	} else createTitle("Немає елементів", 0, 1000)
 }
 
-const changeAllList = (modal) => {
+const changeAllList = () => {
 	changeAllBtn.disabled = true
 	changeAllBtn.textContent = "Disabled"
 	addSelectorInListItem(saveList, null, "active")
@@ -88,6 +88,7 @@ const addClickForOptions = (btn, value, event = "click", func) => {
 	})
 }
 
+
 const selectAndUnselect = (btn, action) => {
 	btn.addEventListener("click", () => {
 		elementsList.childNodes.forEach(i => {
@@ -120,7 +121,12 @@ readTextFile("data.json", function (data) {
 		createTitle("У майбутньому...", 0, 1500)
 	});
 	saveBtn.addEventListener('click', savingList);
-	deleteAllBtn.addEventListener('click', checkResponsefromDelete);
+	elementsDeleteAllBtn.addEventListener('click', (e) => {
+		checkResponsefromDelete(elementsList, elems, "elems")
+	});
+	saveDeleteAllBtn.addEventListener('click', (e) => {
+		checkResponsefromDelete(saveList, saves, "saves")
+	});
 	changeAllBtn.addEventListener('click', checkResponsefromChange)
 
 	selectAndUnselect(selectAll, "add")
@@ -136,4 +142,5 @@ readTextFile("data.json", function (data) {
 	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
 	addClickForOptions(repeatElemBtn, "repeatEnable")
 	repeatElemBtn.addEventListener('click', preCheckRepetions)
+	window.addEventListener("mousedown", closeContextMenu)
 });

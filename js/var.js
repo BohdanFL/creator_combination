@@ -12,8 +12,10 @@ const saveBtn = document.querySelector('.save__simple-btn')
 const elementsList = document.querySelector('.elements__list')
 const saveList = document.querySelector('.save__list')
 
-const deleteAllBtn = document.querySelector('.delete-all')
-const changeAllBtn = document.querySelector('.change-all')
+const elementsDeleteAllBtn = document.querySelector('.elements__menu-item.delete-all')
+const changeAllBtn = document.querySelector('.elements__menu-item.change-all')
+
+const saveDeleteAllBtn = document.querySelector('.save__menu-item.delete-all')
 
 const enableOptionsBtn = document.querySelector('#enable')
 

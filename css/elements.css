@@ -20,7 +20,7 @@
 	margin: -11px 10px 0px;
 }
 
-.elements__menu .btn-small {
+.elements__menu button {
 	margin-bottom: 7px;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .elements__list {
-	position: relative;
+	/* position: relative; */
 	max-height: 70vh;
 	z-index: 11;
 }
@@ -57,19 +57,19 @@
 	font-size: 18px;
 }
 
-.elements__item[style="pointer-events: none;"] i {
+/* .elements__item[style="pointer-events: none;"] i {
 	pointer-events: auto;
-}
+} */
 
-.elements__item i:first-child {
-	margin-right: 4px;
-}
-
-.elements__item.active .elements__item-btns i {
+.elements__item.active i {
 	opacity: 0;
 	transition: opacity 0.3s;
 	pointer-events: none;
 }
+
+/* .elements__item.jump i {
+	pointer-events: none;
+} */
 
 .elements__item.check {
 	transition: all 0.3s;

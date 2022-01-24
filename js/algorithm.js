@@ -82,27 +82,25 @@ const checkRepetition = (numIterate, changingElem, checkElems) => {
 }
 
 const createNewDataElems = (numIterate = 1, changingElem, checkElems = dataElems.e) => {
-	return new Promise(resolve => {
-		if (changingElem.textContent.trim()) {
-			changingElem = changingElem.querySelector(".elements__item-text") || changingElem
-		}
+	return new Promise((resolve, reject) => {
+		changingElem = changingElem.querySelector(".elements__item-text")
 		createElemNums(checkElems)
 		newDataElemsE = [];
-
-		if (elemNums.length || (checkElems.length == elementsList.children.length)) {
+		if (elemNums.length || (checkElems.length === elementsList.children.length)) {
+			console.log()
 			elemNums.forEach(i => newDataElemsE.push(checkElems[i]))
-			checkRepetition(numIterate, changingElem, checkElems).then(resolve)
+			checkRepetition(numIterate, changingElem, checkElems).then(() => resolve())
 			return
 		}
 		createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
-		setTimeout(resolve, 3000);
+		setTimeout(resolve, 3200);
 	})
 }
 
 const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 30, only) => {
 	return new Promise((resolve) => {
-		if (!i || !elem.textContent.trim() || !array) return
 		elem = elem.querySelector(".elements__item-text") || elem
+		if (!i || !elem.textContent.trim() || !array) return
 		const interval = setInterval(() => {
 			if (i === 1 || i === 32) {
 				only = random(array);
@@ -136,6 +134,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 				}
 
 				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
+				sortable.on('drag:start', hideContextMenuOnDrag)
 				sortable.on('sortable:sort', smoothEnabled);
 				sortable.on('drag:stopped', smoothDisabled);
 				if (save) {
