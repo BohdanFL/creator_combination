@@ -133,7 +133,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 					}
 				}
 
-				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
+				sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('sortable:stop', updateListOnMove);
 				sortable.on('drag:start', hideContextMenuOnDrag)
 				sortable.on('sortable:sort', smoothEnabled);
 				sortable.on('drag:stopped', smoothDisabled);

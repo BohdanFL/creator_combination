@@ -5,8 +5,19 @@ if (optionsInRandom) {
 	repeatElemBtn.checked = optionsInRandom.repeatEnable
 }
 
-// * Потребує оптимізування on('drag:stopped', clearAndSaveElems);
-let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('drag:stopped', clearAndSave);
+const updateListOnMove = (e) => {
+	const name = e.dragEvent.data.originalSource.querySelector('.elements__item-text').textContent.trim()
+	let oldIndex = e.data.oldIndex
+	let newIndex = e.data.newIndex
+	elems.forEach((i, n) => {
+		if (oldIndex === n) elems.splice(n, 1)
+	})
+	elems.splice(newIndex, 0, name)
+}
+
+let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('sortable:stop', updateListOnMove);
+
+
 if (elementsList.childNodes[1]) {
 	elemWidth = elementsList.childNodes[1].offsetWidth
 }

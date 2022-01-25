@@ -2,6 +2,8 @@ const addBtnToLi = (li) => {
 	let deleteElemBtn = li.querySelector('.fas.fa-minus-circle')
 	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
 	let contextElemBtn = li.querySelector('.fas.fa-ellipsis-v')
+
+	// elementsList.childNodes.forEach((i, n) => li.index = n)
 	// console.log(deleteElemBtn)
 	deleteElemBtn.addEventListener('click', () => deletingElem(li))
 	changeElemBtn.addEventListener('click', () => changingElem(li))
@@ -46,8 +48,15 @@ const closeContextMenu = (e) => {
 
 const deletingElem = (li) => {
 	li.remove()
-	clearAndSave()
+
+	elems.forEach((i, n) => {
+		if (li.index === n) elems.splice(n, 1)
+		return
+	})
+	elementsList.childNodes.forEach((i, n) => i.index = n)
+
 	addSelectorInListItem(saveList, null, "active")
+	localStorage.setItem("elems", JSON.stringify(elems))
 }
 
 const changingElem = (li) => {
@@ -94,6 +103,7 @@ const createLi = (text, pos, lastItem) => {
 	} else {
 		elementsList.append(li)
 	}
+	li.index = elementsList.childNodes.length - 1
 	addBtnToLi(li)
 	if (elementsList.childNodes.length === elems.length && dataElems.j) {
 		const item = elementsList.lastChild
