@@ -44,7 +44,7 @@ const closeContextMenu = (e) => {
 	}
 }
 
-// window.addEventListener("touchstart", closeContextMenu)
+window.addEventListener("touchstart", closeContextMenu)
 
 const deletingElem = (li) => {
 	li.remove()

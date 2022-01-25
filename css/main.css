@@ -271,7 +271,7 @@ body {
 }
 
 .list li:last-child .context-menu {
-	top: -20px;
+	top: -25px;
 }
 
 i.fas:hover {
@@ -344,7 +344,8 @@ i.context-menu__btn {
 @media (max-width: 769px) {
 
 	.context-menu__btn:hover {
-		color: inherit;
+		/* color: inherit; */
+		background-color: inherit;
 	}
 
 	.context-menu__btn:active {
