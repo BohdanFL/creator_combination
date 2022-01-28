@@ -10,61 +10,32 @@ const addBtnToLi = (li) => {
 	contextElemBtn.addEventListener('click', () => openContextMenu(li))
 }
 
-const openContextMenu = (li) => {
-	const contextMenu = li.querySelector('.context-menu')
-	elementsList.childNodes.forEach((i) => {
-		const contextMenu = i.querySelector('.context-menu')
-		if (i.textContent.trim()) {
-			contextMenu.classList.add('hide')
-		}
-	})
-	if (contextMenu.classList.contains('hide')) {
-		contextMenu.classList.remove('hide')
-	}
-}
-
-const closeContextMenu = (e) => {
-	const list = document.querySelectorAll('.list')
-	const li = e.target.closest('li')
-	if (e.target.classList.contains('context-menu__opener') && !li.querySelector('.context-menu.hide')) return
-
-	if (!e.target.closest('.context-menu')) {
-		if (list.length) {
-			list.forEach(l => {
-				l.childNodes.forEach((i) => {
-					if (i.textContent.trim()) {
-						const contextMenu = i.querySelector('.context-menu')
-						if (!contextMenu.classList.contains('hide')) {
-							contextMenu.classList.add('hide')
-						}
-					}
-				})
-			})
-		}
-	}
-}
-
-window.addEventListener("touchstart", closeContextMenu)
 
 const deletingElem = (li) => {
 	li.remove()
 
-	elems.forEach((i, n) => {
-		if (li.index === n) elems.splice(n, 1)
-		return
-	})
 	elementsList.childNodes.forEach((i, n) => i.index = n)
 
+	elems.forEach((i, n) => {
+		if (li.index === n) {
+			elems.splice(n, 1)
+			console.log(elems)
+		}
+		return
+	})
 	addSelectorInListItem(saveList, null, "active")
 	localStorage.setItem("elems", JSON.stringify(elems))
 }
 
+//` Doesnt't work correct
 const changingElem = (li) => {
 	let changeJumpEnable = changeJumpEnableBtn.checked
-	let repeatEnable = repeatElemBtn.checke
+	let repeatEnable = repeatElemBtn.checked
 	let arr = dataElems.e
 	addSelectorInListItem(saveList, null, "active")
-	li.querySelector('.context-menu').classList.add('hide')
+	if (!li.querySelector('.context-menu').classList.contains('hide')) {
+		li.querySelector('.context-menu').classList.add('hide')
+	}
 
 	if (changeJumpEnable && !li.nextElementSibling) {
 		arr = dataElems.j
@@ -72,7 +43,7 @@ const changingElem = (li) => {
 
 	li = li.querySelector(".elements__item-text")
 	if (repeatEnable) {
-		createNewDataElems(1, li, arr)
+		createNewDataElems(1, li, arr, true)
 	} else {
 		iterate(1, li, arr, arr, true)
 	}

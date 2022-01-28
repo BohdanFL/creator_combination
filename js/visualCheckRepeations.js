@@ -1,6 +1,7 @@
 const popupCheckRepeations = () => {
 	let repeatEnable = repeatElemBtn.checked
 	const repeatObj = isRepeat()
+	console.log(repeatObj)
 	if (repeatEnable) {
 		if (repeatObj.isRepeatBool) {
 			const titleWrapper = createTitle("Виберіть елементи для заміни", 100, false, true)
@@ -13,7 +14,8 @@ const popupCheckRepeations = () => {
 		`
 			elementsList.classList.add("elements__list-active")
 			repeatObj.repeatElems.forEach(i => {
-				i.classList.add("active")
+
+				i.closest('.elements__item').classList.add("active")
 			})
 
 			sortable.destroy()
@@ -58,9 +60,10 @@ const confirmedCheckRepeation = () => {
 	addSelectorInListItem(saveList, null, "active")
 
 	elementsList.childNodes.forEach(i => {
-		if (i.textContent.trim()) {
+		const itemName = i.querySelector('.elements__item-text')
+		if (itemName.textContent.trim()) {
 			if (i.classList.contains("check")) {
-				createNewDataElems(1, i).then(clearStyle)
+				createNewDataElems(1, itemName).then(clearStyle)
 			}
 		}
 	})

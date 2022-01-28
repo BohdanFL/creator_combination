@@ -4,28 +4,39 @@ const deleteAllList = (list, arr, arrName) => {
 	list.innerHTML = ''
 	arr = []
 	localStorage.setItem(arrName, JSON.stringify(arr))
+	return arr
 }
 
-const checkResponsefromDelete = (list, arr, arrName) => {
-	if (list.childElementCount) {
+function checkResponsefromDelete(list, arr, arrName) {
+	return new Promise((resolve, reject) => {
+		if (list.childElementCount) {
+			const modal = createPrompt("Готові здійснити видалення?", 200, false)
 
-		const modal = createPrompt("Готові здійснити видалення?", 200, false)
+			const checkClickforDelete = (e) => {
+				resolve(deleteAllList(list, arr, arrName))
+			}
+			const checkEnterDownforDelete = (e) => {
+				if (e.key === "Enter" || e.keyCode === 13) {
+					resolve(deleteAllList(list, arr, arrName))
+				}
+			}
+			modal.rejectBtn.addEventListener("click", () => {
+				reject(elems)
+				clearStyle()
+			})
 
-		const checkClickforDelete = (e) => {
-			deleteAllList(list, arr, arrName)
-			modal.confirmBtn.removeEventListener("click", checkClickforDelete)
+			modal.confirmBtn.addEventListener("click", checkClickforDelete, {
+				once: true
+			})
+			window.addEventListener("keydown", checkEnterDownforDelete, {
+				once: true
+			})
+		} else {
+			reject(elems)
+			createTitle("Немає елементів", 0, 1000)
 		}
-		const checkEnterDownforDelete = (e) => {
-			if (e.key === "Enter" || e.keyCode === 13) deleteAllList(list, arr, arrName)
-			window.removeEventListener("keydown", checkEnterDownforDelete)
-		}
+	})
 
-		modal.confirmBtn.addEventListener("click", checkClickforDelete)
-		window.addEventListener("keydown", checkEnterDownforDelete)
-
-		modal.rejectBtn.addEventListener("click", clearStyle)
-
-	} else createTitle("Немає елементів", 0, 1000)
 }
 
 const changeAllList = () => {
@@ -44,8 +55,9 @@ const changeAllList = () => {
 				arr = dataElems.j
 			}
 		}
-
+		item = item.querySelector('.elements__item-text')
 		if (repeatEnable) {
+
 			createNewDataElems(1, item, arr).then(() => {
 				changeAllBtn.disabled = false
 				changeAllBtn.textContent = "Change all"
@@ -116,20 +128,24 @@ readTextFile("data.json", function (data) {
 
 	console.timeEnd()
 
-	randomBtn.addEventListener('click', () => addRandomElem(dataElems));
+	randomBtn.addEventListener('click', addRandomElem);
 	customBtn.addEventListener('click', () => {
 		createTitle("У майбутньому...", 0, 1500)
 	});
 	saveBtn.addEventListener('click', savingList);
 	elementsDeleteAllBtn.addEventListener('click', (e) => {
 		checkResponsefromDelete(elementsList, elems, "elems")
+			.then(arr => elems = arr)
+			.catch(e => console.error(e))
 	});
 	saveDeleteAllBtn.addEventListener('click', (e) => {
 		checkResponsefromDelete(saveList, saves, "saves")
+			.then(arr => saves = arr)
+			.catch(e => console.error(e))
 	});
 	changeAllBtn.addEventListener('click', checkResponsefromChange)
 
-	selectAndUnselect(selectAll, "add")
+	selectAndUnselect(selectAll, "add");
 	selectAndUnselect(unselectAll, "remove")
 
 	addClickForOptions(countEnableBtn, "count", "input", () => {
@@ -137,10 +153,12 @@ readTextFile("data.json", function (data) {
 			countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
 		}
 		countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
-	})
-	addClickForOptions(jumpEnableBtn, "jumpEnable")
-	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable")
-	addClickForOptions(repeatElemBtn, "repeatEnable")
-	repeatElemBtn.addEventListener('click', preCheckRepetions)
-	window.addEventListener("mousedown", closeContextMenu)
+	});
+	addClickForOptions(jumpEnableBtn, "jumpEnable");
+	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable");
+	addClickForOptions(repeatElemBtn, "repeatEnable");
+
+	repeatElemBtn.addEventListener('click', preCheckRepetions);
+	window.addEventListener("mousedown", closeContextMenu);
+	window.addEventListener("touchstart", closeContextMenu)
 });

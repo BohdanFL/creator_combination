@@ -32,7 +32,7 @@
 }
 
 .elements__list {
-	/* position: relative; */
+	position: relative;
 	max-height: 70vh;
 	z-index: 11;
 }
@@ -56,10 +56,6 @@
 .elements__item i {
 	font-size: 18px;
 }
-
-/* .elements__item[style="pointer-events: none;"] i {
-	pointer-events: auto;
-} */
 
 .elements__item.active i {
 	opacity: 0;

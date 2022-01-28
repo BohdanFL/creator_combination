@@ -5,7 +5,7 @@ const addBtnsToSaveItem = (item, id) => {
 	let contextElemBtn = item.querySelector('.fas.fa-ellipsis-v')
 
 	deleteBtn.addEventListener("click", () => deleteSave(item, id))
-	activeBtn.addEventListener("dblclick", () => activateSave(item, id))
+	activeBtn.addEventListener("click", () => activateSave(item, id))
 	itemName.addEventListener("focusout", (e) => changeName(itemName, id, e))
 	itemName.addEventListener("keydown", (e) => changeName(itemName, id, e))
 	contextElemBtn.addEventListener('click', () => openContextMenu(item))
@@ -22,6 +22,7 @@ const deleteSave = (item, id) => {
 
 const activateSave = (item, id) => {
 	addSelectorInListItem(saveList, item, "active")
+	item.querySelector('.context-menu').classList.add('hide')
 
 	const findedSave = saves.find((i) => i.id === id)
 

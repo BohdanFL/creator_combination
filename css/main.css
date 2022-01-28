@@ -270,7 +270,7 @@ body {
 	display: block;
 }
 
-.list li:last-child .context-menu {
+.list li:last-child:not(:first-child) .context-menu {
 	top: -25px;
 }
 

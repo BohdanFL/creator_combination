@@ -35,6 +35,7 @@
 
 li.save__item.active {
 	font-size: 15px;
+	z-index: auto;
 }
 
 .save__item.active i.fa-check-circle {

@@ -40,6 +40,41 @@ const toggleClass = (e) => {
 	confirmToggleDisable()
 }
 
+const openContextMenu = (li) => {
+	const contextMenu = li.querySelector('.context-menu')
+	let list = li.closest('.list')
+
+	if (contextMenu.classList.contains('hide')) {
+		contextMenu.classList.remove('hide')
+	}
+	if (list.childElementCount === 1) {
+		list.style.overflow = 'visible'
+		return
+	}
+	list.style = ''
+}
+
+const closeContextMenu = (e) => {
+	const list = document.querySelectorAll('.list')
+	const li = e.target.closest('li')
+	if (e.target.classList.contains('context-menu__opener') && !li.querySelector('.context-menu.hide')) return
+
+	if (!e.target.closest('.context-menu')) {
+		if (list.length) {
+			list.forEach(l => {
+				l.childNodes.forEach((i) => {
+					if (i.textContent.trim()) {
+						const contextMenu = i.querySelector('.context-menu')
+						if (!contextMenu.classList.contains('hide')) {
+							contextMenu.classList.add('hide')
+						}
+					}
+				})
+			})
+		}
+	}
+}
+
 const root = document.documentElement
 const themesBtns = document.querySelectorAll(".themes__radio")
 
