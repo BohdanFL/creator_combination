@@ -49,9 +49,7 @@ const openContextMenu = (li) => {
 	}
 	if (list.childElementCount === 1) {
 		list.style.overflow = 'visible'
-		return
 	}
-	list.style = ''
 }
 
 const closeContextMenu = (e) => {
@@ -65,9 +63,12 @@ const closeContextMenu = (e) => {
 				l.childNodes.forEach((i) => {
 					if (i.textContent.trim()) {
 						const contextMenu = i.querySelector('.context-menu')
-						if (!contextMenu.classList.contains('hide')) {
+						if (contextMenu && !contextMenu.classList.contains('hide')) {
 							contextMenu.classList.add('hide')
 						}
+					}
+					if (l.childElementCount === 1) {
+						l.style = ''
 					}
 				})
 			})

@@ -1,12 +1,12 @@
 let dataElems = [],
 	elemNums = [],
 	newDataElemsE = [],
-	elemWidth, btnEventStyle, btnChangeStyle, btnDeleteStyle
+	elemWidth
 
 const MOBILE_DEVICE = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBook|IEMobile|MeeGo|mini|Fennec|Windows Phone|Kindle|Silk|Opera Mini/
 
 const randomBtn = document.querySelector('.random__simple-btn')
-const customBtn = document.querySelector('.custom__simple-btn')
+const chooseBtn = document.querySelector('.choose__simple-btn')
 const saveBtn = document.querySelector('.save__simple-btn')
 
 const elementsList = document.querySelector('.elements__list')
@@ -20,9 +20,11 @@ const saveDeleteAllBtn = document.querySelector('.save__menu-item.delete-all')
 const enableOptionsBtn = document.querySelector('#enable')
 
 const countEnableBtn = document.querySelector(".random__more #count")
-const jumpEnableBtn = document.querySelector('#jump')
-const changeJumpEnableBtn = document.querySelector('#change-jump')
-const repeatElemBtn = document.querySelector('#repeat-elem')
+const randomJumpEnableBtn = document.querySelector('#random-jump')
+const changeJumpEnableBtn = document.querySelector('.random #change-jump')
+const repeatElemBtn = document.querySelector('.random #repeat-elem')
+
+const chooseJumpEnableBtn = document.querySelector('#choose-jump')
 
 const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
@@ -32,10 +34,13 @@ let saves = JSON.parse(localStorage.getItem('saves')) || []
 
 const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
 	count: 1,
-	jumpEnable: false,
+	randomJumpEnable: false,
 	changeJumpEnable: false,
-	repeatEnable: false
+	repeatEnable: false,
+	chooseJumpEnable: false
 }
+// const optionsInChoose = JSON.parse(localStorage.getItem('optionsInRandom')) || {
+// }
 const sortableOptions = {
 	draggable: 'li:not(.jump)',
 	delay: {
@@ -50,7 +55,6 @@ const sortableOptions = {
 	},
 	classes: {
 		'source:dragging': ["draggable-source--is-dragging", 'active'],
-		'source:placed': ["draggable-source--placed", 'active'],
-		// 'mirror': ["draggable-mirror", "active"]
+		'source:placed': ["draggable-source--placed", 'active']
 	}
 }

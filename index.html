@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="css/saves.css">
 	<link rel="stylesheet" href="css/popup.css">
 	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/choose.css">
 	<link rel="stylesheet" href="css/draggable.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
 	<title>Create combination</title>
@@ -21,11 +22,6 @@
 		<div class="elements">
 			<h2 class="elements__title">
 				Elements
-				<!-- <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="elements__item-context-menu">
-					<path
-						d="M2 6.5a1.5 1.5 0 10-.001 2.999A1.5 1.5 0 002 6.5zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 10-.001 2.999A1.5 1.5 0 0014 6.5z">
-					</path>
-				</svg> -->
 			</h2>
 			<div class="elements__menu">
 				<button type="button" class="elements__menu-item delete-all btn btn-small">Delete All</button>
@@ -36,11 +32,16 @@
 			<ol class="elements__list list"></ol>
 		</div>
 		<div class="inner">
-			<div class="custom">
-				<button class="custom__simple-btn btn">Custom</button>
-				<details class="custom__more more" open>
+			<div class="choose">
+				<button class="choose__simple-btn btn">Choose</button>
+				<details class="choose__more more" open>
 					<summary>Settings</summary>
 					<div class="more__wrapper">
+						<label for="choose-jump">
+							Зіскоки:
+							<input type="checkbox" id="choose-jump" disabled>
+							<span class="custom-checkbox"></span>
+						</label>
 					</div>
 				</details>
 			</div>
@@ -53,9 +54,9 @@
 							К-сть елементів:
 							<input type="number" id="count" min="1" max="99" value="1">
 						</label>
-						<label for="jump">
+						<label for="random-jump">
 							Зіскок:
-							<input type="checkbox" id="jump">
+							<input type="checkbox" id="random-jump">
 							<span class="custom-checkbox"></span>
 						</label>
 						<label for="change-jump">
@@ -86,10 +87,10 @@
 		<input type="radio" name="theme" theme="greyBlue" class="themes__radio">
 		<input type="radio" name="theme" theme="dark" class="themes__radio">
 	</div>
+
 	<script>
 		console.time("all")
 	</script>
-	<script src=""></script>
 	<script src="libs/sortable.js"></script>
 	<script src="libs/sort-animation.js"></script>
 	<script src="js/connect.js"></script>
@@ -98,6 +99,7 @@
 	<script src="js/createItem.js"></script>
 	<script src="js/additional.js"></script>
 	<script src="js/save.js"></script>
+	<script src="js/choose.js"></script>
 	<script src="js/preparations.js"></script>
 	<script src="js/algorithm.js"></script>
 	<script src="js/visualCheckRepeations.js"></script>

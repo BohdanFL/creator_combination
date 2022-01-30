@@ -1,8 +1,10 @@
 if (optionsInRandom) {
 	countEnableBtn.value = optionsInRandom.count
-	jumpEnableBtn.checked = optionsInRandom.jumpEnable
+	randomJumpEnableBtn.checked = optionsInRandom.randomJumpEnable
 	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
 	repeatElemBtn.checked = optionsInRandom.repeatEnable
+
+	randomJumpEnableBtn.checked = optionsInRandom.randomJumpEnable
 }
 
 const updateListOnMove = (e) => {
@@ -13,13 +15,14 @@ const updateListOnMove = (e) => {
 		if (oldIndex === n) elems.splice(n, 1)
 	})
 	elems.splice(newIndex, 0, name)
+	localStorage.setItem("elems", JSON.stringify(elems))
 }
 
 let sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('sortable:stop', updateListOnMove);
 
 
-if (elementsList.childNodes[1]) {
-	elemWidth = elementsList.childNodes[1].offsetWidth
+if (elementsList.children[0]) {
+	elemWidth = elementsList.children[0].offsetWidth
 }
 
 const smoothDisabled = () => {

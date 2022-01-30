@@ -1,22 +1,27 @@
+const addDarkenedBg = (duration) = () => {
+
+	if (document.querySelector(".dark-bg")) {
+		document.querySelector(".dark-bg").remove();
+	}
+
+	let titleBg = document.createElement("div");
+	titleBg.classList.add("dark-bg");
+	document.body.appendChild(titleBg);
+
+	setTimeout(() => titleBg.style.opacity = ".5", duration);
+	return titleBg
+}
+
 const createTitle = (titleText, duration = 200, clearDuration = duration + 1000, createBg) => {
 	if (document.querySelector(".popup")) {
 		document.querySelector(".popup").remove();
-	} else if (document.querySelector(".popup-bg")) {
-		document.querySelector(".popup-bg").remove();
 	}
-
+	if (createBg) addDarkenedBg(duration)
 	const titleWrapper = document.createElement("div");
 	titleWrapper.classList.add("popup");
-	let titleBg;
-	if (createBg) {
-		titleBg = document.createElement("div");
-		titleBg.classList.add("popup-bg");
-	}
-
 	titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`;
 
 	document.body.appendChild(titleWrapper);
-	if (createBg) document.body.appendChild(titleBg);
 
 	setTimeout(() => {
 		if (window.innerWidth <= 400) {
@@ -24,7 +29,6 @@ const createTitle = (titleText, duration = 200, clearDuration = duration + 1000,
 		} else {
 			titleWrapper.style.top = "10px";
 		}
-		if (createBg) titleBg.style.opacity = ".5";
 	}, duration);
 	if (clearDuration) {
 		setTimeout(() => {
@@ -53,7 +57,7 @@ const createPrompt = (title, duration, clearDuration) => {
 
 const clearStyle = () => {
 	let titleWrapper = document.querySelector(".popup")
-	let titleBg = document.querySelector(".popup-bg")
+	let titleBg = document.querySelector(".dark-bg")
 
 	if (titleWrapper) {
 		titleWrapper.style.top = "-100px"

@@ -1,12 +1,12 @@
 .random__more summary,
-.custom__more summary {
+.choose__more summary {
 	cursor: pointer;
 	outline: none;
 	margin-bottom: 5px;
 }
 
 .random__more .more__wrapper,
-.custom__more .more__wrapper {
+.choose__more .more__wrapper {
 	display: flex;
 	flex-direction: column;
 	text-align: left;
@@ -16,18 +16,18 @@
 @media (max-width: 460px) {
 
 	.random__more .more__wrapper,
-	.custom__more .more__wrapper {
+	.choose__more .more__wrapper {
 		font-size: 14px;
 	}
 }
 
 .random__more .more__wrapper *,
-.custom__more .more__wrapper * {
+.choose__more .more__wrapper * {
 	cursor: pointer;
 }
 
 .random__more .more__wrapper label,
-.custom__more .more__wrapper label {
+.choose__more .more__wrapper label {
 	position: relative;
 	display: flex;
 	justify-content: space-between;
@@ -35,9 +35,9 @@
 }
 
 .random__more .more__wrapper label .custom-checkbox,
-.custom__more .more__wrapper label .custom-checkbox,
+.choose__more .more__wrapper label .custom-checkbox,
 .random__more .more__wrapper label input#count,
-.custom__more .more__wrapper label input#count {
+.choose__more .more__wrapper label input#count {
 	height: 22px;
 	width: 22px;
 	background-color: var(--input-bg);
@@ -45,14 +45,14 @@
 }
 
 .random__more .more__wrapper label .custom-checkbox::after,
-.custom__more .more__wrapper label .custom-checkbox::after {
+.choose__more .more__wrapper label .custom-checkbox::after {
 	content: "";
 	position: absolute;
 	display: none;
 }
 
 .random__more .more__wrapper label input,
-.custom__more .more__wrapper label input {
+.choose__more .more__wrapper label input {
 	position: absolute;
 	cursor: pointer;
 	opacity: 0;
@@ -61,7 +61,7 @@
 }
 
 .random__more .more__wrapper label input#count,
-.custom__more .more__wrapper label input#count {
+.choose__more .more__wrapper label input#count {
 	right: 0;
 	opacity: 1;
 	text-align: center;
@@ -70,35 +70,35 @@
 }
 
 .random__more .more__wrapper label input#count:disabled,
-.custom__more .more__wrapper label input#count:disabled {
+.choose__more .more__wrapper label input#count:disabled {
 	opacity: 0.3;
 }
 
 .random__more .more__wrapper label input#count::-webkit-outer-spin-button,
 .random__more .more__wrapper label input#count::-webkit-inner-spin-button,
-.custom__more .more__wrapper label input#count::-webkit-outer-spin-button,
-.custom__more .more__wrapper label input#count::-webkit-inner-spin-button {
+.choose__more .more__wrapper label input#count::-webkit-outer-spin-button,
+.choose__more .more__wrapper label input#count::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
 
 .random__more .more__wrapper label input:checked~.custom-checkbox,
-.custom__more .more__wrapper label input:checked~.custom-checkbox {
+.choose__more .more__wrapper label input:checked~.custom-checkbox {
 	background-color: var(--submain-bg);
 }
 
 .random__more .more__wrapper label input:checked~.custom-checkbox::after,
-.custom__more .more__wrapper label input:checked~.custom-checkbox::after {
+.choose__more .more__wrapper label input:checked~.custom-checkbox::after {
 	display: block;
 }
 
 .random__more .more__wrapper label input:disabled~.custom-checkbox,
-.custom__more .more__wrapper label input:disabled~.custom-checkbox {
+.choose__more .more__wrapper label input:disabled~.custom-checkbox {
 	opacity: 0.3;
 }
 
 .random__more .more__wrapper label .custom-checkbox:after,
-.custom__more .more__wrapper label .custom-checkbox:after {
+.choose__more .more__wrapper label .custom-checkbox:after {
 	right: 7px;
 	top: 0px;
 	width: 8px;
@@ -111,7 +111,7 @@
 }
 
 .random__simple-btn,
-.custom__simple-btn {
+.choose__simple-btn {
 	padding: 0 30px;
 	margin-bottom: 10px;
 }

@@ -15,14 +15,16 @@ const deleteSave = (item, id) => {
 	saves.forEach((i, n) => {
 		if (i.id === id) saves.splice(n, 1)
 	})
-
 	item.remove()
 	localStorage.setItem("saves", JSON.stringify(saves))
 }
 
 const activateSave = (item, id) => {
 	addSelectorInListItem(saveList, item, "active")
-	item.querySelector('.context-menu').classList.add('hide')
+
+	if (item.querySelector('.context-menu').classList.contains('hide')) {
+		item.querySelector('.context-menu').classList.add('hide')
+	}
 
 	const findedSave = saves.find((i) => i.id === id)
 
@@ -91,11 +93,11 @@ const createSaveForList = (save) => {
 		<span class="save__item-name" contenteditable="true">${name}</span>
 		<i title="Опції" class="save__item-opener context-menu__opener fas fa-ellipsis-v"></i>
 		<div class="save__context-menu context-menu hide">
-			<i class="fas fa-minus-circle context-menu__btn">
-				<span class="context-menu__btn-name">Видалити</span>
-			</i>
 			<i class="fas fa-check-circle context-menu__btn">
 				<span class="context-menu__btn-name">Активувати</span>
+			</i>
+			<i class="fas fa-minus-circle context-menu__btn">
+				<span class="context-menu__btn-name">Видалити</span>
 			</i>
 		</div>
 	`

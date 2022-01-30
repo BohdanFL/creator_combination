@@ -3,8 +3,6 @@ const addBtnToLi = (li) => {
 	let changeElemBtn = li.querySelector('.fas.fa-sync-alt')
 	let contextElemBtn = li.querySelector('.fas.fa-ellipsis-v')
 
-	// elementsList.childNodes.forEach((i, n) => li.index = n)
-	// console.log(deleteElemBtn)
 	deleteElemBtn.addEventListener('click', () => deletingElem(li))
 	changeElemBtn.addEventListener('click', () => changingElem(li))
 	contextElemBtn.addEventListener('click', () => openContextMenu(li))
@@ -19,10 +17,11 @@ const deletingElem = (li) => {
 	elems.forEach((i, n) => {
 		if (li.index === n) {
 			elems.splice(n, 1)
-			console.log(elems)
+
 		}
 		return
 	})
+
 	addSelectorInListItem(saveList, null, "active")
 	localStorage.setItem("elems", JSON.stringify(elems))
 }
@@ -82,12 +81,15 @@ const createLi = (text, pos, lastItem) => {
 		if (isJump) item.classList.add("jump")
 	}
 
-	if (elementsList.childNodes[1]) {
-		elemWidth = elementsList.childNodes[1].offsetWidth
-	} else if (elementsList.childNodes[0].textContent.trim()) {
+	// if (elementsList.childNodes[0]) {
+	// 	elemWidth = elementsList.childNodes[1].offsetWidth
+	// } else if (elementsList.childNodes[0].textContent.trim()) {
+	// 	elemWidth = elementsList.childNodes[0].offsetWidth
+	// } else {
+	// 	elemWidth = elementsList.childNodes[2].offsetWidth
+	// }
+	if (elementsList.childNodes[0]) {
 		elemWidth = elementsList.childNodes[0].offsetWidth
-	} else {
-		elemWidth = elementsList.childNodes[2].offsetWidth
 	}
 	return li
 }

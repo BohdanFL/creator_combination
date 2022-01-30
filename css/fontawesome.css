@@ -3,7 +3,8 @@
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
-.fas {
+.fas,
+.far {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	display: inline-block;
@@ -26,8 +27,31 @@
 }
 
 .fa-ellipsis-v:before {
-	content: "\f142"
+	content: "\f142";
 }
+
+.fa-square:before {
+	content: "\f0c8";
+}
+
+.fa-check-square:before {
+	content: "\f14a";
+}
+
+@font-face {
+	font-family: 'Font Awesome 5 Free';
+	font-style: normal;
+	font-weight: 400;
+	font-display: block;
+	src: url("../fonts/fa-regular-400.eot");
+	src: url("../fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-regular-400.woff2") format("woff2"), url("../fonts/fa-regular-400.woff") format("woff"), url("../fonts/fa-regular-400.ttf") format("truetype"), url("../fonts/fa-regular-400.svg#fontawesome") format("svg");
+}
+
+.far {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 400;
+}
+
 
 @font-face {
 	font-family: 'Font Awesome 5 Free';

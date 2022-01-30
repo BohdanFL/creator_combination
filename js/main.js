@@ -45,7 +45,7 @@ const changeAllList = () => {
 	addSelectorInListItem(saveList, null, "active")
 
 	elems = []
-	let jumpEnable = jumpEnableBtn.checked
+	let jumpEnable = randomJumpEnableBtn.checked
 	let repeatEnable = repeatElemBtn.checked
 
 	let arr = dataElems.e
@@ -116,6 +116,7 @@ const selectAndUnselect = (btn, action) => {
 
 readTextFile("data.json", function (data) {
 	dataElems = JSON.parse(data);
+	testElems = JSON.parse(data)
 
 	for (let i = 0; i < 11; i++) {
 		dataElems.e.splice(i, 11)
@@ -129,9 +130,7 @@ readTextFile("data.json", function (data) {
 	console.timeEnd()
 
 	randomBtn.addEventListener('click', addRandomElem);
-	customBtn.addEventListener('click', () => {
-		createTitle("У майбутньому...", 0, 1500)
-	});
+	chooseBtn.addEventListener('click', openChooseWindow);
 	saveBtn.addEventListener('click', savingList);
 	elementsDeleteAllBtn.addEventListener('click', (e) => {
 		checkResponsefromDelete(elementsList, elems, "elems")
@@ -154,9 +153,12 @@ readTextFile("data.json", function (data) {
 		}
 		countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
 	});
-	addClickForOptions(jumpEnableBtn, "jumpEnable");
+	addClickForOptions(randomJumpEnableBtn, "randomJumpEnable");
 	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable");
 	addClickForOptions(repeatElemBtn, "repeatEnable");
+
+	addClickForOptions(chooseJumpEnableBtn, "chooseJumpEnable");
+
 
 	repeatElemBtn.addEventListener('click', preCheckRepetions);
 	window.addEventListener("mousedown", closeContextMenu);

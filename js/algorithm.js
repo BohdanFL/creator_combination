@@ -95,7 +95,6 @@ const createNewDataElems = (numIterate = 1, elem, checkElems = dataElems.e, chan
 		newDataElemsE = [];
 		if (elemNums.length) {
 			elemNums.forEach(i => newDataElemsE.push(checkElems[i]))
-			console.log(elemNums, newDataElemsE)
 
 			if (elem) checkRepetition(numIterate, elem, checkElems).then(resolve)
 			return
@@ -192,7 +191,7 @@ const addRandomElem = () => {
 	const countValue = parseInt(countEnableBtn.value)
 
 	const repeatEnable = repeatElemBtn.checked
-	const jumpEnable = jumpEnableBtn.checked
+	const jumpEnable = randomJumpEnableBtn.checked
 
 	let arr = dataElems.e
 	const potentialItemCount = elemsLength + countValue
