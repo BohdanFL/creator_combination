@@ -1,10 +1,9 @@
-if (optionsInRandom) {
-	countEnableBtn.value = optionsInRandom.count
-	randomJumpEnableBtn.checked = optionsInRandom.randomJumpEnable
-	changeJumpEnableBtn.checked = optionsInRandom.changeJumpEnable
-	repeatElemBtn.checked = optionsInRandom.repeatEnable
-
-	randomJumpEnableBtn.checked = optionsInRandom.randomJumpEnable
+if (options) {
+	countEnableBtn.value = options.count
+	randomJumpEnableBtn.checked = options.randomJumpEnable
+	changeJumpEnableBtn.checked = options.changeJumpEnable
+	repeatElemBtn.checked = options.repeatEnable
+	chooseJumpEnableBtn.checked = options.chooseJumpEnable
 }
 
 const updateListOnMove = (e) => {

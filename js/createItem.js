@@ -48,7 +48,7 @@ const changingElem = (li) => {
 	}
 }
 
-const createLi = (text, pos, lastItem) => {
+const createLi = (text, pos) => {
 	const li = document.createElement('li')
 	text = text === '' ? random(dataElems.e) : text
 	li.classList.add('elements__item')
@@ -66,9 +66,11 @@ const createLi = (text, pos, lastItem) => {
 		</div>
 	</div>`
 	let isJump
+	let lastItem = elementsList.lastChild
+	console.log(lastItem)
 	if (pos) {
 		if (lastItem) {
-			lastItem.closest(".elements__item").insertAdjacentElement('beforebegin', li)
+			lastItem.insertAdjacentElement('beforebegin', li)
 		}
 	} else {
 		elementsList.append(li)

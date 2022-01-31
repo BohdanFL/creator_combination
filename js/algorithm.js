@@ -234,8 +234,8 @@ const addRandomElem = () => {
 		left: 0,
 		top: elementsList.scrollHeight
 	})
-	optionsInRandom.count = countEnableBtn.value
-	localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+	options.count = countEnableBtn.value
+	localStorage.setItem("options", JSON.stringify(options))
 }
 
 const preCheckRepetions = () => {

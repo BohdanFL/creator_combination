@@ -12,10 +12,12 @@ const addDarkenedBg = (duration) = () => {
 	return titleBg
 }
 
-const createTitle = (titleText, duration = 200, clearDuration = duration + 1000, createBg) => {
+const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg) => {
+	if (clearDuration) clearDuration += duration
 	if (document.querySelector(".popup")) {
 		document.querySelector(".popup").remove();
 	}
+
 	if (createBg) addDarkenedBg(duration)
 	const titleWrapper = document.createElement("div");
 	titleWrapper.classList.add("popup");
@@ -55,19 +57,19 @@ const createPrompt = (title, duration, clearDuration) => {
 	}
 }
 
-const clearStyle = () => {
+const clearStyle = (deleteBg = true) => {
 	let titleWrapper = document.querySelector(".popup")
 	let titleBg = document.querySelector(".dark-bg")
 
 	if (titleWrapper) {
 		titleWrapper.style.top = "-100px"
-		if (titleBg) titleBg.style.opacity = "0"
+		if (titleBg && deleteBg) titleBg.style.opacity = "0"
 		if (selectAll) selectAll.classList.add("hide")
 		if (unselectAll) unselectAll.classList.add("hide")
 		if (elementsList.classList.contains("elements__list-active")) elementsList.classList.remove("elements__list-active")
 		setTimeout(() => {
 			titleWrapper.remove()
-			if (titleBg) titleBg.remove()
+			if (titleBg && deleteBg) titleBg.remove()
 		}, 200)
 
 		elementsList.childNodes.forEach((i) => {

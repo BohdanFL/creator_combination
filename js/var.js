@@ -32,15 +32,13 @@ const unselectAll = document.querySelector(".unselect-all")
 let elems = JSON.parse(localStorage.getItem('elems')) || []
 let saves = JSON.parse(localStorage.getItem('saves')) || []
 
-const optionsInRandom = JSON.parse(localStorage.getItem('optionsInRandom')) || {
+const options = JSON.parse(localStorage.getItem('options')) || {
 	count: 1,
 	randomJumpEnable: false,
 	changeJumpEnable: false,
 	repeatEnable: false,
 	chooseJumpEnable: false
 }
-// const optionsInChoose = JSON.parse(localStorage.getItem('optionsInRandom')) || {
-// }
 const sortableOptions = {
 	draggable: 'li:not(.jump)',
 	delay: {

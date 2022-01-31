@@ -95,8 +95,8 @@ const checkResponsefromChange = () => {
 
 const addClickForOptions = (btn, value, event = "click", func) => {
 	btn.addEventListener(event, () => {
-		typeof func === "function" ? func() : optionsInRandom[value] = btn.checked
-		localStorage.setItem("optionsInRandom", JSON.stringify(optionsInRandom))
+		typeof func === "function" ? func() : options[value] = btn.checked
+		localStorage.setItem("options", JSON.stringify(options))
 	})
 }
 
@@ -151,7 +151,7 @@ readTextFile("data.json", function (data) {
 		if (countEnableBtn.value.length > 2) {
 			countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
 		}
-		countEnableBtn.value < 1 ? optionsInRandom.count = 1 : optionsInRandom.count = countEnableBtn.value
+		countEnableBtn.value < 1 ? options.count = 1 : options.count = countEnableBtn.value
 	});
 	addClickForOptions(randomJumpEnableBtn, "randomJumpEnable");
 	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable");

@@ -72,10 +72,9 @@
 	font-size: 20px;
 }
 
-.choose__sublist {}
+/* .choose__sublist {} */
 
-
-.choose__sublist li {}
+/* .choose__sublist li {} */
 
 .choose__btn-close {
 	position: fixed;

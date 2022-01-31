@@ -16,20 +16,45 @@ const createChoseArr = (list) => {
 
 		item.addEventListener("click", () => {
 			const itemText = item.textContent.trim() || false
-
-			if (btn.classList.contains("fa-square") && itemText) {
-				btn.className = "fas fa-check-square"
-				choseArr.push(itemText)
+			if (!chooseJumpEnableBtn.checked) {
+				if (btn.classList.contains("fa-square")) {
+					btn.className = "fas fa-check-square"
+					choseArr.push(itemText)
+				} else {
+					btn.className = "far fa-square"
+					choseArr.splice(choseArr.indexOf(itemText), 1)
+				}
 			} else {
-				btn.className = "far fa-square"
-				choseArr.splice(choseArr.indexOf(itemText), 1)
+				if (btn.classList.contains("fa-square")) {
+					choseArr.splice(0, choseArr.length)
+					// ` Optimization
+
+					listItems.forEach(i => {
+						const checkedBtn = i.querySelector('.fas.fa-check-square')
+						if (checkedBtn) {
+							checkedBtn.className = 'far fa-square'
+						}
+					})
+
+					btn.className = "fas fa-check-square"
+					choseArr.push(itemText)
+				} else {
+					choseArr.splice(0, choseArr.length)
+					btn.className = "far fa-square"
+				}
 			}
 		})
 	})
 	return choseArr
 }
 
+// if (!isJump) {
+// } else {
+// }
+
 const insertGroups = (groups, list) => {
+	let chooseElems = testElems.e
+	if (chooseJumpEnableBtn.checked) chooseElems = testElems.j
 	groups.forEach((obj) => {
 		let groupItems = ''
 		let range
@@ -43,7 +68,7 @@ const insertGroups = (groups, list) => {
 		range.forEach((i) => {
 			groupItems += `
 		<li class="choose__item">
-			${testElems.e[i]}
+			${chooseElems[i]}
 			<i class="far fa-square"></i>
 		</li>
 		`
@@ -127,35 +152,70 @@ const closeChooseWindow = () => {
 	if (doneBtn) doneBtn.remove()
 }
 
-const insertItemsInList = (choseArr) => {
+const checkResponsefromChoose = (text) => {
+	return new Promise(resolve => {
+		const modal = createPrompt(text, 200, false)
+
+		const checkClickforChoose = (e) => {
+			modal.confirmBtn.removeEventListener("click", checkClickforChoose)
+			resolve(true)
+		}
+
+		const checkEnterDownforChoose = (e) => {
+			window.removeEventListener("keydown", checkEnterDownforChoose)
+			if (e.key === "Enter" || e.keyCode === 13) resolve(true)
+		}
+
+		modal.confirmBtn.addEventListener("click", checkClickforChoose)
+		window.addEventListener("keydown", checkEnterDownforChoose)
+
+		modal.rejectBtn.addEventListener("click", () => {
+			clearStyle(false)
+			resolve(false)
+		})
+	})
+}
+
+async function insertItemsInList(choseArr) {
+	console.log(choseArr)
+	let lastElem = elementsList.lastChild
+	let isLastElemJump = false
+	let lastElemText
+	if (lastElem) {
+		lastElemText = lastElem.querySelector(".elements__item-text")
+		isLastElemJump = !!dataElems.j.find(i => i === lastElemText.textContent.trim())
+	}
+
+	let response = true
+	let popupText = "Успішно додано!"
+
 	if (!choseArr.length) {
 		createTitle("Нічого не вибрано", 200, 2000);
 		return
 	}
+	if (isLastElemJump && chooseJumpEnableBtn.checked) {
+		// console.log(isLastElemJump)
+		await checkResponsefromChoose("Ви готові здійснити заміну?")
+			.then(r => {
+				response = r
+			})
+			.catch(e => console.error(e))
 
-	choseArr.forEach(i => {
-		const li = document.createElement('li')
-		li.classList.add('elements__item')
-		li.innerHTML = `
-		<div class="elements__item-wrapper">
-			<span class="elements__item-text">${i}</span>  
-			<i title="Опції" class="elements__item-opener context-menu__opener fas fa-ellipsis-v"></i>
-			<div class="elements__context-menu context-menu hide">
-				<i class="fas fa-sync-alt context-menu__btn">
-					<span class="context-menu__btn-name">Змінити</span>
-				</i> 
-				<i class="fas fa-minus-circle context-menu__btn">
-					<span class="context-menu__btn-name">Видалити</span>
-				</i>
-			</div>
-		</div>`
-		elems.push(i)
-		elementsList.appendChild(li)
-	})
-	closeChooseWindow()
+		if (response) {
+			lastElemText.textContent = choseArr[0]
+			popupText = "Успішно замінено!"
+		}
+	} else {
+		choseArr.forEach(i => {
+			createLi(i, isLastElemJump)
+		})
+	}
+
+
+	if (response) closeChooseWindow()
 
 	localStorage.setItem("elems", JSON.stringify(elems))
-	createTitle("Успішно додано!", 200, 2000);
+	if (response) createTitle(popupText, 200, 2000);
 }
 
 const addCloseBtn = (duration) => {
@@ -178,11 +238,15 @@ const addDoneBtn = (choseArr, duration) => {
 }
 
 const openChooseWindow = (duration = 0) => {
-	addDarkenedBg(duration)
+	let groups = dataElems.groups.e
+	if (chooseJumpEnableBtn.checked) groups = dataElems.groups.j
+
+	const bg = addDarkenedBg(duration)
+	bg.style.zIndex = "11"
 	const {
 		wrapper,
 		choseArr
-	} = createChooseList(dataElems.groups, duration)
+	} = createChooseList(groups, duration)
 	addCloseBtn(duration)
 	addDoneBtn(choseArr, duration)
 }
