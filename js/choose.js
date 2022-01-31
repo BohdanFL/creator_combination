@@ -47,6 +47,22 @@ const createChoseArr = (list) => {
 	return choseArr
 }
 
+const toogleOpenSublist = (e) => {
+	e.preventDefault()
+
+	sublists.forEach(i => {
+		if (i !== sublist) {
+			i.open = false
+		}
+	})
+
+	if (!sublist.open) {
+		sublist.open = true
+	} else {
+		sublist.open = false
+	}
+}
+
 const insertGroups = (groups, list) => {
 	let chooseElems = testElems.e
 	if (chooseJumpEnableBtn.checked) chooseElems = testElems.j
@@ -77,6 +93,11 @@ const insertGroups = (groups, list) => {
 			</ol>
 		</details>
 	`
+	})
+	const sublists = list.querySelectorAll(".choose__sublist-wrapper")
+
+	sublists.forEach(sublist => {
+		sublist.addEventListener("click", toogleOpenSublist)
 	})
 }
 
