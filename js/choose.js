@@ -28,7 +28,6 @@ const createChoseArr = (list) => {
 				if (btn.classList.contains("fa-square")) {
 					choseArr.splice(0, choseArr.length)
 					// ` Optimization
-
 					listItems.forEach(i => {
 						const checkedBtn = i.querySelector('.fas.fa-check-square')
 						if (checkedBtn) {
@@ -47,10 +46,6 @@ const createChoseArr = (list) => {
 	})
 	return choseArr
 }
-
-// if (!isJump) {
-// } else {
-// }
 
 const insertGroups = (groups, list) => {
 	let chooseElems = testElems.e
@@ -85,16 +80,23 @@ const insertGroups = (groups, list) => {
 	})
 }
 
-const searchInList = (input, sublists, list) => {
+const searchInList = (input, sublists, list, choseArr) => {
 	let searchText = input.value.toLowerCase().trim()
+	console.log(choseArr)
 	if (input.value.length) {
 		sublists.forEach(list => {
 			list.closest(".choose__sublist-wrapper").open = true
 
 			let items = list.querySelectorAll(".choose__item")
 			items.forEach(item => {
+				const btn = item.querySelector('i')
+				// console.log(btn)
 				let text = item.textContent.toLowerCase().trim()
 				if (!text.startsWith(searchText)) {
+					btn.className = "far fa-square"
+					if (choseArr.indexOf(text) >= 0) {
+						choseArr.splice(choseArr.indexOf(text), 1)
+					}
 					item.style.display = "none"
 				} else {
 					item.style = ""
@@ -128,11 +130,14 @@ const createChooseList = (groups, duration) => {
 
 	insertGroups(groups, list)
 
+	const choseArr = createChoseArr(list)
+
 	const sublists = list.querySelectorAll(".choose__sublist")
 	const searchInput = wrapper.querySelector('#search')
-	searchInput.addEventListener("input", () => searchInList(searchInput, sublists, list))
-
-	const choseArr = createChoseArr(list)
+	searchInput.addEventListener("input", () => {
+		searchInList(searchInput, sublists, list, choseArr)
+		// console.log(choseArr)
+	})
 
 	setTimeout(() => wrapper.style.opacity = "1", duration)
 	return {

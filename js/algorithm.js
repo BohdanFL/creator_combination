@@ -57,7 +57,9 @@ const createElemNums = (arr) => {
 				// console.log(itemNameText)
 				repeat++
 				if (!repeat > 0) {
-					elemNums.splice(elemNums.indexOf(n), 1)
+					if (elemNums.indexOf(n) >= 0) {
+						elemNums.splice(elemNums.indexOf(n), 1)
+					}
 				}
 			}
 		});

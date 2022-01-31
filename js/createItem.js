@@ -67,7 +67,6 @@ const createLi = (text, pos) => {
 	</div>`
 	let isJump
 	let lastItem = elementsList.lastChild
-	console.log(lastItem)
 	if (pos) {
 		if (lastItem) {
 			lastItem.insertAdjacentElement('beforebegin', li)
