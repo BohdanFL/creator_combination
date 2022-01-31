@@ -82,7 +82,7 @@ const insertGroups = (groups, list) => {
 
 const searchInList = (input, sublists, list, choseArr) => {
 	let searchText = input.value.toLowerCase().trim()
-	console.log(choseArr)
+
 	if (input.value.length) {
 		sublists.forEach(list => {
 			list.closest(".choose__sublist-wrapper").open = true
@@ -151,7 +151,10 @@ const closeChooseWindow = () => {
 		wrapper = document.querySelector(".choose__wrapper"),
 		closeBtn = document.querySelector(".choose__btn-close"),
 		doneBtn = document.querySelector(".choose__btn-apply")
-	if (bg) bg.remove()
+	if (bg) {
+		bg.remove()
+		document.body.style = ''
+	}
 	if (wrapper) wrapper.remove()
 	if (closeBtn) closeBtn.remove()
 	if (doneBtn) doneBtn.remove()
@@ -182,7 +185,6 @@ const checkResponsefromChoose = (text) => {
 }
 
 async function insertItemsInList(choseArr) {
-	console.log(choseArr)
 	let lastElem = elementsList.lastChild
 	let isLastElemJump = false
 	let lastElemText
