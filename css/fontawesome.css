@@ -34,8 +34,12 @@
 	content: "\f0c8";
 }
 
-.fa-check-square:before {
-	content: "\f14a";
+.fa-circle:before {
+	content: "\f111";
+}
+
+.fa-dot-circle:before {
+	content: "\f192";
 }
 
 @font-face {

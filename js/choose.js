@@ -14,12 +14,12 @@ const createChoseArr = (list, input) => {
 	const elemsLength = elementsList.childElementCount
 	const limit = 99 - elemsLength
 	listItems.forEach((item, n) => {
-		const btn = item.querySelector('.far.fa-square')
 		item.addEventListener("click", () => {
 			const itemText = item.textContent.trim() || false
 			let checkedElems = list.querySelectorAll('.fas.fa-square')
 			let checkedLength = checkedElems.length
 			if (!chooseJumpEnableBtn.checked) {
+				const btn = item.querySelector('i')
 				if (btn.classList.contains("far")) {
 					if (checkedLength > limit) {
 						createTitle("Досягнутий ліміт елементів (99)", 0, 2000)
@@ -57,20 +57,21 @@ const createChoseArr = (list, input) => {
 					})
 				}
 			} else {
-				if (btn.classList.contains("fa-square")) {
+				const btn = item.querySelector('i')
+				if (btn.classList.contains("fa-circle")) {
 					choseArr.splice(0, choseArr.length)
 					// ` Optimization
 					listItems.forEach(i => {
-						const checkedBtn = i.querySelector('.fas.fa-check-square')
+						const checkedBtn = i.querySelector('.fas.fa-check-circle')
 						if (checkedBtn) {
-							checkedBtn.className = "far fa-square"
+							checkedBtn.className = "far fa-circle"
 						}
 					})
 
-					btn.className = "fas fa-check-square"
+					btn.className = "fas fa-check-circle"
 					choseArr.push(itemText)
 				} else {
-					checkedBtn.className = "far fa-square"
+					btn.className = "far fa-circle"
 					choseArr.splice(0, choseArr.length)
 				}
 			}
@@ -107,15 +108,26 @@ const insertGroups = (groups, list) => {
 			const group = obj[name];
 			range = createRangeGroup(group[0])
 		}
-
-		range.forEach((i) => {
-			groupItems += `
+		if (!chooseJumpEnableBtn.checked) {
+			range.forEach((i) => {
+				groupItems += `
 		<li class="choose__item">
 			${chooseElems[i]}
 			<i class="far fa-square"></i>
 		</li>
 		`
-		})
+			})
+		} else {
+			range.forEach((i) => {
+				groupItems += `
+		<li class="choose__item">
+			${chooseElems[i]}
+			<i class="far fa-circle"></i>
+		</li>
+		`
+			})
+		}
+
 
 		list.innerHTML += `
 		<details class="choose__sublist-wrapper">
