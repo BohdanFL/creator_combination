@@ -38,22 +38,22 @@ const createChoseArr = (list) => {
 					})
 				}
 			} else {
-				if (btn.classList.contains("far")) {
+				// console.log(btn.classList.contains("fa-square"))
+				if (btn.classList.contains("fa-square")) {
 					choseArr.splice(0, choseArr.length)
 					// ` Optimization
 					listItems.forEach(i => {
-						const checkedBtn = i.querySelector('.fas.fa-square')
+						const checkedBtn = i.querySelector('.fas.fa-check-square')
 						if (checkedBtn) {
-							checkedBtn.classList.replace("fas", "far")
+							// checkedBtn.classList.replace("fas", "far")
+							checkedBtn.className = "far fa-square"
 						}
 					})
 
-					btn.classList.replace("far", "fas")
-					btn.setAttribute("data-number", 1)
-
+					btn.className = "fas fa-check-square"
 					choseArr.push(itemText)
 				} else {
-					btn.classList.replace("fas", "far")
+					checkedBtn.className = "far fa-square"
 					choseArr.splice(0, choseArr.length)
 				}
 			}
@@ -260,7 +260,7 @@ async function insertItemsInList(choseArr) {
 
 		if (response) {
 			lastElemText.textContent = choseArr[0]
-			elems.push(choseArr[0])
+			elems[elems.length - 1] = choseArr[0]
 			popupText = "Успішно замінено!"
 		}
 	} else {
