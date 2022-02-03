@@ -65,7 +65,6 @@ const createLi = (text, pos) => {
 			</i>
 		</div>
 	</div>`
-	let isJump
 	let lastItem = elementsList.lastChild
 	if (pos) {
 		if (lastItem) {
@@ -76,9 +75,13 @@ const createLi = (text, pos) => {
 	}
 	li.index = elementsList.childNodes.length - 1
 	addBtnToLi(li)
+
 	if (elementsList.childNodes.length === elems.length && dataElems.j) {
 		const item = elementsList.lastChild
-		isJump = !!dataElems.j.find(i => i === item.textContent.trim())
+		const itemText = item.querySelector(".elements__item-text")
+
+		let isJump = !!dataElems.j.find(i => i === itemText.textContent.trim())
+
 		if (isJump) item.classList.add("jump")
 	}
 

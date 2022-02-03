@@ -8,10 +8,11 @@ const createRangeGroup = (range) => {
 	return arr
 }
 
-const createChoseArr = (list) => {
+const createChoseArr = (list, input) => {
 	const choseArr = []
 	const listItems = list.querySelectorAll('.choose__item')
-
+	const elemsLength = elementsList.childElementCount
+	const limit = 99 - elemsLength
 	listItems.forEach((item, n) => {
 		const btn = item.querySelector('.far.fa-square')
 		item.addEventListener("click", () => {
@@ -20,13 +21,31 @@ const createChoseArr = (list) => {
 			let checkedLength = checkedElems.length
 			if (!chooseJumpEnableBtn.checked) {
 				if (btn.classList.contains("far")) {
-
+					if (checkedLength > limit) {
+						createTitle("Досягнутий ліміт елементів (99)", 0, 2000)
+						return
+					}
 					btn.classList.replace("far", "fas")
 					btn.setAttribute("data-number", checkedLength + 1)
 
 					choseArr.push(itemText)
 				} else {
 					btn.classList.replace("fas", "far")
+					// here
+					let searchedText = input.value.toLowerCase().trim()
+					if (input.value && !itemText.startsWith(searchedText)) {
+						item.style.display = "none"
+					}
+
+					const anySearched = []
+					const sublist = item.closest(".choose__sublist-wrapper")
+					const items = sublist.querySelectorAll(".choose__item")
+					items.forEach(i => anySearched.push(i.style.display))
+
+					let isFindedDisplay = anySearched.findIndex(i => i === '')
+					if (isFindedDisplay < 0) {
+						sublist.style.display = 'none'
+					}
 
 					choseArr.splice(choseArr.indexOf(itemText), 1)
 					checkedElems.forEach(i => {
@@ -38,14 +57,12 @@ const createChoseArr = (list) => {
 					})
 				}
 			} else {
-				// console.log(btn.classList.contains("fa-square"))
 				if (btn.classList.contains("fa-square")) {
 					choseArr.splice(0, choseArr.length)
 					// ` Optimization
 					listItems.forEach(i => {
 						const checkedBtn = i.querySelector('.fas.fa-check-square')
 						if (checkedBtn) {
-							// checkedBtn.classList.replace("fas", "far")
 							checkedBtn.className = "far fa-square"
 						}
 					})
@@ -126,32 +143,25 @@ const searchInList = (input, sublists, list, choseArr) => {
 			sublistWrapper.open = true
 			let anySearched = []
 
-
 			let items = list.querySelectorAll(".choose__item")
 			items.forEach(item => {
 				const btn = item.querySelector('i')
 				let text = item.textContent.toLowerCase().trim()
 				if (!text.startsWith(searchText)) {
-					btn.className = "far fa-square"
-					if (choseArr.indexOf(text) >= 0) {
-						choseArr.splice(choseArr.indexOf(text), 1)
+					if (btn.className !== "fas fa-square") {
+						item.style.display = "none"
 					}
-					item.style.display = "none"
-				} else {
-					item.style = ""
-				}
+				} else item.style = ""
 
 				anySearched.push(item.style.display)
 			})
-			console.log(anySearched)
+
 			let isFindedDisplay = anySearched.findIndex(i => i === '')
-			console.log(isFindedDisplay)
+
 			if (isFindedDisplay < 0) {
-				console.log(sublistWrapper)
 				sublistWrapper.style.display = 'none'
-			} else {
-				sublistWrapper.style = ''
-			}
+			} else sublistWrapper.style = ''
+
 		})
 	} else {
 		const items = list.querySelectorAll(".choose__item")
@@ -181,10 +191,10 @@ const createChooseList = (groups, duration) => {
 
 	insertGroups(groups, list)
 
-	const choseArr = createChoseArr(list)
-
 	const sublists = list.querySelectorAll(".choose__sublist")
 	const searchInput = wrapper.querySelector('#search')
+	const choseArr = createChoseArr(list, searchInput)
+
 	searchInput.addEventListener("input", () => {
 		searchInList(searchInput, sublists, list, choseArr)
 	})
@@ -265,8 +275,9 @@ async function insertItemsInList(choseArr) {
 		}
 	} else {
 		choseArr.forEach(i => {
-			createLi(i, isLastElemJump)
+			console.log(isLastElemJump)
 			elems.push(i)
+			createLi(i, isLastElemJump)
 		})
 	}
 
