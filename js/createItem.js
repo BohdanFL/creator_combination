@@ -82,13 +82,6 @@ const createLi = (text, pos) => {
 		if (isJump) item.classList.add("jump")
 	}
 
-	// if (elementsList.childNodes[0]) {
-	// 	elemWidth = elementsList.childNodes[1].offsetWidth
-	// } else if (elementsList.childNodes[0].textContent.trim()) {
-	// 	elemWidth = elementsList.childNodes[0].offsetWidth
-	// } else {
-	// 	elemWidth = elementsList.childNodes[2].offsetWidth
-	// }
 	if (elementsList.childNodes[0]) {
 		elemWidth = elementsList.childNodes[0].offsetWidth
 	}

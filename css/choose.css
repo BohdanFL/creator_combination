@@ -70,6 +70,7 @@
 
 .choose__item i {
 	font-size: 22px;
+	position: relative;
 }
 
 /* .choose__sublist {} */
@@ -96,6 +97,18 @@
 	opacity: 0;
 	transition: opacity .3s;
 	width: 200px;
+}
+
+i.fas.fa-square:after {
+	font-family: Arial;
+	font-weight: 700;
+	position: absolute;
+	font-size: 16px;
+	content: attr(data-number);
+	top: 50%;
+	left: 50%;
+	color: var(--submain-bg);
+	transform: translate(-50%, -50%);
 }
 
 @media (max-width: 769px) {

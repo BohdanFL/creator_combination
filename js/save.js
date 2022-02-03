@@ -112,6 +112,7 @@ const createSaveForList = (save) => {
 
 const savingList = () => {
 	const saveItemsLimit = 50
+	console.log(saveItemsLimit)
 	if (!(saveList.children.length < saveItemsLimit)) {
 		createTitle(`Ви досягли ліміту збережень (${saveItemsLimit})`, 200, 2000)
 		return

@@ -11,35 +11,50 @@ const createRangeGroup = (range) => {
 const createChoseArr = (list) => {
 	const choseArr = []
 	const listItems = list.querySelectorAll('.choose__item')
-	listItems.forEach(item => {
-		const btn = item.querySelector('.far.fa-square')
 
+	listItems.forEach((item, n) => {
+		const btn = item.querySelector('.far.fa-square')
 		item.addEventListener("click", () => {
 			const itemText = item.textContent.trim() || false
+			let checkedElems = list.querySelectorAll('.fas.fa-square')
+			let checkedLength = checkedElems.length
 			if (!chooseJumpEnableBtn.checked) {
-				if (btn.classList.contains("fa-square")) {
-					btn.className = "fas fa-check-square"
+				if (btn.classList.contains("far")) {
+
+					btn.classList.replace("far", "fas")
+					btn.setAttribute("data-number", checkedLength + 1)
+
 					choseArr.push(itemText)
 				} else {
-					btn.className = "far fa-square"
+					btn.classList.replace("fas", "far")
+
 					choseArr.splice(choseArr.indexOf(itemText), 1)
+					checkedElems.forEach(i => {
+						const checkedText = i.parentNode.textContent.trim()
+						const index = choseArr.indexOf(checkedText)
+						if (index >= 0) {
+							i.setAttribute("data-number", index + 1)
+						}
+					})
 				}
 			} else {
-				if (btn.classList.contains("fa-square")) {
+				if (btn.classList.contains("far")) {
 					choseArr.splice(0, choseArr.length)
 					// ` Optimization
 					listItems.forEach(i => {
-						const checkedBtn = i.querySelector('.fas.fa-check-square')
+						const checkedBtn = i.querySelector('.fas.fa-square')
 						if (checkedBtn) {
-							checkedBtn.className = 'far fa-square'
+							checkedBtn.classList.replace("fas", "far")
 						}
 					})
 
-					btn.className = "fas fa-check-square"
+					btn.classList.replace("far", "fas")
+					btn.setAttribute("data-number", 1)
+
 					choseArr.push(itemText)
 				} else {
+					btn.classList.replace("fas", "far")
 					choseArr.splice(0, choseArr.length)
-					btn.className = "far fa-square"
 				}
 			}
 		})
@@ -47,7 +62,7 @@ const createChoseArr = (list) => {
 	return choseArr
 }
 
-const toogleOpenSublist = (e) => {
+const toogleOpenSublist = (e, sublists, sublist, summary) => {
 	e.preventDefault()
 
 	sublists.forEach(i => {
@@ -97,7 +112,8 @@ const insertGroups = (groups, list) => {
 	const sublists = list.querySelectorAll(".choose__sublist-wrapper")
 
 	sublists.forEach(sublist => {
-		sublist.addEventListener("click", toogleOpenSublist)
+		const summary = sublist.querySelector("summary")
+		summary.addEventListener("click", (e) => toogleOpenSublist(e, sublists, sublist, summary))
 	})
 }
 
@@ -106,12 +122,14 @@ const searchInList = (input, sublists, list, choseArr) => {
 
 	if (input.value.length) {
 		sublists.forEach(list => {
-			list.closest(".choose__sublist-wrapper").open = true
+			let sublistWrapper = list.closest(".choose__sublist-wrapper")
+			sublistWrapper.open = true
+			let anySearched = []
+
 
 			let items = list.querySelectorAll(".choose__item")
 			items.forEach(item => {
 				const btn = item.querySelector('i')
-				// console.log(btn)
 				let text = item.textContent.toLowerCase().trim()
 				if (!text.startsWith(searchText)) {
 					btn.className = "far fa-square"
@@ -122,7 +140,18 @@ const searchInList = (input, sublists, list, choseArr) => {
 				} else {
 					item.style = ""
 				}
+
+				anySearched.push(item.style.display)
 			})
+			console.log(anySearched)
+			let isFindedDisplay = anySearched.findIndex(i => i === '')
+			console.log(isFindedDisplay)
+			if (isFindedDisplay < 0) {
+				console.log(sublistWrapper)
+				sublistWrapper.style.display = 'none'
+			} else {
+				sublistWrapper.style = ''
+			}
 		})
 	} else {
 		const items = list.querySelectorAll(".choose__item")
@@ -131,6 +160,7 @@ const searchInList = (input, sublists, list, choseArr) => {
 		})
 		sublists.forEach(list => {
 			list.closest(".choose__sublist-wrapper").open = false
+			list.closest(".choose__sublist-wrapper").style = ''
 		})
 	}
 }
@@ -157,7 +187,6 @@ const createChooseList = (groups, duration) => {
 	const searchInput = wrapper.querySelector('#search')
 	searchInput.addEventListener("input", () => {
 		searchInList(searchInput, sublists, list, choseArr)
-		// console.log(choseArr)
 	})
 
 	setTimeout(() => wrapper.style.opacity = "1", duration)
@@ -231,11 +260,13 @@ async function insertItemsInList(choseArr) {
 
 		if (response) {
 			lastElemText.textContent = choseArr[0]
+			elems.push(choseArr[0])
 			popupText = "Успішно замінено!"
 		}
 	} else {
 		choseArr.forEach(i => {
 			createLi(i, isLastElemJump)
+			elems.push(i)
 		})
 	}
 
