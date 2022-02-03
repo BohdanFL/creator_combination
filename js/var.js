@@ -17,14 +17,13 @@ const changeAllBtn = document.querySelector('.elements__menu-item.change-all')
 
 const saveDeleteAllBtn = document.querySelector('.save__menu-item.delete-all')
 
-const enableOptionsBtn = document.querySelector('#enable')
-
 const countEnableBtn = document.querySelector(".random__more #count")
 const randomJumpEnableBtn = document.querySelector('#random-jump')
 const changeJumpEnableBtn = document.querySelector('.random #change-jump')
 const repeatElemBtn = document.querySelector('.random #repeat-elem')
 
 const chooseJumpEnableBtn = document.querySelector('#choose-jump')
+const uniqueEnableBtn = document.querySelector('#unique')
 
 const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
@@ -37,7 +36,8 @@ const options = JSON.parse(localStorage.getItem('options')) || {
 	randomJumpEnable: false,
 	changeJumpEnable: false,
 	repeatEnable: false,
-	chooseJumpEnable: false
+	chooseJumpEnable: false,
+	uniqueEnable: false
 }
 const sortableOptions = {
 	draggable: 'li:not(.jump)',

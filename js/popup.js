@@ -1,8 +1,7 @@
 const addDarkenedBg = (duration) = () => {
 
 	if (document.querySelector(".dark-bg")) {
-		document.querySelector(".dark-bg").remove();
-		document.body.style = ''
+		return
 	}
 
 	let titleBg = document.createElement("div");
@@ -17,7 +16,7 @@ const addDarkenedBg = (duration) = () => {
 const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg) => {
 	if (clearDuration) clearDuration += duration
 	if (document.querySelector(".popup")) {
-		document.querySelector(".popup").remove();
+		return
 	}
 
 	if (createBg) addDarkenedBg(duration)

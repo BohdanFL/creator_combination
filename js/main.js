@@ -158,6 +158,8 @@ readTextFile("data.json", function (data) {
 	addClickForOptions(repeatElemBtn, "repeatEnable");
 
 	addClickForOptions(chooseJumpEnableBtn, "chooseJumpEnable");
+	addClickForOptions(uniqueEnableBtn, "uniqueEnable");
+
 
 
 	repeatElemBtn.addEventListener('click', preCheckRepetions);

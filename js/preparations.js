@@ -4,6 +4,7 @@ if (options) {
 	changeJumpEnableBtn.checked = options.changeJumpEnable
 	repeatElemBtn.checked = options.repeatEnable
 	chooseJumpEnableBtn.checked = options.chooseJumpEnable
+	uniqueEnableBtn.checked = options.uniqueEnable
 }
 
 const updateListOnMove = (e) => {

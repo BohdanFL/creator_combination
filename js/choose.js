@@ -108,23 +108,38 @@ const insertGroups = (groups, list) => {
 			const group = obj[name];
 			range = createRangeGroup(group[0])
 		}
+
+		if (uniqueEnableBtn) {
+			let uniqueElems = elems.filter(function (item, pos, self) {
+				return self.indexOf(item) == pos;
+			})
+			uniqueElems.forEach(elem => {
+				range.forEach((i, n) => {
+					if (elem === chooseElems[i]) {
+						range.splice(n, 1)
+					}
+				})
+			})
+		}
+
+
 		if (!chooseJumpEnableBtn.checked) {
 			range.forEach((i) => {
 				groupItems += `
-		<li class="choose__item">
-			${chooseElems[i]}
-			<i class="far fa-square"></i>
-		</li>
-		`
+					<li class="choose__item">
+						${chooseElems[i]}
+						<i class="far fa-square"></i>
+					</li>
+					`
 			})
 		} else {
 			range.forEach((i) => {
 				groupItems += `
-		<li class="choose__item">
-			${chooseElems[i]}
-			<i class="far fa-circle"></i>
-		</li>
-		`
+					<li class="choose__item">
+						${chooseElems[i]}
+						<i class="far fa-circle"></i>
+					</li>
+					`
 			})
 		}
 
