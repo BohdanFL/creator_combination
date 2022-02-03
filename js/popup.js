@@ -13,18 +13,19 @@ const addDarkenedBg = (duration) = () => {
 	return titleBg
 }
 
-const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg) => {
+const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg, fromPrompt = false) => {
 	if (clearDuration) clearDuration += duration
-	if (document.querySelector(".popup")) {
+	if (document.querySelector(".popup") && !fromPrompt) {
 		return
+	} else if (document.querySelector(".popup")) {
+		document.querySelector(".popup").remove()
 	}
 
-	if (createBg) addDarkenedBg(duration)
 	const titleWrapper = document.createElement("div");
 	titleWrapper.classList.add("popup");
 	titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`;
-
 	document.body.appendChild(titleWrapper);
+	if (createBg) addDarkenedBg(duration)
 
 	setTimeout(() => {
 		if (window.innerWidth <= 400) {
@@ -44,7 +45,7 @@ const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg) 
 };
 
 const createPrompt = (title, duration, clearDuration) => {
-	const wrapper = createTitle(title, duration, clearDuration)
+	const wrapper = createTitle(title, duration, clearDuration, false, true)
 	wrapper.innerHTML += `
 	<div class="popup__btns">
 		<button class="popup__btn btn" id="prompt-confirm">ОК</button>

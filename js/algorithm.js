@@ -161,11 +161,30 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 }
 
 const setLimit = (elemsLength, repeatEnable, jumpEnable, arr, arrLength, potentialItemCount) => {
+
+}
+
+const addRandomElem = () => {
+	const elemsLength = elementsList.children.length
+	const countValue = parseInt(countEnableBtn.value)
+
+	const repeatEnable = repeatElemBtn.checked
+	const jumpEnable = randomJumpEnableBtn.checked
 	const sumElem = elemsLength + parseInt(countEnableBtn.value)
+
+	let arr = dataElems.e
+	const potentialItemCount = elemsLength + countValue
+	let arrLength = arr.length
+
+	const lastItem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
+	const isLastJump = !!dataElems.j.find(i => lastItem ? i === lastItem.textContent : false)
+	// Деактивовує активований сейв
+	addSelectorInListItem(saveList, null, "active")
 
 	if (!repeatEnable) {
 		if (elemsLength >= 99) {
 			createTitle('Ви досягли ліміту елементів (99)', 200, 3000)
+			return
 		} else {
 			if (countEnableBtn.value > 99 || sumElem > 99) {
 				createTitle('Дія неможлива, ліміт елементів (99)', 200, 3000)
@@ -186,26 +205,6 @@ const setLimit = (elemsLength, repeatEnable, jumpEnable, arr, arrLength, potenti
 			countEnableBtn.value = (arr.length - elemsLength) <= 0 ? 1 : arrLength - elemsLength
 		}
 	}
-}
-
-const addRandomElem = () => {
-	const elemsLength = elementsList.children.length
-	const countValue = parseInt(countEnableBtn.value)
-
-	const repeatEnable = repeatElemBtn.checked
-	const jumpEnable = randomJumpEnableBtn.checked
-
-	let arr = dataElems.e
-	const potentialItemCount = elemsLength + countValue
-	let arrLength = arr.length
-
-	const lastItem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
-	const isLastJump = !!dataElems.j.find(i => lastItem ? i === lastItem.textContent : false)
-	// Деактивовує активований сейв
-	addSelectorInListItem(saveList, null, "active")
-
-	// Встановлює ліміт елементів
-	setLimit(elemsLength, repeatEnable, jumpEnable, arr, arrLength, potentialItemCount)
 
 	createElemNums(arr)
 	for (let i = 0; i < countValue; i++) {
