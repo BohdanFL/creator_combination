@@ -132,15 +132,15 @@ const setTheme = (themeValue, once = false) => {
 	root.style.setProperty('--item-bg', btnFontAndBorder + "1a")
 }
 
-let themeValue = localStorage.getItem("active-theme") || "standart"
+// let themeValue = localStorage.getItem("active-theme") || "standart"
 
-setTheme(themeValue, true)
+setTheme("blue", true)
 
-themesBtns.forEach(item => {
-	item.addEventListener("change", () => {
-		themeValue = item.getAttribute("theme")
-		setTheme(themeValue)
+// themesBtns.forEach(item => {
+// 	item.addEventListener("change", () => {
+// 		themeValue = item.getAttribute("theme")
+// 		setTheme(themeValue)
 
-		localStorage.setItem("active-theme", themeValue)
-	})
-})
+// 		localStorage.setItem("active-theme", themeValue)
+// 	})
+// })

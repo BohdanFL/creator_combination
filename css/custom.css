@@ -10,7 +10,7 @@
 	display: flex;
 	flex-direction: column;
 	text-align: left;
-	margin: 0 5px;
+	margin: 0px 8px 5px;
 	font-weight: 400;
 	letter-spacing: .3px;
 }
@@ -34,7 +34,7 @@
 .choose__more .more__wrapper label input#count {
 	height: 22px;
 	width: 22px;
-	background-color: var(--input-bg);
+	background-color: var(--btn-bg);
 	border: solid var(--submain-bg) 1px;
 }
 
@@ -61,6 +61,7 @@
 	text-align: center;
 	-moz-appearance: textfield;
 	outline: none;
+	color: var(--submain-bg);
 }
 
 .random__more .more__wrapper label input#count:disabled,
@@ -97,7 +98,7 @@
 	top: 0px;
 	width: 8px;
 	height: 16px;
-	border: solid var(--check-sign-color);
+	border: solid var(--btn-bg);
 	border-width: 0 3px 3px 0;
 	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);

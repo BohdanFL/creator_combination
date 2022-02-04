@@ -11,7 +11,12 @@
 	z-index: 1;
 }
 
-.header img {
+.header .logo {
 	filter: hue-rotate(205deg) brightness(1.5) saturate(0.6);
 	opacity: .5;
+}
+
+.header i {
+	font-size: 1.4em;
+	margin-left: 10px;
 }

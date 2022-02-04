@@ -98,12 +98,14 @@
 
 i.fas.fa-square:after {
 	position: absolute;
-	font-size: 16px;
+	font-size: 14px;
 	content: attr(data-number);
 	top: 50%;
 	left: 50%;
 	color: var(--submain-bg);
 	transform: translate(-50%, -50%);
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
 }
 
 @media (max-width: 769px) {
