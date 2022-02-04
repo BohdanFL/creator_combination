@@ -1,0 +1,17 @@
+.header {
+	position: sticky;
+	left: 0;
+	top: 0;
+	background-color: var(--submain-bg);
+	padding: 15px 5vw;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: black 0px -10px 25px 2px;
+	z-index: 1;
+}
+
+.header img {
+	filter: hue-rotate(205deg) brightness(1.5) saturate(0.6);
+	opacity: .5;
+}
