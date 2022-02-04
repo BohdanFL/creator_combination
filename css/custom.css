@@ -11,14 +11,8 @@
 	flex-direction: column;
 	text-align: left;
 	margin: 0 5px;
-}
-
-@media (max-width: 460px) {
-
-	.random__more .more__wrapper,
-	.choose__more .more__wrapper {
-		font-size: 14px;
-	}
+	font-weight: 400;
+	letter-spacing: .3px;
 }
 
 .random__more .more__wrapper *,
@@ -114,4 +108,13 @@
 .choose__simple-btn {
 	padding: 0 30px;
 	margin-bottom: 10px;
+}
+
+@media (max-width: 460px) {
+
+	.random__more .more__wrapper,
+	.choose__more .more__wrapper {
+		font-size: 14px;
+		font-weight: 500;
+	}
 }

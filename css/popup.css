@@ -8,10 +8,9 @@
 	padding: 10px 20px;
 	max-width: 360px;
 	text-align: center;
-	font-weight: bold;
-	line-height: 30px;
+	line-height: 24px;
 	font-size: 20px;
-	border-radius: 30px;
+	border-radius: 50px;
 	background-color: var(--popup-and-title-bg);
 	box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
 	transition: top 0.4s;
@@ -43,22 +42,18 @@
 	padding: 5px;
 }
 
-@media (max-width: 400px) {
-
-	.popup__title,
-	.popup__subtitle {
-		line-height: normal;
-	}
-}
-
 .popup__btns {
 	display: inline-block;
 }
 
 @media (max-width: 400px) {
+
+	/* .popup__title,
+	.popup__subtitle {
+		line-height: 24px;
+	} */
+
 	.popup {
 		margin: 0 5vw;
-		padding: 3px 5px 10px;
-		border-radius: 20px;
 	}
 }

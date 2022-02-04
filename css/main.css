@@ -11,6 +11,8 @@
 	--item-bg: #fff94f1a;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
 *,
 *::after,
 *::before {
@@ -45,7 +47,15 @@ html {
 
 body {
 	background-color: var(--main-bg);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+}
+
+input,
+button,
+textarea {
+	font-family: inherit;
+	font-weight: inherit;
 }
 
 summary {
@@ -83,7 +93,6 @@ textarea:disabled {
 	line-height: 30px;
 	padding: 0 15px;
 	text-transform: uppercase;
-	font-weight: bold;
 	cursor: pointer;
 	transition: background-color 0.3s;
 }
@@ -92,6 +101,7 @@ textarea:disabled {
 	padding: 0 10px;
 	line-height: 20px;
 	font-size: 10px;
+	letter-spacing: 0.4px;
 }
 
 .btn:hover {
@@ -162,6 +172,7 @@ textarea:disabled {
 .inner>div>.btn {
 	width: 100%;
 	border-radius: 20px 20px 0 0;
+	box-shadow: black 0px 6px 20px -10px;
 }
 
 @media (max-width: 1000px) {
@@ -246,7 +257,6 @@ textarea:disabled {
 
 .list li {
 	position: relative;
-	font-weight: 700;
 	cursor: pointer;
 	padding: 7px 7px 7px 0;
 	border-bottom: 1px solid;
@@ -264,12 +274,11 @@ textarea:disabled {
 	content: 'Пусто';
 	position: absolute;
 	letter-spacing: 2.5px;
-	font-weight: 700;
 	font-size: 14px;
 	opacity: .4;
 	width: 100%;
 	text-align: center;
-	display: none;
+	visibility: hidden;
 }
 
 .list:empty {
@@ -279,7 +288,7 @@ textarea:disabled {
 }
 
 .list:empty::before {
-	display: block;
+	visibility: visible;
 }
 
 .list li:last-child:not(:first-child) .context-menu {
@@ -376,4 +385,6 @@ i.context-menu__btn {
 .context-menu__btn-name {
 	margin-left: 7px;
 	font-size: 14px;
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
 }

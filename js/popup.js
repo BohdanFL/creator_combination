@@ -7,7 +7,7 @@ const addDarkenedBg = (duration) = () => {
 	let titleBg = document.createElement("div");
 	titleBg.classList.add("dark-bg");
 	document.body.appendChild(titleBg);
-	document.body.style.overflow = 'hidden'
+	// document.body.style.overflow = 'hidden'
 
 	setTimeout(() => titleBg.style.opacity = ".5", duration);
 	return titleBg
@@ -28,11 +28,9 @@ const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg, 
 	if (createBg) addDarkenedBg(duration)
 
 	setTimeout(() => {
-		if (window.innerWidth <= 400) {
-			titleWrapper.style.top = "5vw";
-		} else {
-			titleWrapper.style.top = "10px";
-		}
+		const headerHeight = document.querySelector(".header").offsetHeight
+		const marginTop = headerHeight + 10
+		titleWrapper.style.top = marginTop + "px";
 	}, duration);
 	if (clearDuration) {
 		setTimeout(() => {
@@ -67,7 +65,7 @@ const clearStyle = (deleteBg = true) => {
 		titleWrapper.style.top = "-100px"
 		if (titleBg && deleteBg) {
 			titleBg.style.opacity = "0"
-			document.body.style = ''
+			// document.body.style = ''
 		}
 		if (selectAll) selectAll.classList.add("hide")
 		if (unselectAll) unselectAll.classList.add("hide")
