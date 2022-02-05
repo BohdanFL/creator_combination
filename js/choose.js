@@ -296,9 +296,10 @@ async function insertItemsInList(choseArr) {
 			.catch(e => console.error(e))
 
 		if (response) {
-			lastElemText.textContent = choseArr[0]
-			elems[elems.length - 1] = choseArr[0]
-			popupText = "Успішно замінено!"
+			lastElemText.textContent = choseArr[0];
+			elems[elems.length - 1] = choseArr[0];
+			clearStyle();
+			popupText = "Успішно замінено!";
 		}
 	} else {
 		choseArr.forEach(i => {
@@ -312,7 +313,11 @@ async function insertItemsInList(choseArr) {
 	if (response) closeChooseWindow()
 
 	localStorage.setItem("elems", JSON.stringify(elems))
-	if (response) createTitle(popupText, 200, 2000);
+	if (response) {
+		setTimeout(() => {
+			createTitle(popupText, 200, 2000);
+		}, 200);
+	}
 }
 
 const addCloseBtn = (duration) => {

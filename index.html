@@ -4,17 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/fontawesome.css">
 	<link rel="icon" type="image/png" href="logo.png">
+	<link rel="stylesheet" href="css/fontawesome.css">
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/elements.css">
-	<link rel="stylesheet" href="css/saves.css">
-	<link rel="stylesheet" href="css/popup.css">
-	<link rel="stylesheet" href="css/custom.css">
-	<link rel="stylesheet" href="css/choose.css">
-	<link rel="stylesheet" href="css/draggable.css">
-	<link rel="stylesheet" href="css/header.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
 	<title>Create combination</title>
 </head>
 
@@ -24,9 +16,10 @@
 			<img src="logo.png" alt="Logo">
 		</div>
 		<div class="header__additionals">
-			<i class="fas fa-question-circle guide"></i>
-			<i class="fas fa-address-book contacts"></i>
-			<i class="fas fa-cog options"></i>
+			<i class="far fa-moon switch-theme" title="Switch theme"></i>
+			<i class="fas fa-question-circle guide" title="Guide"></i>
+			<i class="fas fa-address-book contacts" title="Contacts"></i>
+			<i class="fas fa-cog options" title="Options"></i>
 		</div>
 	</header>
 	<div class="wrapper">
@@ -68,7 +61,7 @@
 					<div class="more__wrapper">
 						<label for="count">
 							К-сть елементів:
-							<input type="number" id="count" min="10" max="99" value="10">
+							<input type="number" id="count" min="1" max="99" value="1">
 						</label>
 						<label for="random-jump">
 							Зіскок:
@@ -97,13 +90,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="themes">
-		<input type="radio" name="theme" theme="standart" class="themes__radio" checked>
-		<input type="radio" name="theme" theme="blue" class="themes__radio">
-		<input type="radio" name="theme" theme="greyBlue" class="themes__radio">
-		<input type="radio" name="theme" theme="dark" class="themes__radio">
-	</div> -->
-
 	<script>
 		console.time("all")
 	</script>

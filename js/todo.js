@@ -10,9 +10,10 @@
 
 //` TODO: Local
 /**
+ * * Переписати css на scss
+ * * Переписати додавання тем
  * * Зробити білу тему
- * 
- * 
+ * * Add hide-unhide btn for lists(save, elems) or hide-unhide lists automatic
  */
 
 //` TODO: Additional

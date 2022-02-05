@@ -1,0 +1,405 @@
+/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+:root {
+	--item-check: greenyellow;
+	// --check-sign-color: #fff;
+	// --input-bg: #eee;
+	--main-bg: #3B1719;
+	--submain-bg: #69140e;
+	--popup-and-title-bg: #a44200;
+	--btn-bg: #d58936;
+	--btn-font-and-border: #fff94f;
+	--item-bg: #fff94f1a;
+}
+
+.dark {}
+
+$item-check: var(--item-check);
+$check-sign-color: var(--check-sign-color);
+
+
+*,
+*::after,
+*::before {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: $item-check;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar {
+	background: transparent;
+	width: 8px;
+}
+
+@media (max-width: 769px) {
+	::-webkit-scrollbar {
+		width: 5px;
+	}
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--btn-bg);
+	border-radius: 20px;
+}
+
+body,
+html {
+	height: 100vh;
+	color: var(--btn-bg);
+	user-select: none;
+}
+
+body {
+	background-color: var(--main-bg);
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+}
+
+input,
+button,
+textarea {
+	font-family: inherit;
+	font-weight: inherit;
+}
+
+summary {
+	cursor: pointer;
+}
+
+input:disabled,
+input:disabled~.custom-checkbox,
+button:disabled,
+textarea:disabled {
+	cursor: auto;
+}
+
+/* Additional */
+
+.hide {
+	display: none;
+	z-index: -100;
+	user-select: none;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+	visibility: hidden;
+	/* transition: opacity 0.3s; */
+}
+
+/* Btn */
+
+.btn {
+	background-color: var(--btn-bg);
+	border-radius: 15px;
+	color: var(--btn-font-and-border);
+	outline: none;
+	border: 1px solid var(--btn-font-and-border);
+	line-height: 30px;
+	padding: 0 15px;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.btn-small {
+	padding: 0 10px;
+	line-height: 20px;
+	font-size: 10px;
+	letter-spacing: 0.4px;
+}
+
+.btn:hover {
+	background-color: transparent;
+}
+
+.btn:disabled {
+	filter: brightness(.6);
+	cursor: auto;
+}
+
+.btn:disabled:hover {
+	background-color: var(--btn-bg);
+}
+
+/* Global blocks */
+
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	padding: 3vh 5vw 0;
+}
+
+.wrapper>div {
+	min-width: 200px;
+	flex: 0 1 50%;
+	margin: 0 15px;
+}
+
+@media (max-width: 1000px) {
+	.wrapper>div.elements {
+		flex: none;
+	}
+}
+
+@media (max-width: 905px) {
+	.wrapper>div {
+		flex: none;
+	}
+}
+
+@media (max-width: 680px) {
+	.wrapper {
+		flex-wrap: wrap-reverse;
+	}
+
+	.wrapper>div {
+		flex: 0 1 100% !important;
+		margin: 0 0 15px;
+	}
+}
+
+.inner {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.inner>div {
+	min-width: 200px;
+	background-color: var(--submain-bg);
+	height: max-content;
+	margin: 0 auto;
+	border-radius: 20px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.inner>div>.btn {
+	width: 100%;
+	border-radius: 20px 20px 0 0;
+	box-shadow: black 0px 6px 20px -10px;
+}
+
+@media (max-width: 1000px) {
+	.inner>div {
+		margin: 0 0 16px 0;
+	}
+
+	.inner>div:first-child {
+		margin-bottom: 0;
+		margin-right: 5px;
+	}
+}
+
+@media (max-width: 905px) {
+	.inner>div:first-child {
+		margin-right: 0;
+	}
+}
+
+@media (max-width: 460px) {
+	.inner>div {
+		min-width: 175px;
+	}
+}
+
+@media (max-width: 1000px) {
+	.inner {
+		justify-content: space-between;
+	}
+}
+
+@media (max-width: 905px) {
+	.inner {
+		flex-direction: column-reverse;
+	}
+}
+
+@media (max-width: 680px) {
+	.inner {
+		flex-direction: row;
+		justify-content: space-around;
+		/* flex-wrap: nowrap; */
+	}
+
+	.inner>div:last-child {
+		margin-left: 10px;
+		margin-bottom: 0;
+	}
+}
+
+@media (max-width: 420px) {
+	.inner {
+		flex-wrap: wrap;
+	}
+
+	.inner>div {
+		flex: 0 1 100%;
+	}
+
+	.inner>div:first-child {
+		margin-bottom: 10px;
+	}
+
+	.inner>div:last-child {
+		margin-left: 0;
+	}
+}
+
+.inner summary {
+	text-align: center;
+}
+
+/* List */
+
+.list {
+	position: relative;
+	margin: 0 4px 10px 8px;
+	padding: 0 10px 10px 10px;
+	overflow: hidden auto;
+	list-style: none;
+}
+
+.list li {
+	position: relative;
+	cursor: pointer;
+	padding: 7px 7px 7px 0;
+	border-bottom: 1px solid;
+	transition: background-color 0.3s, font-size 0.3s, margin 0.3s, color 0.3s;
+}
+
+.list li.active {
+	position: relative;
+	z-index: 11;
+	font-size: 16px;
+	background-color: var(--item-bg);
+}
+
+.list:before {
+	content: 'Пусто';
+	position: absolute;
+	letter-spacing: 2.5px;
+	font-size: 14px;
+	opacity: .4;
+	width: 100%;
+	text-align: center;
+	visibility: hidden;
+}
+
+.list:empty {
+	padding: 0;
+	margin: 10px 0;
+	height: 20px;
+}
+
+.list:empty::before {
+	visibility: visible;
+}
+
+.list li:last-child:not(:first-child) .context-menu {
+	top: -25px;
+}
+
+i:hover {
+	color: var(--btn-font-and-border);
+}
+
+@media (max-width: 769px) {
+
+	i:hover {
+		color: inherit;
+	}
+
+	i:active {
+		color: var(--btn-font-and-border);
+	}
+
+	.btn:hover {
+		background-color: var(--btn-bg);
+	}
+
+	.btn:active {
+		background-color: transparent;
+	}
+}
+
+/* Themes */
+
+.themes {
+	position: absolute;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.themes__radio {
+	margin: 5px;
+	width: 30px;
+	height: 30px;
+}
+
+/* Context Menu */
+
+.context-menu {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	background-color: var(--popup-and-title-bg);
+	border-radius: 5px;
+	z-index: 100;
+}
+
+.context-menu__opener {
+	padding: 0 4px;
+}
+
+.context-menu.hide {
+	display: none;
+}
+
+i.context-menu__btn {
+	padding: 5px;
+	display: flex;
+	align-items: center;
+}
+
+.context-menu__btn:hover {
+	background-color: var(--btn-bg);
+}
+
+@media (max-width: 769px) {
+
+	.context-menu__btn:hover {
+		/* color: inherit; */
+		background-color: inherit;
+	}
+
+	.context-menu__btn:active {
+		background-color: var(--btn-bg);
+	}
+}
+
+.context-menu__btn:hover:first-child {
+	border-radius: 5px 5px 0 0;
+}
+
+.context-menu__btn:hover:last-child {
+	border-radius: 0 0 5px 5px;
+}
+
+.context-menu__btn-name {
+	margin-left: 7px;
+	font-size: 14px;
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+}
+
+@import "header";
+@import "elements";
+@import "saves";
+@import "choose";
+@import "custom";
+@import "popup";
+@import "draggable";

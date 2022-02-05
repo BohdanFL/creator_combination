@@ -3,12 +3,12 @@
 	left: 0;
 	top: 0;
 	background-color: var(--submain-bg);
-	padding: 15px 5vw;
+	padding: 8px 5vw;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	box-shadow: black 0px -10px 25px 2px;
-	z-index: 1;
+	z-index: 999;
 }
 
 .header .logo {
@@ -16,7 +16,12 @@
 	opacity: .5;
 }
 
+.logo img {
+	max-height: 1.4em
+}
+
 .header i {
 	font-size: 1.4em;
 	margin-left: 10px;
+	cursor: pointer;
 }

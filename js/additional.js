@@ -87,7 +87,6 @@ const themes = {
 		'#d58936',
 		'#fff94f',
 	],
-	light: ['grey'],
 	dark: [
 		'#111111',
 		'#212121',
