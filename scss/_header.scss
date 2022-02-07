@@ -8,19 +8,19 @@
 	align-items: center;
 	justify-content: space-between;
 	box-shadow: black 0px -10px 25px 2px;
-	z-index: 999;
+	z-index: 12;
 }
 
-.header .logo {
+.header__logo {
 	filter: hue-rotate(205deg) brightness(1.5) saturate(0.6);
 	opacity: .5;
 }
 
-.logo img {
+.header__logo img {
 	max-height: 1.4em
 }
 
-.header i {
+.header button {
 	font-size: 1.4em;
 	margin-left: 10px;
 	cursor: pointer;

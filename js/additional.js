@@ -76,70 +76,27 @@ const closeContextMenu = (e) => {
 	}
 }
 
-const root = document.documentElement
-const themesBtns = document.querySelectorAll(".themes__radio")
+let root = document.documentElement
+let switchThemeBtn = document.querySelector(".switch-theme")
+let isDark = JSON.parse(localStorage.getItem("active-dark")) || false
 
-const themes = {
-	standart: [
-		'#3B1719',
-		'#69140e',
-		'#a44200',
-		'#d58936',
-		'#fff94f',
-	],
-	dark: [
-		'#111111',
-		'#212121',
-		'#262626',
-		'#404040',
-		'#7A7A7A',
-	],
-	blue: [
-		'#0d1b2a',
-		'#1b263b',
-		'#415a77',
-		'#778da9',
-		'#e0e1dd'
-	],
-	greyBlue: [
-		'#212529',
-		'#343a40',
-		'#495057',
-		'#adb5bd',
-		'#e9ecef'
-	]
-}
-
-
-// ` TODO: It need opmization
-const setTheme = (themeValue, once = false) => {
-	if (themeValue === 'standart' && once) return
-	let mainBg, submainBg, popupAndTitleBg, btnBg, btnFontAndBorder
-	if (themeValue) {
-		mainBg = themes[themeValue][0]
-		submainBg = themes[themeValue][1]
-		popupAndTitleBg = themes[themeValue][2]
-		btnBg = themes[themeValue][3]
-		btnFontAndBorder = themes[themeValue][4]
+window.addEventListener("load", () => {
+	let root = document.documentElement
+	let switchThemeBtn = document.querySelector(".switch-theme")
+	let isDark = JSON.parse(localStorage.getItem("active-dark")) || false
+	if (isDark) {
+		root.classList.add("dark")
+		switchThemeBtn.classList.replace("far", "fas")
 	}
-
-	root.style.setProperty('--main-bg', mainBg)
-	root.style.setProperty('--submain-bg', submainBg)
-	root.style.setProperty('--popup-and-title-bg', popupAndTitleBg)
-	root.style.setProperty('--btn-bg', btnBg)
-	root.style.setProperty('--btn-font-and-border', btnFontAndBorder)
-	root.style.setProperty('--item-bg', btnFontAndBorder + "1a")
-}
-
-// let themeValue = localStorage.getItem("active-theme") || "standart"
-
-setTheme("blue", true)
-
-// themesBtns.forEach(item => {
-// 	item.addEventListener("change", () => {
-// 		themeValue = item.getAttribute("theme")
-// 		setTheme(themeValue)
-
-// 		localStorage.setItem("active-theme", themeValue)
-// 	})
-// })
+})
+switchThemeBtn.addEventListener("click", () => {
+	if (switchThemeBtn.classList.contains("fas")) {
+		switchThemeBtn.classList.replace("fas", "far")
+		isDark = false
+	} else {
+		switchThemeBtn.classList.replace("far", "fas")
+		isDark = true
+	}
+	root.classList.toggle("dark")
+	localStorage.setItem("active-dark", isDark)
+})

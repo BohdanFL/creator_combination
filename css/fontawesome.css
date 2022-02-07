@@ -62,6 +62,10 @@
 	content: "\f186";
 }
 
+.fa-times:before {
+	content: "\f00d";
+}
+
 @font-face {
 	font-family: 'Font Awesome 5 Free';
 	font-style: normal;

@@ -91,14 +91,14 @@ const createSaveForList = (save) => {
 	item.classList.add("save__item")
 	item.innerHTML = `
 		<span class="save__item-name" contenteditable="true">${name}</span>
-		<i title="Опції" class="save__item-opener context-menu__opener fas fa-ellipsis-v"></i>
+		<button title="Опції" class="save__item-opener context-menu__opener fas fa-ellipsis-v"></button>
 		<div class="save__context-menu context-menu hide">
-			<i class="fas fa-check-circle context-menu__btn">
+			<button class="fas fa-check-circle context-menu__btn">
 				<span class="context-menu__btn-name">Активувати</span>
-			</i>
-			<i class="fas fa-minus-circle context-menu__btn">
+			</button>
+			<button class="fas fa-minus-circle context-menu__btn">
 				<span class="context-menu__btn-name">Видалити</span>
-			</i>
+			</button>
 		</div>
 	`
 	saveList.insertAdjacentElement('beforeend', item)

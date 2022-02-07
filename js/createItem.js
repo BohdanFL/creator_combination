@@ -53,18 +53,17 @@ const createLi = (text, pos) => {
 	text = text === '' ? random(dataElems.e) : text
 	li.classList.add('elements__item')
 	li.innerHTML = `
-	<div class="elements__item-wrapper">
 		<span class="elements__item-text">${text}</span>  
-		<i title="Опції" class="elements__item-opener context-menu__opener fas fa-ellipsis-v"></i>
+		<button title="Опції" class="elements__item-opener context-menu__opener fas fa-ellipsis-v"></button>
 		<div class="elements__context-menu context-menu hide">
-			<i class="fas fa-sync-alt context-menu__btn">
+			<button class="fas fa-sync-alt context-menu__btn">
 				<span class="context-menu__btn-name">Змінити</span>
-			</i> 
-			<i class="fas fa-minus-circle context-menu__btn">
+			</button> 
+			<button class="fas fa-minus-circle context-menu__btn">
 				<span class="context-menu__btn-name">Видалити</span>
-			</i>
+			</button>
 		</div>
-	</div>`
+		`
 	let lastItem = elementsList.lastChild
 	if (pos) {
 		if (lastItem) {
