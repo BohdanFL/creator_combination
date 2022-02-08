@@ -224,8 +224,10 @@ textarea:disabled {
 
 .list li.active {
   z-index: 11;
-  font-size: 16px;
   background-color: var(--item-bg);
+}
+.list li.active:not([class*=draggable-]) {
+  font-size: 16px;
 }
 
 .list:before {
@@ -370,11 +372,6 @@ button:not(.btn):hover {
 }
 .elements__item.check::marker {
   content: "";
-}
-.elements__item-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .elements__item-btns {
   display: flex;
@@ -813,21 +810,17 @@ i.fas.fa-square:after {
 }
 .draggable-mirror {
   min-width: 200px;
-  display: none;
+  visibility: hidden;
 }
 
 .draggable-mirror.active {
   transition: none;
-  display: block;
+  visibility: visible;
+}
+.draggable-mirror.active > button {
+  display: none;
 }
 
-/* .draggable-mirror::marker {
-	content: "";
-}
-
-.draggable-source--is-dragging::marker {
-	content: "";
-} */
 .draggable-source--is-dragging:not(.active) {
   opacity: 0;
 }
