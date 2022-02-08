@@ -1,54 +1,66 @@
-.save__menu {
-	margin-top: 5px;
+.save {
+	&__menu {
+		margin-top: 5px;
+
+		button.btn {
+			width: auto;
+			padding: 0 8px;
+			line-height: 15px;
+		}
+	}
+
+	&__simple-btn {
+		margin-bottom: 0 !important;
+	}
+
+	&__list {
+		padding: 0 10px;
+		margin: 10px 4px;
+		max-height: 43vh;
+
+		&::before {
+			content: 'Немає збережень';
+		}
+
+		&:empty {
+			margin: 12px 0 0 0;
+		}
+	}
+
+	&__item {
+		font-size: 15px;
+		margin: 0 !important;
+
+		&.active {
+			font-size: 16px;
+			z-index: auto;
+
+			.fa-check-circle {
+				pointer-events: none;
+				color: var(--btn-font-and-border);
+			}
+		}
+
+		button {
+			font-size: 16px;
+		}
+
+		&-name {
+			margin-right: 5px;
+			width: 100%;
+
+			&:focus {
+				border-radius: 2px;
+				outline: ridge 2px;
+				outline-offset: 2px;
+			}
+		}
+	}
 }
 
-.save__menu button.btn {
-	width: auto;
-	padding: 0 8px;
-	line-height: 15px;
-}
-
-.save__list {
-	padding: 0 10px;
-	margin: 10px 4px;
-	max-height: 33vh;
-}
-
-.save__list::before {
-	content: 'Немає збережень';
-}
-
-.save__list:empty {
-	margin: 12px 0 0 0;
-}
-
-.save__item {
-	font-size: 15px;
-	margin: 0 !important;
-}
-
-.save__item button {
-	font-size: 16px;
-}
-
-li.save__item.active {
-	font-size: 15px;
-	z-index: auto;
-}
-
-.save__item.active .fa-check-circle {
-	pointer-events: none;
-	color: var(--btn-font-and-border);
-}
-
-.save__item-name {
-	margin-right: 5px;
-	width: 100%;
-
-	&:focus {
-		border-radius: 2px;
-		outline: ridge 2px;
-		outline-offset: 2px;
+@media (max-width: 1012px) {
+	.save__list {
+		max-height: 23vh;
 	}
 }
 

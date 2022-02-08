@@ -1,11 +1,10 @@
 .context-menu {
 	position: absolute;
 	z-index: 100;
-	top: 0;
+	top: 5px;
 	right: 25px;
 	background-color: var(--popup-and-title-bg);
 	border-radius: 6px;
-	// padding: 5px;
 
 	&__opener {
 		padding: 0 4px;

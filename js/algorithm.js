@@ -101,7 +101,7 @@ const createNewDataElems = (numIterate = 1, elem, checkElems = dataElems.e, chan
 			if (elem) checkRepetition(numIterate, elem, checkElems).then(resolve)
 			return
 		}
-		createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
+		createPopup("Неможливо замінити на унікальний елемент!", 200, 3000)
 		setTimeout(resolve, 3200);
 	})
 }
@@ -183,11 +183,11 @@ const addRandomElem = () => {
 
 	if (!repeatEnable) {
 		if (elemsLength >= 99) {
-			createTitle('Ви досягли ліміту елементів (99)', 200, 3000)
+			createPopup('Ви досягли ліміту елементів (99)', 200, 3000)
 			return
 		} else {
 			if (countEnableBtn.value > 99 || sumElem > 99) {
-				createTitle('Дія неможлива, ліміт елементів (99)', 200, 3000)
+				createPopup('Дія неможлива, ліміт елементів (99)', 200, 3000)
 			}
 		}
 		if (elemsLength >= 99 || countEnableBtn.value > 99 || sumElem > 99) {
@@ -220,7 +220,7 @@ const addRandomElem = () => {
 
 		if (repeatEnable) {
 			if (potentialItemCount > arrLength) {
-				createTitle("Неможливо створити таку кількість унікальних елементів!", 200, 3000)
+				createPopup("Неможливо створити таку кількість унікальних елементів!", 200, 3000)
 				i = countValue
 			} else {
 				createNewDataElems(1, createLi('', isLastJump, lastItem), arr)
@@ -247,7 +247,7 @@ const preCheckRepetions = () => {
 			return
 		}
 
-		createTitle("Неможливо замінити на унікальний елемент!", 200, 3000)
+		createPopup("Неможливо замінити на унікальний елемент!", 200, 3000)
 		setTimeout(clearStyle, 3000)
 	}
 }

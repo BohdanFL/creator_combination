@@ -19,10 +19,10 @@ const createChoseArr = (list, input) => {
 			let checkedElems = list.querySelectorAll('.fas.fa-square')
 			let checkedLength = checkedElems.length
 			if (!chooseJumpEnableBtn.checked) {
-				const btn = item.querySelector('i')
+				const btn = item.querySelector('button')
 				if (btn.classList.contains("far")) {
 					if (checkedLength > limit) {
-						createTitle("Досягнутий ліміт елементів (99)", 0, 2000)
+						createPopup("Досягнутий ліміт елементів (99)", 0, 2000)
 						return
 					}
 					btn.classList.replace("far", "fas")
@@ -57,7 +57,7 @@ const createChoseArr = (list, input) => {
 					})
 				}
 			} else {
-				const btn = item.querySelector('i')
+				const btn = item.querySelector('button')
 				if (btn.classList.contains("fa-circle")) {
 					choseArr.splice(0, choseArr.length)
 					// ` Optimization
@@ -128,7 +128,7 @@ const insertGroups = (groups, list) => {
 				groupItems += `
 					<li class="choose__item">
 						${chooseElems[i]}
-						<i class="far fa-square"></i>
+						<button class="far fa-square"></button>
 					</li>
 					`
 			})
@@ -137,7 +137,7 @@ const insertGroups = (groups, list) => {
 				groupItems += `
 					<li class="choose__item">
 						${chooseElems[i]}
-						<i class="far fa-circle"></i>
+						<button class="far fa-circle"></button>
 					</li>
 					`
 			})
@@ -234,7 +234,7 @@ const createChooseList = (groups, duration) => {
 }
 
 const closeChooseWindow = () => {
-	const bg = document.querySelector(".dark-bg"),
+	const bg = document.querySelector(".popup__bg"),
 		wrapper = document.querySelector(".choose__wrapper"),
 		closeBtn = document.querySelector(".choose__btn-close"),
 		doneBtn = document.querySelector(".choose__btn-apply")
@@ -284,7 +284,7 @@ async function insertItemsInList(choseArr) {
 	let popupText = "Успішно додано!"
 
 	if (!choseArr.length) {
-		createTitle("Нічого не вибрано", 200, 2000);
+		createPopup("Нічого не вибрано", 200, 2000);
 		return
 	}
 	if (isLastElemJump && chooseJumpEnableBtn.checked) {
@@ -315,13 +315,13 @@ async function insertItemsInList(choseArr) {
 	localStorage.setItem("elems", JSON.stringify(elems))
 	if (response) {
 		setTimeout(() => {
-			createTitle(popupText, 200, 2000);
+			createPopup(popupText, 200, 2000);
 		}, 200);
 	}
 }
 
 const addCloseBtn = (duration) => {
-	const btn = document.createElement('i')
+	const btn = document.createElement('button')
 	btn.className = 'fas fa-times choose__btn-close'
 	document.body.append(btn)
 

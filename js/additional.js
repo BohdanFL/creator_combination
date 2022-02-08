@@ -75,28 +75,3 @@ const closeContextMenu = (e) => {
 		}
 	}
 }
-
-let root = document.documentElement
-let switchThemeBtn = document.querySelector(".switch-theme")
-let isDark = JSON.parse(localStorage.getItem("active-dark")) || false
-
-window.addEventListener("load", () => {
-	let root = document.documentElement
-	let switchThemeBtn = document.querySelector(".switch-theme")
-	let isDark = JSON.parse(localStorage.getItem("active-dark")) || false
-	if (isDark) {
-		root.classList.add("dark")
-		switchThemeBtn.classList.replace("far", "fas")
-	}
-})
-switchThemeBtn.addEventListener("click", () => {
-	if (switchThemeBtn.classList.contains("fas")) {
-		switchThemeBtn.classList.replace("fas", "far")
-		isDark = false
-	} else {
-		switchThemeBtn.classList.replace("far", "fas")
-		isDark = true
-	}
-	root.classList.toggle("dark")
-	localStorage.setItem("active-dark", isDark)
-})

@@ -17,10 +17,10 @@ const changeAllBtn = document.querySelector('.elements__menu-item.change-all')
 
 const saveDeleteAllBtn = document.querySelector('.save__menu-item.delete-all')
 
-const countEnableBtn = document.querySelector(".random__more #count")
+const countEnableBtn = document.querySelector("#count")
 const randomJumpEnableBtn = document.querySelector('#random-jump')
-const changeJumpEnableBtn = document.querySelector('.random #change-jump')
-const repeatElemBtn = document.querySelector('.random #repeat-elem')
+const changeJumpEnableBtn = document.querySelector('#change-jump')
+const repeatElemBtn = document.querySelector('#repeat-elem')
 
 const chooseJumpEnableBtn = document.querySelector('#choose-jump')
 const uniqueEnableBtn = document.querySelector('#unique')

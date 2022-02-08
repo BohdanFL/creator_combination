@@ -114,7 +114,7 @@ const savingList = () => {
 	const saveItemsLimit = 50
 	console.log(saveItemsLimit)
 	if (!(saveList.children.length < saveItemsLimit)) {
-		createTitle(`Ви досягли ліміту збережень (${saveItemsLimit})`, 200, 2000)
+		createPopup(`Ви досягли ліміту збережень (${saveItemsLimit})`, 200, 2000)
 		return
 	}
 	if (elementsList.children.length) {
@@ -136,9 +136,9 @@ const savingList = () => {
 			localStorage.setItem("saves", JSON.stringify(saves))
 			resolve(null)
 		}).then(value => {
-			createTitle("Збереження пройшло успішно", 200, 2000)
+			createPopup("Збереження пройшло успішно", 200, 2000)
 		}).catch(error => {
-			createTitle("Збереження невдалось", 200, 2000)
+			createPopup("Збереження невдалось", 200, 2000)
 		})
-	} else createTitle("Немає елементів для збереження", 200, 2000)
+	} else createPopup("Немає елементів для збереження", 200, 2000)
 }

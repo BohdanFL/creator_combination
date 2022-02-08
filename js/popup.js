@@ -1,19 +1,15 @@
 const addDarkenedBg = (duration) = () => {
+	if (document.querySelector(".popup__bg")) return
 
-	if (document.querySelector(".dark-bg")) {
-		return
-	}
+	let bg = document.createElement("div");
+	bg.classList.add("popup__bg");
+	document.body.appendChild(bg);
 
-	let titleBg = document.createElement("div");
-	titleBg.classList.add("dark-bg");
-	document.body.appendChild(titleBg);
-	// document.body.style.overflow = 'hidden'
-
-	setTimeout(() => titleBg.style.opacity = ".5", duration);
-	return titleBg
+	setTimeout(() => bg.style.opacity = ".5", duration);
+	return bg
 }
 
-const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg, fromPrompt = false) => {
+const createPopup = (text, duration = 200, clearDuration = 2000, createBg, fromPrompt = false) => {
 	if (clearDuration) clearDuration += duration
 	if (document.querySelector(".popup") && !fromPrompt) {
 		return
@@ -21,29 +17,29 @@ const createTitle = (titleText, duration = 200, clearDuration = 2000, createBg, 
 		document.querySelector(".popup").remove()
 	}
 
-	const titleWrapper = document.createElement("div");
-	titleWrapper.classList.add("popup");
-	titleWrapper.innerHTML = `<h1 class="popup__title">${titleText}</h1>`;
-	document.body.appendChild(titleWrapper);
+	const wrapper = document.createElement("div");
+	wrapper.classList.add("popup");
+	wrapper.innerHTML = `<h1 class="popup__title">${text}</h1>`;
+	document.body.appendChild(wrapper);
 	if (createBg) addDarkenedBg(duration)
 
 	setTimeout(() => {
 		const headerHeight = document.querySelector(".header").offsetHeight
 		const marginTop = headerHeight + 10
-		titleWrapper.style.top = marginTop + "px";
+		wrapper.style.top = marginTop + "px";
 	}, duration);
 	if (clearDuration) {
 		setTimeout(() => {
-			titleWrapper.style.top = "-100px";
-			setTimeout(() => titleWrapper.remove(), 200)
+			wrapper.style.top = "-100px";
+			setTimeout(() => wrapper.remove(), 200)
 		}, duration + clearDuration);
 	}
 
-	return titleWrapper;
+	return wrapper;
 };
 
 const createPrompt = (title, duration, clearDuration) => {
-	const wrapper = createTitle(title, duration, clearDuration, false, true)
+	const wrapper = createPopup(title, duration, clearDuration, false, true)
 	wrapper.innerHTML += `
 	<div class="popup__btns">
 		<button class="popup__btn btn" id="prompt-confirm">ОК</button>
@@ -58,21 +54,20 @@ const createPrompt = (title, duration, clearDuration) => {
 }
 
 const clearStyle = (deleteBg = true) => {
-	let titleWrapper = document.querySelector(".popup")
-	let titleBg = document.querySelector(".dark-bg")
+	let wrapper = document.querySelector(".popup")
+	let bg = document.querySelector(".popup__bg")
 
-	if (titleWrapper) {
-		titleWrapper.style.top = "-100px"
-		if (titleBg && deleteBg) {
-			titleBg.style.opacity = "0"
-			// document.body.style = ''
+	if (wrapper) {
+		wrapper.style.top = "-100px"
+		if (bg && deleteBg) {
+			bg.style.opacity = "0"
 		}
 		if (selectAll) selectAll.classList.add("hide")
 		if (unselectAll) unselectAll.classList.add("hide")
 		if (elementsList.classList.contains("elements__list-active")) elementsList.classList.remove("elements__list-active")
 		setTimeout(() => {
-			titleWrapper.remove()
-			if (titleBg && deleteBg) titleBg.remove()
+			wrapper.remove()
+			if (bg && deleteBg) bg.remove()
 		}, 200)
 
 		elementsList.childNodes.forEach((i) => {

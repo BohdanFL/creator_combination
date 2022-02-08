@@ -1,12 +1,11 @@
-.random__more summary,
-.choose__more summary {
+.options__title {
 	cursor: pointer;
 	outline: none;
 	margin-bottom: 5px;
+	text-align: center;
 }
 
-.random__more .more__wrapper,
-.choose__more .more__wrapper {
+.options__wrapper {
 	display: flex;
 	flex-direction: column;
 	text-align: left;
@@ -15,106 +14,85 @@
 	letter-spacing: .3px;
 }
 
-.random__more .more__wrapper *,
-.choose__more .more__wrapper * {
-	cursor: pointer;
+.options__wrapper {
+	* {
+		cursor: pointer;
+	}
+
+	label {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		line-height: 22px;
+
+		.custom-checkbox,
+		#count {
+			height: 22px;
+			width: 22px;
+			background-color: var(--btn-bg);
+			border: solid var(--submain-bg) 1px;
+		}
+
+		.custom-checkbox::after {
+			content: "";
+			position: absolute;
+			display: none;
+			right: 7px;
+			top: 0px;
+			width: 8px;
+			height: 16px;
+			border: solid var(--btn-bg);
+			border-width: 0 3px 3px 0;
+			-webkit-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			transform: rotate(45deg);
+		}
+
+		input {
+			position: absolute;
+			cursor: pointer;
+			opacity: 0;
+			height: 0;
+			width: 0;
+
+			&#count {
+				right: 0;
+				opacity: 1;
+				text-align: center;
+				-moz-appearance: textfield;
+				outline: none;
+				color: var(--submain-bg);
+
+				&:disabled {
+					opacity: 0.3;
+
+					~.custom-checkbox {
+						opacity: 0.3;
+					}
+				}
+
+				&::-webkit-outer-spin-button,
+				&::-webkit-inner-spin-button {
+					-webkit-appearance: none;
+					margin: 0;
+				}
+			}
+
+			&:checked~.custom-checkbox {
+				background-color: var(--submain-bg);
+
+				&::after {
+					display: block;
+				}
+			}
+		}
+	}
 }
 
-.random__more .more__wrapper label,
-.choose__more .more__wrapper label {
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-	line-height: 22px;
-}
-
-.random__more .more__wrapper label .custom-checkbox,
-.choose__more .more__wrapper label .custom-checkbox,
-.random__more .more__wrapper label input#count,
-.choose__more .more__wrapper label input#count {
-	height: 22px;
-	width: 22px;
-	background-color: var(--btn-bg);
-	border: solid var(--submain-bg) 1px;
-}
-
-.random__more .more__wrapper label .custom-checkbox::after,
-.choose__more .more__wrapper label .custom-checkbox::after {
-	content: "";
-	position: absolute;
-	display: none;
-}
-
-.random__more .more__wrapper label input,
-.choose__more .more__wrapper label input {
-	position: absolute;
-	cursor: pointer;
-	opacity: 0;
-	height: 0;
-	width: 0;
-}
-
-.random__more .more__wrapper label input#count,
-.choose__more .more__wrapper label input#count {
-	right: 0;
-	opacity: 1;
-	text-align: center;
-	-moz-appearance: textfield;
-	outline: none;
-	color: var(--submain-bg);
-}
-
-.random__more .more__wrapper label input#count:disabled,
-.choose__more .more__wrapper label input#count:disabled {
-	opacity: 0.3;
-}
-
-.random__more .more__wrapper label input#count::-webkit-outer-spin-button,
-.random__more .more__wrapper label input#count::-webkit-inner-spin-button,
-.choose__more .more__wrapper label input#count::-webkit-outer-spin-button,
-.choose__more .more__wrapper label input#count::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-.random__more .more__wrapper label input:checked~.custom-checkbox,
-.choose__more .more__wrapper label input:checked~.custom-checkbox {
-	background-color: var(--submain-bg);
-}
-
-.random__more .more__wrapper label input:checked~.custom-checkbox::after,
-.choose__more .more__wrapper label input:checked~.custom-checkbox::after {
-	display: block;
-}
-
-.random__more .more__wrapper label input:disabled~.custom-checkbox,
-.choose__more .more__wrapper label input:disabled~.custom-checkbox {
-	opacity: 0.3;
-}
-
-.random__more .more__wrapper label .custom-checkbox:after,
-.choose__more .more__wrapper label .custom-checkbox:after {
-	right: 7px;
-	top: 0px;
-	width: 8px;
-	height: 16px;
-	border: solid var(--btn-bg);
-	border-width: 0 3px 3px 0;
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
-}
-
-.random__simple-btn,
-.choose__simple-btn {
-	padding: 0 30px;
-	margin-bottom: 10px;
-}
 
 @media (max-width: 460px) {
 
-	.random__more .more__wrapper,
-	.choose__more .more__wrapper {
+	.options__wrapper {
 		font-size: 14px;
 		font-weight: 500;
 	}

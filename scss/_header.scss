@@ -9,19 +9,26 @@
 	justify-content: space-between;
 	box-shadow: black 0px -10px 25px 2px;
 	z-index: 12;
+
+	&__logo {
+		opacity: .5;
+
+		img {
+			max-height: 1.4em
+		}
+	}
+
+	button {
+		font-size: 1.4em;
+		margin-left: 10px;
+		cursor: pointer;
+	}
 }
 
-.header__logo {
-	filter: hue-rotate(205deg) brightness(1.5) saturate(0.6);
-	opacity: .5;
+#switch-theme:active {
+	color: inherit;
 }
 
-.header__logo img {
-	max-height: 1.4em
-}
-
-.header button {
-	font-size: 1.4em;
-	margin-left: 10px;
-	cursor: pointer;
+.dark .header__logo img {
+	filter: brightness(2) grayscale(1) drop-shadow(2px 2px 6px black);
 }

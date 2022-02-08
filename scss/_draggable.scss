@@ -1,29 +1,29 @@
-.draggable-mirror {
-	min-width: 200px;
-	visibility: hidden;
-}
+.draggable {
+	&-mirror {
+		min-width: 200px;
+		visibility: hidden;
 
-.draggable-mirror.active {
-	transition: none;
-	visibility: visible;
+		&.active {
+			transition: none;
+			visibility: visible;
 
-	>button {
-		display: none;
+			>button {
+				display: none;
+			}
+		}
 	}
-}
 
-// .draggable-source--is-dragging.active {
-// 	font-size: 14px;
-// }
+	&-source--is-dragging:not(.active) {
+		opacity: 0;
+	}
 
-.draggable-source--is-dragging:not(.active) {
-	opacity: 0;
-}
+	&-container--is-dragging {
+		.jump {
+			opacity: .5;
+		}
 
-.draggable-container--is-dragging .jump {
-	opacity: .5;
-}
-
-.draggable-container--is-dragging .context-menu {
-	display: none;
+		.context-menu {
+			display: none;
+		}
+	}
 }

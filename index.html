@@ -16,10 +16,10 @@
 			<img src="logo.png" alt="Logo">
 		</div>
 		<div class="header__additionals">
-			<button class="far fa-moon switch-theme" title="Switch theme"></button>
-			<button class="fas fa-question-circle guide" title="Guide"></button>
-			<button class="fas fa-address-book contacts" title="Contacts"></button>
-			<button class="fas fa-cog options" title="Options"></button>
+			<button class="far fa-moon" id="switch-theme" title="Switch theme"></button>
+			<button class="fas fa-question-circle guide" id="guide" title="Guide"></button>
+			<button class="fas fa-address-book contacts" id="contacts" title="Contacts"></button>
+			<button class="fas fa-cog options" id="options" title="Options"></button>
 		</div>
 	</header>
 	<div class="wrapper">
@@ -38,9 +38,9 @@
 		<div class="inner">
 			<div class="choose">
 				<button class="choose__simple-btn btn">Choose</button>
-				<details class="choose__more more" open>
-					<summary>Settings</summary>
-					<div class="more__wrapper">
+				<details class="choose__options options" open>
+					<summary class="options__title">Options</summary>
+					<div class="options__wrapper">
 						<label for="choose-jump">
 							Зіскоки:
 							<input type="checkbox" id="choose-jump">
@@ -56,9 +56,9 @@
 			</div>
 			<div class="random">
 				<button class="random__simple-btn btn">Random</button>
-				<details class="random__more more" open>
-					<summary>Settings</summary>
-					<div class="more__wrapper">
+				<details class="random__options options" open>
+					<summary class="options__title">Options</summary>
+					<div class="options__wrapper">
 						<label for="count">
 							К-сть елементів:
 							<input type="number" id="count" min="1" max="99" value="1">
@@ -92,6 +92,8 @@
 	</div>
 	<script>
 		console.time("all")
+	</script>
+	<script src="js/theme.js">
 	</script>
 	<script src="libs/sortable.js"></script>
 	<script src="libs/sort-animation.js"></script>

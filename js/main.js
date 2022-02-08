@@ -33,7 +33,7 @@ function checkResponsefromDelete(list, arr, arrName) {
 			})
 		} else {
 			reject(elems)
-			createTitle("Немає елементів", 0, 1000)
+			createPopup("Немає елементів", 0, 1000)
 		}
 	})
 
@@ -90,7 +90,7 @@ const checkResponsefromChange = () => {
 
 		modal.rejectBtn.addEventListener("click", clearStyle)
 
-	} else createTitle("Немає елементів", 0, 1000)
+	} else createPopup("Немає елементів", 0, 1000)
 }
 
 const addClickForOptions = (btn, value, event = "click", func) => {

@@ -15,24 +15,28 @@
 	box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
 	transition: top 0.4s;
 	z-index: 13;
-}
 
-.dark-bg {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #000;
-	opacity: 0;
-	z-index: 10;
-	transition: opacity 0.3s;
-}
+	&__title,
+	&__subtitle {
+		font-size: 16px;
+		display: inline-block;
+	}
 
-.popup__title,
-.popup__subtitle {
-	font-size: 16px;
-	display: inline-block;
+	&__btns {
+		display: inline-block;
+	}
+
+	&__bg {
+		position: fixed;
+		z-index: 10;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		opacity: 0;
+		background-color: #000;
+		transition: opacity 0.3s;
+	}
 }
 
 #prompt-response {
@@ -40,10 +44,6 @@
 	outline: none;
 	max-width: 130px;
 	padding: 5px;
-}
-
-.popup__btns {
-	display: inline-block;
 }
 
 @media (max-width: 400px) {

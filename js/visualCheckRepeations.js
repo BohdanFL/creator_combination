@@ -4,7 +4,7 @@ const popupCheckRepeations = () => {
 	console.log(repeatObj)
 	if (repeatEnable) {
 		if (repeatObj.isRepeatBool) {
-			const titleWrapper = createTitle("Виберіть елементи для заміни", 100, false, true)
+			const titleWrapper = createPopup("Виберіть елементи для заміни", 100, false, true)
 			titleWrapper.innerHTML += `
 			<h2 class="popup__subtitle">Готові здійснити заміну?</h2>
 			<div class="popup__btns">
@@ -34,7 +34,7 @@ const popupCheckRepeations = () => {
 				once: true
 			})
 		} else {
-			createTitle("Немає елементів які повторюються", 0, 1500)
+			createPopup("Немає елементів які повторюються", 0, 1500)
 		}
 	}
 }
