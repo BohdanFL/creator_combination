@@ -13,7 +13,7 @@
 
 	&__inner {
 		max-height: 85vh;
-		background-color: var(--submain-bg);
+		background-color: $surface;
 		border-radius: 20px;
 		padding-bottom: 20px;
 	}
@@ -44,7 +44,7 @@
 			padding: 0 5px;
 			line-height: 30px;
 			font-size: 20px;
-			background-color: var(--item-bg);
+			background-color: $active-bg;
 		}
 	}
 
@@ -73,8 +73,8 @@
 }
 
 #search {
-	color: var(--btn-font-and-border);
-	background-color: var(--btn-bg);
+	color: $btn-color;
+	background-color: $primary;
 	outline: none;
 	border: none;
 	padding: 9px 15px;
@@ -98,7 +98,7 @@ button.fas.fa-square:after {
 	font-family: "Roboto", sans-serif;
 	font-weight: 500;
 	font-size: 14px;
-	color: var(--submain-bg);
+	color: $surface;
 }
 
 @media (max-width: 769px) {

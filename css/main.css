@@ -2,23 +2,27 @@
 /* Global styles */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
 .dark {
-  --item-check: greenyellow;
-  --main-bg: #3B1719;
-  --submain-bg: #69140e;
-  --popup-and-title-bg: #a44200;
-  --btn-bg: #d58936;
-  --btn-font-and-border: #fff94f;
-  --item-bg: #fff94f1a;
+  --background: #3B1719;
+  --surface: #69140e;
+  --surface-title: #a44200;
+  --primary: #d58936;
+  --secondary: #666666;
+  --warning: #aa0000;
+  --btn-color: #fff94f;
+  --active-bg: #fff94f1a;
+  --check: blue;
 }
 
 .light {
-  --item-check: greenyellow;
-  --main-bg: #eeeeeee;
-  --submain-bg: #aaaaaa;
-  --popup-and-title-bg: #dddddd;
-  --btn-bg: #eeeeee;
-  --btn-font-and-border: #666666;
-  --item-bg: #dddddd;
+  --background: #F0F5F9;
+  --surface: #52616B;
+  --surface-title: #1E20221a;
+  --primary: #C9D6DF;
+  --secondary: #666666;
+  --warning: #aa0000;
+  --btn-color: #1E2022;
+  --active-bg: #acacac;
+  --check: blue;
 }
 
 *,
@@ -27,7 +31,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: var(--item-check);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -36,7 +39,7 @@
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--btn-bg);
+  background: var(--primary);
   border-radius: 20px;
 }
 
@@ -48,12 +51,12 @@
 body,
 html {
   height: 100vh;
-  color: var(--btn-bg);
+  color: var(--primary);
   user-select: none;
 }
 
 body {
-  background-color: var(--main-bg);
+  background-color: var(--background);
   font-family: "Roboto", sans-serif;
   font-weight: 500;
 }
@@ -77,7 +80,7 @@ button:not(.btn):focus {
 }
 
 button:not(.btn):hover {
-  color: var(--btn-font-and-border);
+  color: var(--btn-color);
 }
 
 input:disabled,
@@ -101,11 +104,11 @@ textarea:disabled {
 
 /* Btn */
 .btn {
-  background-color: var(--btn-bg);
+  background-color: var(--primary);
   border-radius: 15px;
-  color: var(--btn-font-and-border);
+  color: var(--btn-color);
   outline: none;
-  border: 1px solid var(--btn-font-and-border);
+  border: 1px solid var(--btn-color);
   line-height: 30px;
   padding: 0 15px;
   text-transform: uppercase;
@@ -125,7 +128,7 @@ textarea:disabled {
   cursor: auto;
 }
 .btn .btn:disabled:hover {
-  background-color: var(--btn-bg);
+  background-color: var(--primary);
 }
 
 /* Global blocks */
@@ -145,7 +148,7 @@ textarea:disabled {
 }
 .inner > div {
   min-width: 200px;
-  background-color: var(--submain-bg);
+  background-color: var(--surface);
   height: max-content;
   margin: 0 10px;
   border-radius: 20px;
@@ -197,7 +200,7 @@ textarea:disabled {
 /* List */
 .list {
   position: relative;
-  margin: 0 4px 10px 8px;
+  margin: 11px 4px 10px 8px;
   padding-bottom: 10px;
   overflow: hidden auto;
   list-style: none;
@@ -233,7 +236,7 @@ textarea:disabled {
 }
 .list li.active {
   z-index: 11;
-  background-color: var(--item-bg);
+  background-color: var(--active-bg);
 }
 .list li.active:not([class*=draggable-]) {
   font-size: 16px;
@@ -248,11 +251,11 @@ textarea:disabled {
   }
 
   button:not(.btn):active {
-    color: var(--btn-font-and-border);
+    color: var(--btn-color);
   }
 
   .btn:hover {
-    background-color: var(--btn-bg);
+    background-color: var(--primary);
   }
 
   .btn:active {
@@ -263,7 +266,7 @@ textarea:disabled {
   position: sticky;
   left: 0;
   top: 0;
-  background-color: var(--submain-bg);
+  background-color: var(--surface);
   padding: 8px 5vw;
   display: flex;
   align-items: center;
@@ -298,28 +301,33 @@ textarea:disabled {
   padding-bottom: 10px;
   margin-right: 30px;
   border-radius: 20px;
-  background-color: var(--submain-bg);
+  background-color: var(--surface);
 }
 .elements__title {
-  width: 100%;
-  padding: 10px 0px;
-  font-size: 40px;
-  text-align: center;
-  letter-spacing: 3px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 5px;
+  background-color: #434f57;
   border-radius: 20px 20px 0px 0px;
-  background-color: var(--popup-and-title-bg);
+  flex-wrap: wrap;
+}
+.elements__title-text {
+  font-size: 40px;
+  letter-spacing: 3px;
+  padding: 0 5px;
+  text-align: center;
+}
+.elements__title button {
+  flex-shrink: 0;
 }
 .elements__menu {
-  margin: -11px 10px 0px;
-}
-.elements__menu button {
-  margin-bottom: 7px;
-}
-.elements__menu .select-all,
-.elements__menu .unselect-all {
+  text-align: center;
   position: relative;
   z-index: 11;
-  transition: all 0.3s;
+}
+.elements__menu:not(.hide) {
+  margin: -11px 0 -11px;
 }
 .elements__list {
   position: relative;
@@ -349,18 +357,20 @@ textarea:disabled {
 }
 .elements__item.check {
   transition: all 0.3s;
-  color: var(--item-check);
+  color: var(--check);
   margin-left: 0px;
 }
 .elements__item.check span {
-  color: var(--item-check);
+  color: var(--check);
 }
 
-@media (max-width: 400px) {
-  .elements__menu {
-    text-align: center;
+@media (max-width: 875px) {
+  .elements__title-text {
+    order: -1;
+    flex: 100%;
   }
-
+}
+@media (max-width: 400px) {
   .elements__item button {
     font-size: 20px;
   }
@@ -397,7 +407,7 @@ textarea:disabled {
 }
 .save__item.active .fa-check-circle {
   pointer-events: none;
-  color: var(--btn-font-and-border);
+  color: var(--btn-color);
 }
 .save__item button {
   font-size: 16px;
@@ -440,7 +450,7 @@ textarea:disabled {
 }
 .choose__inner {
   max-height: 85vh;
-  background-color: var(--submain-bg);
+  background-color: var(--surface);
   border-radius: 20px;
   padding-bottom: 20px;
 }
@@ -467,7 +477,7 @@ textarea:disabled {
   padding: 0 5px;
   line-height: 30px;
   font-size: 20px;
-  background-color: var(--item-bg);
+  background-color: var(--active-bg);
 }
 .choose__btn-close {
   font-size: 40px !important;
@@ -490,8 +500,8 @@ textarea:disabled {
 }
 
 #search {
-  color: var(--btn-font-and-border);
-  background-color: var(--btn-bg);
+  color: var(--btn-color);
+  background-color: var(--primary);
   outline: none;
   border: none;
   padding: 9px 15px;
@@ -514,7 +524,7 @@ button.fas.fa-square:after {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 14px;
-  color: var(--submain-bg);
+  color: var(--surface);
 }
 
 @media (max-width: 769px) {
@@ -580,8 +590,8 @@ button.fas.fa-square:after {
 .options__wrapper label #count {
   height: 22px;
   width: 22px;
-  background-color: var(--btn-bg);
-  border: solid var(--submain-bg) 1px;
+  background-color: var(--primary);
+  border: solid var(--surface) 1px;
 }
 .options__wrapper label .custom-checkbox::after {
   content: "";
@@ -591,7 +601,7 @@ button.fas.fa-square:after {
   top: 0px;
   width: 8px;
   height: 16px;
-  border: solid var(--btn-bg);
+  border: solid var(--primary);
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -610,7 +620,7 @@ button.fas.fa-square:after {
   text-align: center;
   -moz-appearance: textfield;
   outline: none;
-  color: var(--submain-bg);
+  color: var(--surface);
 }
 .options__wrapper label input#count:disabled {
   opacity: 0.3;
@@ -623,7 +633,7 @@ button.fas.fa-square:after {
   margin: 0;
 }
 .options__wrapper label input:checked ~ .custom-checkbox {
-  background-color: var(--submain-bg);
+  background-color: var(--surface);
 }
 .options__wrapper label input:checked ~ .custom-checkbox::after {
   display: block;
@@ -648,7 +658,7 @@ button.fas.fa-square:after {
   line-height: 24px;
   font-size: 20px;
   border-radius: 50px;
-  background-color: var(--popup-and-title-bg);
+  background-color: #434f57;
   box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
   transition: top 0.4s;
   z-index: 13;
@@ -688,7 +698,7 @@ button.fas.fa-square:after {
   z-index: 100;
   top: 5px;
   right: 25px;
-  background-color: var(--popup-and-title-bg);
+  background-color: #434f57;
   border-radius: 6px;
 }
 .context-menu__opener {
@@ -707,7 +717,7 @@ button.fas.fa-square:after {
   border-radius: 0 0 6px 6px;
 }
 .context-menu__btn:hover {
-  background-color: var(--btn-bg);
+  background-color: var(--primary);
 }
 .context-menu__btn-name {
   font-family: "Roboto", sans-serif;
@@ -722,7 +732,7 @@ button.fas.fa-square:after {
   }
 
   .context-menu__btn:active {
-    background-color: var(--btn-bg);
+    background-color: var(--primary);
   }
 }
 .draggable-mirror {

@@ -29,8 +29,8 @@
 		#count {
 			height: 22px;
 			width: 22px;
-			background-color: var(--btn-bg);
-			border: solid var(--submain-bg) 1px;
+			background-color: $primary;
+			border: solid $surface 1px;
 		}
 
 		.custom-checkbox::after {
@@ -41,7 +41,7 @@
 			top: 0px;
 			width: 8px;
 			height: 16px;
-			border: solid var(--btn-bg);
+			border: solid $primary;
 			border-width: 0 3px 3px 0;
 			-webkit-transform: rotate(45deg);
 			-ms-transform: rotate(45deg);
@@ -61,7 +61,7 @@
 				text-align: center;
 				-moz-appearance: textfield;
 				outline: none;
-				color: var(--submain-bg);
+				color: $surface;
 
 				&:disabled {
 					opacity: 0.3;
@@ -79,7 +79,7 @@
 			}
 
 			&:checked~.custom-checkbox {
-				background-color: var(--submain-bg);
+				background-color: $surface;
 
 				&::after {
 					display: block;

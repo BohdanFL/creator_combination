@@ -62,8 +62,7 @@ const clearStyle = (deleteBg = true) => {
 		if (bg && deleteBg) {
 			bg.style.opacity = "0"
 		}
-		if (selectAll) selectAll.classList.add("hide")
-		if (unselectAll) unselectAll.classList.add("hide")
+		if (menuBtn) menuBtn.classList.add("hide")
 		if (elementsList.classList.contains("elements__list-active")) elementsList.classList.remove("elements__list-active")
 		setTimeout(() => {
 			wrapper.remove()

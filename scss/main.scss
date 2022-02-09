@@ -2,27 +2,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
 
 .dark {
-	--item-check: greenyellow;
-	--main-bg: #3B1719;
-	--submain-bg: #69140e;
-	--popup-and-title-bg: #a44200;
-	--btn-bg: #d58936;
-	--btn-font-and-border: #fff94f;
-	--item-bg: #fff94f1a;
+	--background: #3B1719;
+	--surface: #69140e;
+	--surface-title: #a44200;
+
+	--primary: #d58936;
+
+	--secondary: #666666;
+	--warning: #aa0000;
+
+	--btn-color: #fff94f;
+	--active-bg: #fff94f1a;
+	--check: blue;
 }
 
 .light {
-	--item-check: greenyellow;
-	--main-bg: #eeeeeee;
-	--submain-bg: #aaaaaa;
-	--popup-and-title-bg: #dddddd;
-	--btn-bg: #eeeeee;
-	--btn-font-and-border: #666666;
-	--item-bg: #dddddd;
+	--background: #F0F5F9;
+	--surface: #52616B;
+	--surface-title: #1E20221a;
+	--primary: #C9D6DF;
+	--secondary: #666666;
+	--warning: #aa0000;
+	--btn-color: #1E2022;
+	--active-bg: #acacac;
+	--check: blue;
 }
 
-$item-check: var(--item-check);
-$check-sign-color: var(--check-sign-color);
+$background: var(--background);
+$surface: var(--surface);
+$surface-title: darken(#52616B, 7%);
+$primary: var(--primary);
+$secondary: var(--secondary);
+$warning: var(--warning);
+$btn-color: var(--btn-color);
+$active-bg: var(--active-bg);
+$check: var(--check);
+
+
+
+
 
 
 *,
@@ -31,7 +49,6 @@ $check-sign-color: var(--check-sign-color);
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	-webkit-tap-highlight-color: $item-check;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -40,7 +57,7 @@ $check-sign-color: var(--check-sign-color);
 	width: 8px;
 
 	&-thumb {
-		background: var(--btn-bg);
+		background: $primary;
 		border-radius: 20px;
 	}
 }
@@ -55,12 +72,12 @@ $check-sign-color: var(--check-sign-color);
 body,
 html {
 	height: 100vh;
-	color: var(--btn-bg);
+	color: $primary;
 	user-select: none;
 }
 
 body {
-	background-color: var(--main-bg);
+	background-color: $background;
 	font-family: "Roboto", sans-serif;
 	font-weight: 500;
 }
@@ -85,7 +102,7 @@ button:not(.btn) {
 }
 
 button:not(.btn):hover {
-	color: var(--btn-font-and-border);
+	color: $btn-color;
 }
 
 input:disabled,
@@ -111,11 +128,11 @@ textarea:disabled {
 /* Btn */
 
 .btn {
-	background-color: var(--btn-bg);
+	background-color: $primary;
 	border-radius: 15px;
-	color: var(--btn-font-and-border);
+	color: $btn-color;
 	outline: none;
-	border: 1px solid var(--btn-font-and-border);
+	border: 1px solid $btn-color;
 	line-height: 30px;
 	padding: 0 15px;
 	text-transform: uppercase;
@@ -137,7 +154,7 @@ textarea:disabled {
 		cursor: auto;
 
 		&:hover {
-			background-color: var(--btn-bg);
+			background-color: $primary;
 		}
 	}
 }
@@ -163,7 +180,7 @@ textarea:disabled {
 
 	>div {
 		min-width: 200px;
-		background-color: var(--submain-bg);
+		background-color: $surface;
 		height: max-content;
 		margin: 0 10px;
 		border-radius: 20px;
@@ -224,7 +241,7 @@ textarea:disabled {
 
 .list {
 	position: relative;
-	margin: 0 4px 10px 8px;
+	margin: 11px 4px 10px 8px;
 	padding-bottom: 10px;
 	overflow: hidden auto;
 	list-style: none;
@@ -263,7 +280,7 @@ textarea:disabled {
 
 		&.active {
 			z-index: 11;
-			background-color: var(--item-bg);
+			background-color: $active-bg;
 
 			&:not([class*="draggable-"]) {
 				font-size: 16px;
@@ -283,11 +300,11 @@ textarea:disabled {
 	}
 
 	button:not(.btn):active {
-		color: var(--btn-font-and-border);
+		color: $btn-color;
 	}
 
 	.btn:hover {
-		background-color: var(--btn-bg);
+		background-color: $primary;
 	}
 
 	.btn:active {

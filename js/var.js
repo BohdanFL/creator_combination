@@ -25,6 +25,8 @@ const repeatElemBtn = document.querySelector('#repeat-elem')
 const chooseJumpEnableBtn = document.querySelector('#choose-jump')
 const uniqueEnableBtn = document.querySelector('#unique')
 
+const menuBtn = document.querySelector(".elements__menu")
+
 const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
 

@@ -3,7 +3,7 @@
 	z-index: 100;
 	top: 5px;
 	right: 25px;
-	background-color: var(--popup-and-title-bg);
+	background-color: $surface-title;
 	border-radius: 6px;
 
 	&__opener {
@@ -25,7 +25,7 @@
 		}
 
 		&:hover {
-			background-color: var(--btn-bg);
+			background-color: $primary;
 		}
 
 		&-name {
@@ -45,6 +45,6 @@
 	}
 
 	.context-menu__btn:active {
-		background-color: var(--btn-bg);
+		background-color: $primary;
 	}
 }

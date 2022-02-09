@@ -23,8 +23,7 @@ const popupCheckRepeations = () => {
 
 			const confirmBtn = document.querySelector("#confirm")
 			const rejectBtn = document.querySelector("#reject")
-			selectAll.classList.remove("hide")
-			unselectAll.classList.remove("hide")
+			menuBtn.classList.remove("hide")
 
 			elementsList.addEventListener("mousedown", toggleClass)
 			confirmBtn.addEventListener("click", confirmedCheckRepeation, {
