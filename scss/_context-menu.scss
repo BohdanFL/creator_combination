@@ -26,6 +26,7 @@
 
 		&:hover {
 			background-color: $primary;
+			color: $btn-color !important;
 		}
 
 		&-name {
@@ -42,9 +43,11 @@
 
 	.context-menu__btn:hover {
 		background-color: inherit;
+		color: inherit !important;
 	}
 
 	.context-menu__btn:active {
 		background-color: $primary;
+		color: $btn-color !important;
 	}
 }

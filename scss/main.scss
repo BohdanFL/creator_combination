@@ -2,41 +2,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
 
 .dark {
-	--background: #3B1719;
-	--surface: #69140e;
-	--surface-title: #a44200;
-
-	--primary: #d58936;
-
+	--background: #F0F5F9;
+	--surface: #52616B;
+	--surface-title: #434f57;
+	--primary: #C9D6DF;
 	--secondary: #666666;
 	--warning: #aa0000;
-
-	--btn-color: #fff94f;
-	--active-bg: #fff94f1a;
+	--btn-color: #1E2022;
+	--active-bg: #acacac60;
 	--check: blue;
+	--scroll-color: #C9D6DF;
+	--hover: #ffffff;
 }
 
 .light {
 	--background: #F0F5F9;
 	--surface: #52616B;
-	--surface-title: #1E20221a;
+	--surface-title: #434f57;
 	--primary: #C9D6DF;
 	--secondary: #666666;
 	--warning: #aa0000;
 	--btn-color: #1E2022;
-	--active-bg: #acacac;
+	--active-bg: #434f57e0;
 	--check: blue;
+	--scroll-color: #C9D6DF;
+	--hover: #ffffff;
+	// #F0F5F9
+	// #C9D6DF
+	// #52616B
+	// #1E2022
 }
 
+// $my: darken(#52616B, 7%);
 $background: var(--background);
 $surface: var(--surface);
-$surface-title: darken(#52616B, 7%);
+$surface-title: var(--surface-title);
 $primary: var(--primary);
 $secondary: var(--secondary);
 $warning: var(--warning);
 $btn-color: var(--btn-color);
 $active-bg: var(--active-bg);
 $check: var(--check);
+$hover: var(--hover);
+$scroll-color: var(--scroll-color);
 
 
 
@@ -57,7 +65,7 @@ $check: var(--check);
 	width: 8px;
 
 	&-thumb {
-		background: $primary;
+		background: $scroll-color;
 		border-radius: 20px;
 	}
 }
@@ -82,6 +90,12 @@ body {
 	font-weight: 500;
 }
 
+body::-webkit-scrollbar {
+	&-thumb {
+		background: $surface;
+	}
+}
+
 input,
 button,
 textarea {
@@ -102,7 +116,7 @@ button:not(.btn) {
 }
 
 button:not(.btn):hover {
-	color: $btn-color;
+	color: $hover;
 }
 
 input:disabled,
@@ -147,6 +161,8 @@ textarea:disabled {
 
 	&:hover {
 		background-color: transparent;
+		color: $primary;
+		border-color: $primary;
 	}
 
 	.btn:disabled {
@@ -241,7 +257,7 @@ textarea:disabled {
 
 .list {
 	position: relative;
-	margin: 11px 4px 10px 8px;
+	margin: 16px 4px 10px 8px;
 	padding-bottom: 10px;
 	overflow: hidden auto;
 	list-style: none;
@@ -300,15 +316,19 @@ textarea:disabled {
 	}
 
 	button:not(.btn):active {
-		color: $btn-color;
+		color: $hover;
 	}
 
 	.btn:hover {
 		background-color: $primary;
+		color: $btn-color;
+		border-color: $btn-color;
 	}
 
 	.btn:active {
 		background-color: transparent;
+		color: $primary;
+		border-color: $primary;
 	}
 }
 

@@ -11,7 +11,7 @@
 	z-index: 12;
 
 	&__logo {
-		opacity: .5;
+		// opacity: .5;
 
 		img {
 			max-height: 1.4em
@@ -30,5 +30,5 @@
 }
 
 .light .header__logo img {
-	filter: brightness(2) grayscale(1) drop-shadow(2px 2px 6px black);
+	filter: brightness(2) grayscale(0.9) hue-rotate(130deg) drop-shadow(2px 2px 4px black) opacity(0.5);
 }

@@ -44,7 +44,7 @@ const options = JSON.parse(localStorage.getItem('options')) || {
 const sortableOptions = {
 	draggable: 'li:not(.jump)',
 	delay: {
-		mouse: 300,
+		mouse: 200,
 		drag: 0,
 		touch: 300
 	},

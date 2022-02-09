@@ -2,27 +2,31 @@
 /* Global styles */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
 .dark {
-  --background: #3B1719;
-  --surface: #69140e;
-  --surface-title: #a44200;
-  --primary: #d58936;
+  --background: #F0F5F9;
+  --surface: #52616B;
+  --surface-title: #434f57;
+  --primary: #C9D6DF;
   --secondary: #666666;
   --warning: #aa0000;
-  --btn-color: #fff94f;
-  --active-bg: #fff94f1a;
+  --btn-color: #1E2022;
+  --active-bg: #acacac60;
   --check: blue;
+  --scroll-color: #C9D6DF;
+  --hover: #ffffff;
 }
 
 .light {
   --background: #F0F5F9;
   --surface: #52616B;
-  --surface-title: #1E20221a;
+  --surface-title: #434f57;
   --primary: #C9D6DF;
   --secondary: #666666;
   --warning: #aa0000;
   --btn-color: #1E2022;
-  --active-bg: #acacac;
+  --active-bg: #434f57e0;
   --check: blue;
+  --scroll-color: #C9D6DF;
+  --hover: #ffffff;
 }
 
 *,
@@ -39,7 +43,7 @@
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: var(--scroll-color);
   border-radius: 20px;
 }
 
@@ -61,6 +65,10 @@ body {
   font-weight: 500;
 }
 
+body::-webkit-scrollbar-thumb {
+  background: var(--surface);
+}
+
 input,
 button,
 textarea {
@@ -80,7 +88,7 @@ button:not(.btn):focus {
 }
 
 button:not(.btn):hover {
-  color: var(--btn-color);
+  color: var(--hover);
 }
 
 input:disabled,
@@ -122,6 +130,8 @@ textarea:disabled {
 }
 .btn:hover {
   background-color: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
 }
 .btn .btn:disabled {
   filter: brightness(0.6);
@@ -200,7 +210,7 @@ textarea:disabled {
 /* List */
 .list {
   position: relative;
-  margin: 11px 4px 10px 8px;
+  margin: 16px 4px 10px 8px;
   padding-bottom: 10px;
   overflow: hidden auto;
   list-style: none;
@@ -251,15 +261,19 @@ textarea:disabled {
   }
 
   button:not(.btn):active {
-    color: var(--btn-color);
+    color: var(--hover);
   }
 
   .btn:hover {
     background-color: var(--primary);
+    color: var(--btn-color);
+    border-color: var(--btn-color);
   }
 
   .btn:active {
     background-color: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
   }
 }
 .header {
@@ -273,9 +287,6 @@ textarea:disabled {
   justify-content: space-between;
   box-shadow: black 0px -10px 25px 2px;
   z-index: 12;
-}
-.header__logo {
-  opacity: 0.5;
 }
 .header__logo img {
   max-height: 1.4em;
@@ -291,7 +302,7 @@ textarea:disabled {
 }
 
 .light .header__logo img {
-  filter: brightness(2) grayscale(1) drop-shadow(2px 2px 6px black);
+  filter: brightness(2) grayscale(0.9) hue-rotate(130deg) drop-shadow(2px 2px 4px black) opacity(0.5);
 }
 
 .elements {
@@ -308,7 +319,7 @@ textarea:disabled {
   justify-content: space-evenly;
   align-items: center;
   padding: 10px 5px;
-  background-color: #434f57;
+  background-color: var(--surface-title);
   border-radius: 20px 20px 0px 0px;
   flex-wrap: wrap;
 }
@@ -327,7 +338,7 @@ textarea:disabled {
   z-index: 11;
 }
 .elements__menu:not(.hide) {
-  margin: -11px 0 -11px;
+  margin: -14px 0 -11px;
 }
 .elements__list {
   position: relative;
@@ -370,9 +381,10 @@ textarea:disabled {
     flex: 100%;
   }
 }
-@media (max-width: 400px) {
-  .elements__item button {
-    font-size: 20px;
+@media (max-width: 495px) {
+  .elements__title {
+    justify-content: space-between;
+    padding: 5px;
   }
 }
 .save__menu {
@@ -500,8 +512,8 @@ textarea:disabled {
 }
 
 #search {
-  color: var(--btn-color);
-  background-color: var(--primary);
+  color: var(--primary);
+  background-color: var(--surface-title);
   outline: none;
   border: none;
   padding: 9px 15px;
@@ -512,7 +524,7 @@ textarea:disabled {
 #search::placeholder {
   color: #fff;
   font-size: 16px;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 button.fas.fa-square:after {
@@ -658,7 +670,7 @@ button.fas.fa-square:after {
   line-height: 24px;
   font-size: 20px;
   border-radius: 50px;
-  background-color: #434f57;
+  background-color: var(--surface-title);
   box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
   transition: top 0.4s;
   z-index: 13;
@@ -698,7 +710,7 @@ button.fas.fa-square:after {
   z-index: 100;
   top: 5px;
   right: 25px;
-  background-color: #434f57;
+  background-color: var(--surface-title);
   border-radius: 6px;
 }
 .context-menu__opener {
@@ -718,6 +730,7 @@ button.fas.fa-square:after {
 }
 .context-menu__btn:hover {
   background-color: var(--primary);
+  color: var(--btn-color) !important;
 }
 .context-menu__btn-name {
   font-family: "Roboto", sans-serif;
@@ -729,10 +742,12 @@ button.fas.fa-square:after {
 @media (max-width: 769px) {
   .context-menu__btn:hover {
     background-color: inherit;
+    color: inherit !important;
   }
 
   .context-menu__btn:active {
     background-color: var(--primary);
+    color: var(--btn-color) !important;
   }
 }
 .draggable-mirror {
