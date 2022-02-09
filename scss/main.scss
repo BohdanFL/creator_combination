@@ -14,7 +14,7 @@
 .light {
 	--item-check: greenyellow;
 	--main-bg: #eeeeeee;
-	--submain-bg: #888888;
+	--submain-bg: #aaaaaa;
 	--popup-and-title-bg: #dddddd;
 	--btn-bg: #eeeeee;
 	--btn-font-and-border: #666666;
@@ -201,6 +201,7 @@ textarea:disabled {
 
 	.elements {
 		margin-right: 0 !important;
+		margin-bottom: 20px;
 	}
 
 	.inner>div:last-child {

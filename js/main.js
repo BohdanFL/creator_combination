@@ -156,8 +156,6 @@ readTextFile("data.json", function (data) {
 	addClickForOptions(chooseJumpEnableBtn, "chooseJumpEnable");
 	addClickForOptions(uniqueEnableBtn, "uniqueEnable");
 
-
-
 	repeatElemBtn.addEventListener('click', preCheckRepetions);
 	window.addEventListener("mousedown", closeContextMenu);
 	window.addEventListener("touchstart", closeContextMenu)
