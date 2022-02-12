@@ -31,6 +31,8 @@ const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
 
 const changeModeBtn = document.querySelectorAll('.change-mode')
+const hideSaveBtn = document.querySelector('.toggle-hide-save')
+
 
 const guideOpener = document.querySelector("#guide-opener")
 

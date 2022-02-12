@@ -170,13 +170,11 @@ const addRandomElem = () => {
 	const jumpEnable = randomJumpEnableBtn.checked
 
 	const countElem = parseInt(countAddRandomElem.value)
-	const limitElem = 15
+	const limitElem = 100
 	const potentialItemCount = elemsLength + countElem
 
 	let arr = dataElems.e
 	let arrLength = arr.length
-
-	// console.log(potentialItemCount, countElem, parseInt(countAddRandomElem.value))
 
 	const lastItem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
 	const isLastJump = lastItem ? !!dataElems.j.find(i => lastItem ? i === lastItem.textContent : false) : false
