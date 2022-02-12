@@ -41,7 +41,7 @@
 
 	&__list {
 		position: relative;
-		max-height: 67vh;
+		max-height: 67.5vh;
 		z-index: 11;
 
 		&:before {
@@ -74,13 +74,17 @@
 		}
 
 		&.check {
-			transition: all 0.3s;
-			color: $check;
-			margin-left: 0px;
+			// transition: all 0.3s;
+			// color: $check;
+			// margin-left: 0px;
 
-			span {
-				color: $check;
-			}
+			// span {
+			// 	color: $check;
+			// }
+			transition: all 0.3s;
+			color: var(--btn-color);
+			margin-left: 0px;
+			background: var(--primary) !important;
 		}
 	}
 }

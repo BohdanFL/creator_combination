@@ -1,5 +1,5 @@
 if (options) {
-	countEnableBtn.value = options.count
+	countAddRandomElem.value = options.count
 	randomJumpEnableBtn.checked = options.randomJumpEnable
 	changeJumpEnableBtn.checked = options.changeJumpEnable
 	repeatElemBtn.checked = options.repeatEnable

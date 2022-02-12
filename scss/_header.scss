@@ -2,33 +2,27 @@
 	position: sticky;
 	left: 0;
 	top: 0;
-	background-color: $surface;
-	padding: 8px 5vw;
+	z-index: 12;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	box-shadow: black 0px -10px 25px 2px;
-	z-index: 12;
+	padding: 8px 5vw;
+	background-color: $surface;
+	box-shadow: black 0px 10px 20px -15px;
 
 	&__logo {
-		// opacity: .5;
-
 		img {
-			max-height: 1.4em
+			max-height: 1.4em;
+			filter: brightness(2) grayscale(0.9) hue-rotate(130deg) drop-shadow(2px 2px 4px black) opacity(0.5);
 		}
 	}
 
 	button {
 		font-size: 1.4em;
 		margin-left: 10px;
-		cursor: pointer;
 	}
 }
 
 #switch-theme:active {
 	color: inherit;
-}
-
-.light .header__logo img {
-	filter: brightness(2) grayscale(0.9) hue-rotate(130deg) drop-shadow(2px 2px 4px black) opacity(0.5);
 }

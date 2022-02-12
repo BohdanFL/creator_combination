@@ -112,7 +112,6 @@ const createSaveForList = (save) => {
 
 const savingList = () => {
 	const saveItemsLimit = 50
-	console.log(saveItemsLimit)
 	if (!(saveList.children.length < saveItemsLimit)) {
 		createPopup(`Ви досягли ліміту збережень (${saveItemsLimit})`, 200, 2000)
 		return
@@ -136,6 +135,11 @@ const savingList = () => {
 			localStorage.setItem("saves", JSON.stringify(saves))
 			resolve(null)
 		}).then(value => {
+			saveList.scrollTo({
+				behavior: "smooth",
+				left: 0,
+				top: saveList.scrollHeight
+			})
 			createPopup("Збереження пройшло успішно", 200, 2000)
 		}).catch(error => {
 			createPopup("Збереження невдалось", 200, 2000)

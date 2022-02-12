@@ -150,13 +150,14 @@ textarea:disabled {
 .wrapper > div {
   flex: 0 1 50%;
   justify-content: space-evenly;
+  align-content: start;
 }
 
 .inner {
   display: flex;
   flex-wrap: wrap;
 }
-.inner > div {
+.inner__item {
   min-width: 200px;
   background-color: var(--surface);
   height: max-content;
@@ -165,21 +166,23 @@ textarea:disabled {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-.inner > div:last-child {
+.inner__item:last-child {
   margin-bottom: 0;
 }
-.inner > div > .btn {
-  width: 100%;
-  border-radius: 20px 20px 0 0;
-  box-shadow: black 0px 6px 20px -10px;
+.inner__btns {
+  display: flex;
   margin-bottom: 10px;
+  box-shadow: black 0px 6px 20px -10px;
+}
+.inner__main-btn {
+  width: 100%;
+  border-radius: 20px 0 0 0;
+}
+.inner .change-mode {
+  border-radius: 0 15px 0 0;
+  margin-left: -1px;
 }
 
-@media (max-width: 1012px) {
-  .wrapper > div {
-    align-content: space-between;
-  }
-}
 @media (max-width: 670px) {
   .wrapper {
     flex-wrap: wrap-reverse;
@@ -193,12 +196,12 @@ textarea:disabled {
     margin-bottom: 20px;
   }
 
-  .inner > div:last-child {
+  .inner__item:last-child {
     margin-bottom: 10px;
   }
 }
 @media (max-width: 495px) {
-  .inner > div {
+  .inner__item {
     flex: 0 1 100%;
     margin: 0 0 10px;
   }
@@ -251,7 +254,7 @@ textarea:disabled {
 .list li.active:not([class*=draggable-]) {
   font-size: 16px;
 }
-.list li li:last-child:not(:first-child) .context-menu {
+.list li:last-child:not(:first-child) .context-menu {
   top: -25px;
 }
 
@@ -280,29 +283,25 @@ textarea:disabled {
   position: sticky;
   left: 0;
   top: 0;
-  background-color: var(--surface);
-  padding: 8px 5vw;
+  z-index: 12;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: black 0px -10px 25px 2px;
-  z-index: 12;
+  padding: 8px 5vw;
+  background-color: var(--surface);
+  box-shadow: black 0px 10px 20px -15px;
 }
 .header__logo img {
   max-height: 1.4em;
+  filter: brightness(2) grayscale(0.9) hue-rotate(130deg) drop-shadow(2px 2px 4px black) opacity(0.5);
 }
 .header button {
   font-size: 1.4em;
   margin-left: 10px;
-  cursor: pointer;
 }
 
 #switch-theme:active {
   color: inherit;
-}
-
-.light .header__logo img {
-  filter: brightness(2) grayscale(0.9) hue-rotate(130deg) drop-shadow(2px 2px 4px black) opacity(0.5);
 }
 
 .elements {
@@ -342,7 +341,7 @@ textarea:disabled {
 }
 .elements__list {
   position: relative;
-  max-height: 67vh;
+  max-height: 67.5vh;
   z-index: 11;
 }
 .elements__list:before {
@@ -368,11 +367,9 @@ textarea:disabled {
 }
 .elements__item.check {
   transition: all 0.3s;
-  color: var(--check);
+  color: var(--btn-color);
   margin-left: 0px;
-}
-.elements__item.check span {
-  color: var(--check);
+  background: var(--primary) !important;
 }
 
 @media (max-width: 875px) {
@@ -395,8 +392,9 @@ textarea:disabled {
   padding: 0 8px;
   line-height: 15px;
 }
-.save__simple-btn {
-  margin-bottom: 0 !important;
+.save__btn {
+  border-radius: 20px 20px 0 0;
+  box-shadow: black 0px 6px 20px -10px;
 }
 .save__list {
   padding: 0 10px;
@@ -434,7 +432,7 @@ textarea:disabled {
   outline-offset: 2px;
 }
 
-@media (max-width: 1012px) {
+@media (max-width: 1011px) {
   .save__list {
     max-height: 23vh;
   }
@@ -491,6 +489,12 @@ textarea:disabled {
   font-size: 20px;
   background-color: var(--active-bg);
 }
+.choose__btn-close, .choose__btn-apply {
+  position: fixed;
+  z-index: 12;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 .choose__btn-close {
   font-size: 40px !important;
   top: 45px;
@@ -502,13 +506,6 @@ textarea:disabled {
   left: 50%;
   transform: translateX(-50%);
   width: 200px;
-}
-
-[class*=choose__btn] {
-  position: fixed;
-  z-index: 12;
-  opacity: 0;
-  transition: opacity 0.3s;
 }
 
 #search {
@@ -663,17 +660,17 @@ button.fas.fa-square:after {
   top: -150px;
   left: 0;
   right: 0;
+  z-index: 13;
+  max-width: 360px;
   margin: 0 auto;
   padding: 10px 20px;
-  max-width: 360px;
   text-align: center;
-  line-height: 24px;
   font-size: 20px;
-  border-radius: 50px;
+  line-height: 24px;
   background-color: var(--surface-title);
-  box-shadow: 0px 0px 25px 3px rgba(37, 37, 37, 0.5);
+  border: solid 1px var(--btn-color);
+  border-radius: 50px;
   transition: top 0.4s;
-  z-index: 13;
 }
 .popup__title, .popup__subtitle {
   font-size: 16px;

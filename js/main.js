@@ -93,9 +93,9 @@ const checkResponsefromChange = () => {
 	} else createPopup("Немає елементів", 0, 1000)
 }
 
-const addClickForOptions = (btn, value, event = "click", func) => {
-	btn.addEventListener(event, () => {
-		typeof func === "function" ? func() : options[value] = btn.checked
+const addEventForOptions = (btn, value, event = "click", func) => {
+	btn.addEventListener(event, (e) => {
+		typeof func === "function" ? func(e) : options[value] = btn.checked
 		localStorage.setItem("options", JSON.stringify(options))
 	})
 }
@@ -143,20 +143,31 @@ readTextFile("data.json", function (data) {
 	selectAndUnselect(selectAll, "add");
 	selectAndUnselect(unselectAll, "remove")
 
-	addClickForOptions(countEnableBtn, "count", "input", () => {
-		if (countEnableBtn.value.length > 2) {
-			countEnableBtn.value = countEnableBtn.value.substring(0, countEnableBtn.value.length - 1)
+	addEventForOptions(countAddRandomElem, "count", "input", (e) => {
+		if (e.inputType === "insertText") {
+			const allowedStr = /[0-9]/
+			if (countAddRandomElem.value.length > 2 || !allowedStr.test(countAddRandomElem.value)) {
+				countAddRandomElem.value = countAddRandomElem.value.replace(e.data, "")
+			}
 		}
-		countEnableBtn.value < 1 ? options.count = 1 : options.count = countEnableBtn.value
-	});
-	addClickForOptions(randomJumpEnableBtn, "randomJumpEnable");
-	addClickForOptions(changeJumpEnableBtn, "changeJumpEnable");
-	addClickForOptions(repeatElemBtn, "repeatEnable");
 
-	addClickForOptions(chooseJumpEnableBtn, "chooseJumpEnable");
-	addClickForOptions(uniqueEnableBtn, "uniqueEnable");
+		countAddRandomElem.value < 1 ? options.count = 1 : options.count = countAddRandomElem.value
+	});
+	addEventForOptions(countAddRandomElem, "count", "focusout", () => {
+		if (countAddRandomElem.value < 1) countAddRandomElem.value = 1
+	});
+	addEventForOptions(randomJumpEnableBtn, "randomJumpEnable");
+	addEventForOptions(changeJumpEnableBtn, "changeJumpEnable");
+	addEventForOptions(repeatElemBtn, "repeatEnable");
+
+	addEventForOptions(chooseJumpEnableBtn, "chooseJumpEnable");
+	addEventForOptions(uniqueEnableBtn, "uniqueEnable");
 
 	repeatElemBtn.addEventListener('click', preCheckRepetions);
 	window.addEventListener("mousedown", closeContextMenu);
-	window.addEventListener("touchstart", closeContextMenu)
+	window.addEventListener("touchstart", closeContextMenu);
+	guideOpener.addEventListener("click", guideShow)
+	changeModeBtn.forEach(btn => {
+		btn.addEventListener("click", toggleMode)
+	})
 });

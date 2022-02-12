@@ -50,8 +50,8 @@
 	content: "\f059";
 }
 
-.fa-address-book:before {
-	content: "\f2b9";
+.fa-flag:before {
+	content: "\f024";
 }
 
 .fa-cog:before {
@@ -64,6 +64,10 @@
 
 .fa-times:before {
 	content: "\f00d";
+}
+
+.fa-right-left:before {
+	content: "\f362";
 }
 
 @font-face {

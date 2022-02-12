@@ -49,6 +49,15 @@
 	}
 
 	&__btn {
+
+		&-close,
+		&-apply {
+			position: fixed;
+			z-index: 12;
+			opacity: 0;
+			transition: opacity .3s;
+		}
+
 		&-close {
 			font-size: 40px !important;
 			top: 45px;
@@ -63,13 +72,6 @@
 			width: 200px;
 		}
 	}
-}
-
-[class*="choose__btn"] {
-	position: fixed;
-	z-index: 12;
-	opacity: 0;
-	transition: opacity .3s;
 }
 
 #search {

@@ -9,8 +9,9 @@
 		}
 	}
 
-	&__simple-btn {
-		margin-bottom: 0 !important;
+	&__btn {
+		border-radius: 20px 20px 0 0;
+		box-shadow: black 0px 6px 20px -10px;
 	}
 
 	&__list {
@@ -58,7 +59,7 @@
 	}
 }
 
-@media (max-width: 1012px) {
+@media (max-width: 1011px) {
 	.save__list {
 		max-height: 23vh;
 	}

@@ -106,7 +106,7 @@ const createNewDataElems = (numIterate = 1, elem, checkElems = dataElems.e, chan
 	})
 }
 
-const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 30, only) => {
+const iterate = (i, elem, array, iterableArr = array, change = false, save = true, duration = 15, only) => {
 	return new Promise((resolve) => {
 
 		elem.name = elem.querySelector(".elements__item-text") || elem
@@ -120,7 +120,7 @@ const iterate = (i, elem, array, iterableArr = array, change = false, save = tru
 			elem.name.textContent = random(iterableArr)
 			sortable.destroy()
 
-			if (i > 10) {
+			if (i > 30) {
 				clearInterval(interval);
 
 				const isJump = !!dataElems.j.find(i => i === elem.name.textContent.trim())
@@ -165,63 +165,57 @@ const setLimit = (elemsLength, repeatEnable, jumpEnable, arr, arrLength, potenti
 }
 
 const addRandomElem = () => {
-	const elemsLength = elementsList.children.length
-	const countValue = parseInt(countEnableBtn.value)
-
+	const elemsLength = elementsList.childElementCount
 	const repeatEnable = repeatElemBtn.checked
 	const jumpEnable = randomJumpEnableBtn.checked
-	const sumElem = elemsLength + parseInt(countEnableBtn.value)
+
+	const countElem = parseInt(countAddRandomElem.value)
+	const limitElem = 15
+	const potentialItemCount = elemsLength + countElem
 
 	let arr = dataElems.e
-	const potentialItemCount = elemsLength + countValue
 	let arrLength = arr.length
 
+	// console.log(potentialItemCount, countElem, parseInt(countAddRandomElem.value))
+
 	const lastItem = elementsList.querySelector(".elements__item:last-child .elements__item-text")
-	const isLastJump = !!dataElems.j.find(i => lastItem ? i === lastItem.textContent : false)
+	const isLastJump = lastItem ? !!dataElems.j.find(i => lastItem ? i === lastItem.textContent : false) : false
 	// Деактивовує активований сейв
 	addSelectorInListItem(saveList, null, "active")
 
 	if (!repeatEnable) {
-		if (elemsLength >= 99) {
-			createPopup('Ви досягли ліміту елементів (99)', 200, 3000)
+		if (elemsLength >= limitElem) {
+			createPopup(`Ви досягли ліміту елементів (${limitElem})`, 200, 3000)
 			return
-		} else {
-			if (countEnableBtn.value > 99 || sumElem > 99) {
-				createPopup('Дія неможлива, ліміт елементів (99)', 200, 3000)
-			}
+		} else if (potentialItemCount > limitElem) {
+			createPopup(`Дія неможлива, ліміт елементів (${limitElem})`, 200, 3000)
+			return
 		}
-		if (elemsLength >= 99 || countEnableBtn.value > 99 || sumElem > 99) {
-			countEnableBtn.value = (99 - elemsLength) || 1
+		if (elemsLength >= limitElem || potentialItemCount > limitElem) {
+			countAddRandomElem.value = (limitElem - elemsLength) || 1
 			return
 		}
 	}
 
 	createElemNums(arr)
 	if (repeatEnable) {
-		if (jumpEnable) {
-			arrLength = arr.length + 1
-		}
-		if (potentialItemCount > arr.length && !elemNums.length) {
-			countEnableBtn.value = (arr.length - elemsLength) <= 0 ? 1 : arrLength - elemsLength
+		console.log(potentialItemCount, arrLength, elemNums.length)
+		if (potentialItemCount > arrLength && !elemNums.length) {
+			countAddRandomElem.value = (arrLength - elemsLength) <= 0 ? 1 : arrLength - elemsLength
 		}
 	}
-
-	createElemNums(arr)
-	for (let i = 0; i < countValue; i++) {
-		if (jumpEnable && !isLastJump) {
-			if (i === (countValue - 1)) {
-				arr = dataElems.j
-			}
-		}
-		arrLength = arr.length
-		if (jumpEnable) {
-			arrLength = arrLength + 1
+	// createElemNums(arr)
+	for (let i = 0; i < countElem; i++) {
+		//` TODO: Створювати зіскок через iterate
+		if (jumpEnable && !isLastJump && i === (countElem - 1)) {
+			arr = dataElems.j
+			// iterate(1, createLi('', isLastJump, lastItem), arr)
 		}
 
 		if (repeatEnable) {
 			if (potentialItemCount > arrLength) {
 				createPopup("Неможливо створити таку кількість унікальних елементів!", 200, 3000)
-				i = countValue
+				i = countElem
 			} else {
 				createNewDataElems(1, createLi('', isLastJump, lastItem), arr)
 			}
@@ -235,14 +229,14 @@ const addRandomElem = () => {
 		left: 0,
 		top: elementsList.scrollHeight
 	})
-	options.count = countEnableBtn.value
+	options.count = countAddRandomElem.value
 	localStorage.setItem("options", JSON.stringify(options))
 }
 
 const preCheckRepetions = () => {
 	let repeatEnable = repeatElemBtn.checked
 	if (repeatEnable) {
-		if (createElemNums(dataElems.e).length || (dataElems.e.length == elementsList.children.length)) {
+		if (createElemNums(dataElems.e).length || (dataElems.e.length == elementsList.childElementCount) || false) {
 			popupCheckRepeations()
 			return
 		}

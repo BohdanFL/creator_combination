@@ -307,6 +307,11 @@ async function insertItemsInList(choseArr) {
 			elems.push(i)
 			createLi(i, isLastElemJump)
 		})
+		elementsList.scrollTo({
+			behavior: "smooth",
+			left: 0,
+			top: elementsList.scrollHeight
+		})
 	}
 
 

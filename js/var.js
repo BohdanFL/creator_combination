@@ -5,9 +5,9 @@ let dataElems = [],
 
 const MOBILE_DEVICE = /Mobile|Android|webOS|iP(ad|od|hone)|BlackBerry|BB|PlayBook|IEMobile|MeeGo|mini|Fennec|Windows Phone|Kindle|Silk|Opera Mini/
 
-const randomBtn = document.querySelector('.random__simple-btn')
-const chooseBtn = document.querySelector('.choose__simple-btn')
-const saveBtn = document.querySelector('.save__simple-btn')
+const randomBtn = document.querySelector('.random__btn')
+const chooseBtn = document.querySelector('.choose__btn')
+const saveBtn = document.querySelector('.save__btn')
 
 const elementsList = document.querySelector('.elements__list')
 const saveList = document.querySelector('.save__list')
@@ -17,7 +17,7 @@ const changeAllBtn = document.querySelector('.elements__menu-item.change-all')
 
 const saveDeleteAllBtn = document.querySelector('.save__menu-item.delete-all')
 
-const countEnableBtn = document.querySelector("#count")
+const countAddRandomElem = document.querySelector("#count")
 const randomJumpEnableBtn = document.querySelector('#random-jump')
 const changeJumpEnableBtn = document.querySelector('#change-jump')
 const repeatElemBtn = document.querySelector('#repeat-elem')
@@ -29,6 +29,10 @@ const menuBtn = document.querySelector(".elements__menu")
 
 const selectAll = document.querySelector(".select-all")
 const unselectAll = document.querySelector(".unselect-all")
+
+const changeModeBtn = document.querySelectorAll('.change-mode')
+
+const guideOpener = document.querySelector("#guide-opener")
 
 let elems = JSON.parse(localStorage.getItem('elems')) || []
 let saves = JSON.parse(localStorage.getItem('saves')) || []
