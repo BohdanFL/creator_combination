@@ -1,5 +1,5 @@
 const guides = [{
-		elem: ".random__btn",
+		elem: ".inner__item:not(.hide) .change-mode",
 		text: "1)Lorem, ipsum dolor. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate"
 	}, {
 		elem: ".choose__btn",
