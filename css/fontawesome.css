@@ -70,6 +70,14 @@
 	content: "\f362";
 }
 
+.fa-next:before {
+	content: "\f138";
+}
+
+.fa-prev:before {
+	content: "\f137";
+}
+
 @font-face {
 	font-family: 'Font Awesome 5 Free';
 	font-style: normal;

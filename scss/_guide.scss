@@ -1,0 +1,59 @@
+.controls {
+	position: fixed;
+	bottom: 0;
+	z-index: 12;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 0 5vw 5vh;
+	font-size: 16px;
+	opacity: 0;
+
+	&__btn {}
+
+	&__nav {}
+
+	&__nav-next,
+	&__nav-prev {
+		font-size: 20px;
+		padding: 0 10px;
+	}
+
+	&__pages {
+		background: $primary;
+		color: var(--btn-color);
+		padding: 0 10px;
+		line-height: 30px;
+		border-radius: 20px;
+
+	}
+
+	&__pages-all {}
+
+	&__pages-current {}
+
+
+}
+
+.guide {
+
+	&-check {
+		position: relative;
+		z-index: 100;
+		pointer-events: none;
+	}
+
+	&__text {
+		position: absolute;
+		top: 0;
+		margin: 0 8vw 0 2vw;
+		padding: 8px;
+		font-size: 16px;
+		z-index: 12;
+		opacity: 0;
+		background: var(--btn-color);
+		border-radius: 5px;
+		border: 1px solid;
+	}
+}

@@ -766,4 +766,45 @@ button.fas.fa-square:after {
   display: none;
 }
 
+.controls {
+  position: fixed;
+  bottom: 0;
+  z-index: 12;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 5vw 5vh;
+  font-size: 16px;
+  opacity: 0;
+}
+.controls__nav-next, .controls__nav-prev {
+  font-size: 20px;
+  padding: 0 10px;
+}
+.controls__pages {
+  background: var(--primary);
+  color: var(--btn-color);
+  padding: 0 10px;
+  line-height: 30px;
+  border-radius: 20px;
+}
+.guide-check {
+  position: relative;
+  z-index: 100;
+  pointer-events: none;
+}
+.guide__text {
+  position: absolute;
+  top: 0;
+  margin: 0 8vw 0 2vw;
+  padding: 8px;
+  font-size: 16px;
+  z-index: 12;
+  opacity: 0;
+  background: var(--btn-color);
+  border-radius: 5px;
+  border: 1px solid;
+}
+
 /*# sourceMappingURL=main.css.map */

@@ -170,12 +170,5 @@ readTextFile("data.json", function (data) {
 	changeModeBtn.forEach(btn => {
 		btn.addEventListener("click", toggleMode)
 	})
-	hideSaveBtn.addEventListener("click", () => {
-		saveList.classList.toggle("hide")
-		if (saveList.classList.contains("hide")) {
-			hideSaveBtn.innerText = "show"
-		} else {
-			hideSaveBtn.innerText = "hide"
-		}
-	})
+	hideSaveBtn.addEventListener("click", toggleHideSave)
 });

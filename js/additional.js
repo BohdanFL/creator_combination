@@ -76,27 +76,18 @@ const closeContextMenu = (e) => {
 	}
 }
 
-const createGuidePage = (elem, text, positionText) => {
-	// const bg = addDarkenedBg("200")
-	// bg.style.zIndex = "99"
-	// console.dir(elem)
-	// elem.style.position = "relative"
-	// elem.style.zIndex = 100
-	document.body.scrollTo({
-		behavior: "smooth",
-		left: 0,
-		top: document.body.scrollHeight
-	})
-	// document.body.style.overflow = "hidden"
-}
-
-const guideShow = (e) => {
-	createGuidePage(randomBtn, "Lorem impus? Lore mishor dore o has")
-}
-
 const toggleMode = () => {
 	const randomBlock = document.querySelector(".random")
 	const chooseBlock = document.querySelector(".choose")
 	randomBlock.classList.toggle("hide")
 	chooseBlock.classList.toggle("hide")
+}
+
+const toggleHideSave = () => {
+	saveList.classList.toggle("hide")
+	if (saveList.classList.contains("hide")) {
+		hideSaveBtn.innerText = "show"
+	} else {
+		hideSaveBtn.innerText = "hide"
+	}
 }
