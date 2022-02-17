@@ -126,7 +126,7 @@ const insertGroups = (groups, list) => {
 		if (!chooseJumpEnableBtn.checked) {
 			range.forEach((i) => {
 				groupItems += `
-					<li class="choose__item">
+					<li class="choose__item list__item">
 						${chooseElems[i]}
 						<button class="far fa-square"></button>
 					</li>
@@ -135,7 +135,7 @@ const insertGroups = (groups, list) => {
 		} else {
 			range.forEach((i) => {
 				groupItems += `
-					<li class="choose__item">
+					<li class="choose__item list__item">
 						${chooseElems[i]}
 						<button class="far fa-circle"></button>
 					</li>

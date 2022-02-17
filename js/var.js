@@ -12,10 +12,10 @@ const saveBtn = document.querySelector('.save__btn')
 const elementsList = document.querySelector('.elements__list')
 const saveList = document.querySelector('.save__list')
 
-const elementsDeleteAllBtn = document.querySelector('.elements__menu-item.delete-all')
-const changeAllBtn = document.querySelector('.elements__menu-item.change-all')
+const elementsDeleteAllBtn = document.querySelector('.elements__menu-btn.delete-all')
+const changeAllBtn = document.querySelector('.elements__menu-btn.change-all')
 
-const saveDeleteAllBtn = document.querySelector('.save__menu-item.delete-all')
+const saveDeleteAllBtn = document.querySelector('.save__menu-btn.delete-all')
 
 const countAddRandomElem = document.querySelector("#count")
 const randomJumpEnableBtn = document.querySelector('#random-jump')
@@ -32,7 +32,6 @@ const unselectAll = document.querySelector(".unselect-all")
 
 const changeModeBtn = document.querySelectorAll('.change-mode')
 const hideSaveBtn = document.querySelector('.toggle-hide-save')
-
 
 const guideOpener = document.querySelector("#guide-opener")
 

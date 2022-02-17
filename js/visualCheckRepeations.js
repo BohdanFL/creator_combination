@@ -24,6 +24,8 @@ const popupCheckRepeations = () => {
 			const confirmBtn = document.querySelector("#confirm")
 			const rejectBtn = document.querySelector("#reject")
 			menuBtn.classList.remove("hide")
+			elementsDeleteAllBtn.classList.add("hide")
+			changeAllBtn.classList.add("hide")
 
 			elementsList.addEventListener("mousedown", toggleClass)
 			confirmBtn.addEventListener("click", confirmedCheckRepeation, {
@@ -42,6 +44,8 @@ const rejectedCheckRepeation = () => {
 	log("reject")
 	elementsList.removeEventListener("mousedown", toggleClass)
 	clearStyle()
+	elementsDeleteAllBtn.classList.remove("hide")
+	changeAllBtn.classList.remove("hide")
 
 	if (sortable.destroyed) {
 		sortable = new Sortable.default(document.querySelector('ol.elements__list'), sortableOptions).on('sortable:stop', updateListOnMove);

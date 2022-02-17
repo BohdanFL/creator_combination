@@ -1,7 +1,11 @@
 @charset "UTF-8";
 /* Global styles */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
-.dark {
+:root {
+  --roboto: "Roboto", sans-serif;
+}
+
+html.dark {
   --background: #F0F5F9;
   --surface: #52616B;
   --surface-title: #434f57;
@@ -15,7 +19,7 @@
   --hover: #ffffff;
 }
 
-.light {
+html.light {
   --background: #F0F5F9;
   --surface: #52616B;
   --surface-title: #434f57;
@@ -61,7 +65,7 @@ html {
 
 body {
   background-color: var(--background);
-  font-family: "Roboto", sans-serif;
+  font-family: var(--roboto);
   font-weight: 500;
 }
 
@@ -72,30 +76,23 @@ body::-webkit-scrollbar-thumb {
 input,
 button,
 textarea {
-  font-family: "Roboto", sans-serif;
+  font-family: inherit;
   font-weight: inherit;
+  border: 0;
 }
-
-button:not(.btn) {
-  background: none;
-  border: none;
-  font-size: inherit;
-  color: inherit;
-  cursor: pointer;
-}
-button:not(.btn):focus {
-  color: inherit;
-}
-
-button:not(.btn):hover {
-  color: var(--hover);
-}
-
 input:disabled,
-input:disabled ~ .custom-checkbox,
 button:disabled,
 textarea:disabled {
   cursor: auto;
+}
+
+button {
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+button:hover {
+  color: var(--hover);
 }
 
 /* Additional */
@@ -107,7 +104,6 @@ textarea:disabled {
   width: 1px;
   height: 1px;
   visibility: hidden;
-  /* transition: opacity 0.3s; */
 }
 
 /* Btn */
@@ -120,7 +116,6 @@ textarea:disabled {
   line-height: 30px;
   padding: 0 15px;
   text-transform: uppercase;
-  cursor: pointer;
 }
 .btn-small {
   padding: 0 10px;
@@ -133,11 +128,11 @@ textarea:disabled {
   color: var(--primary);
   border-color: var(--primary);
 }
-.btn .btn:disabled {
+.btn:disabled {
   filter: brightness(0.6);
   cursor: auto;
 }
-.btn .btn:disabled:hover {
+.btn:disabled:hover {
   background-color: var(--primary);
 }
 
@@ -147,7 +142,7 @@ textarea:disabled {
   justify-content: space-between;
   padding: 3vh 5vw 0;
 }
-.wrapper > div {
+.wrapper__item {
   flex: 0 1 50%;
   justify-content: space-evenly;
   align-content: start;
@@ -187,7 +182,7 @@ textarea:disabled {
   .wrapper {
     flex-wrap: wrap-reverse;
   }
-  .wrapper > div {
+  .wrapper__item {
     flex: 0 1 100%;
   }
 
@@ -236,34 +231,51 @@ textarea:disabled {
 .list:empty::before {
   visibility: visible;
 }
-.list li {
+.list__item {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 7px 7px 4px;
+  padding: 7px;
   margin: 0 10px;
   border-bottom: 1px solid;
-  cursor: pointer;
   transition: background-color 0.2s, font-size 0.2s, margin 0.2s, color 0.2s;
 }
-.list li.active {
+.list__item.active {
   z-index: 11;
   background-color: var(--active-bg);
 }
-.list li.active:not([class*=draggable-]) {
+.list__item.active:not([class*=draggable-]) {
   font-size: 16px;
 }
-.list li:last-child:not(:first-child) .context-menu {
+.list__item:last-child:not(:first-child) .context-menu {
   top: -25px;
 }
 
+#portals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#portals.bg:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  z-index: 15;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
 @media (max-width: 769px) {
-  button:not(.btn):hover {
+  button:hover {
     color: inherit;
   }
 
-  button:not(.btn):active {
+  button:active {
     color: var(--hover);
   }
 
@@ -283,7 +295,7 @@ textarea:disabled {
   position: sticky;
   left: 0;
   top: 0;
-  z-index: 12;
+  z-index: 11;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -291,16 +303,15 @@ textarea:disabled {
   background-color: var(--surface);
   box-shadow: black 0px 10px 20px -15px;
 }
-.header__logo img {
+.header__logo {
   max-height: 1.4em;
-  filter: brightness(2) grayscale(0.9) hue-rotate(130deg) drop-shadow(2px 2px 4px black) opacity(0.5);
+  filter: drop-shadow(-12px -12px 20px var(--primary)) drop-shadow(1px 1px 0px var(--primary));
 }
-.header button {
+.header__additionals-btn {
   font-size: 1.4em;
   margin-left: 10px;
 }
-
-#switch-theme:active {
+.header #switch-theme:active {
   color: inherit;
 }
 
@@ -332,12 +343,10 @@ textarea:disabled {
   flex-shrink: 0;
 }
 .elements__menu {
-  text-align: center;
   position: relative;
   z-index: 11;
-}
-.elements__menu:not(.hide) {
-  margin: -14px 0 -11px;
+  text-align: center;
+  flex-basis: 100%;
 }
 .elements__list {
   position: relative;
@@ -357,10 +366,13 @@ textarea:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+.elements__item {
+  cursor: grab;
+}
 .elements__item button {
   font-size: 18px;
 }
-.elements__item.active button {
+.elements__item.active .elements__item-opener {
   opacity: 0;
   transition: opacity 0.3s;
   pointer-events: none;
@@ -369,7 +381,7 @@ textarea:disabled {
   transition: all 0.3s;
   color: var(--btn-color);
   margin-left: 0px;
-  background: var(--primary) !important;
+  background: var(--primary);
 }
 
 @media (max-width: 875px) {
@@ -384,7 +396,7 @@ textarea:disabled {
     padding: 5px;
   }
 }
-.save__menu button.btn {
+.save__menu-btn {
   width: auto;
   padding: 0 8px;
   line-height: 15px;
@@ -407,7 +419,7 @@ textarea:disabled {
 }
 .save__item {
   font-size: 15px;
-  margin: 0 !important;
+  margin: 0;
 }
 .save__item.active {
   font-size: 16px;
@@ -528,7 +540,7 @@ button.fas.fa-square:after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Roboto", sans-serif;
+  font-family: var(--roboto);
   font-weight: 500;
   font-size: 14px;
   color: var(--surface);
@@ -728,7 +740,7 @@ button.fas.fa-square:after {
   color: var(--btn-color) !important;
 }
 .context-menu__btn-name {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--roboto);
   font-weight: 500;
   font-size: 14px;
   margin-left: 7px;
@@ -765,6 +777,9 @@ button.fas.fa-square:after {
 .draggable-container--is-dragging .context-menu {
   display: none;
 }
+.draggable--is-dragging * {
+  cursor: grabbing;
+}
 
 .controls {
   position: fixed;
@@ -790,14 +805,14 @@ button.fas.fa-square:after {
   border-radius: 20px;
 }
 .guide-check {
-  position: relative;
-  z-index: 100;
-  pointer-events: none;
+  position: relative !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
 }
 .guide__text {
   position: absolute;
   top: 0;
-  margin: 0 8vw 0 2vw;
+  max-width: 90vw;
   padding: 8px;
   font-size: 16px;
   z-index: 12;
@@ -805,6 +820,10 @@ button.fas.fa-square:after {
   background: var(--btn-color);
   border-radius: 5px;
   border: 1px solid;
+}
+
+.static {
+  position: static;
 }
 
 /*# sourceMappingURL=main.css.map */

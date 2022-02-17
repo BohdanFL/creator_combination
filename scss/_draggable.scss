@@ -18,12 +18,19 @@
 	}
 
 	&-container--is-dragging {
+
 		.jump {
 			opacity: .5;
 		}
 
 		.context-menu {
 			display: none;
+		}
+	}
+
+	&--is-dragging {
+		* {
+			cursor: grabbing;
 		}
 	}
 }

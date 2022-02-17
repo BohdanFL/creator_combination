@@ -30,13 +30,14 @@
 
 
 	&__menu {
-		text-align: center;
 		position: relative;
 		z-index: 11;
+		text-align: center;
+		flex-basis: 100%;
 
-		&:not(.hide) {
-			margin: -14px 0 -11px;
-		}
+		// &:not(.hide) {
+		// 	margin: -14px 0 -11px;
+		// }
 	}
 
 	&__list {
@@ -62,29 +63,23 @@
 	}
 
 	&__item {
+		cursor: grab;
+
 		button {
 			font-size: 18px;
-
 		}
 
-		&.active button {
+		&.active &-opener {
 			opacity: 0;
 			transition: opacity 0.3s;
 			pointer-events: none;
 		}
 
 		&.check {
-			// transition: all 0.3s;
-			// color: $check;
-			// margin-left: 0px;
-
-			// span {
-			// 	color: $check;
-			// }
 			transition: all 0.3s;
 			color: var(--btn-color);
 			margin-left: 0px;
-			background: var(--primary) !important;
+			background: var(--primary);
 		}
 	}
 }

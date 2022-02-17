@@ -89,6 +89,7 @@ const createSaveForList = (save) => {
 
 	const item = document.createElement("li")
 	item.classList.add("save__item")
+	item.classList.add("list__item")
 	item.innerHTML = `
 		<span class="save__item-name" contenteditable="true">${name}</span>
 		<button title="Опції" class="save__item-opener context-menu__opener fas fa-ellipsis-v"></button>

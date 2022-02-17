@@ -11,76 +11,31 @@
 </head>
 
 <body>
-	<div class="guide hide">
-		<h1 class="guide__title">Guide</h1>
-		<div class="guide__items">
-			<div class="guide__item">
-				<h2 class="guide__item-title">Ліміт</h2>
-				<p class="guide__item-text">
-					Максимальна кількість елементів - 100 <br>
-					Максимальна кількість збереженнь - 50
-				</p>
-			</div>
-			<div class="guide__item">
-				<h2 class="guide__item-title">Зіскок - random</h2>
-				<p class="guide__item-text">
-					Можливий тільки один у всій комбінації. <br>
-					Опція зіскок дає можливість додати елемент зіскок. <br>
-					Якщо зіскок вже є у списку, тоді перед ним створиться простий елемент. <br>
-					Опція зміна зіскоку дає можливість замінити зіскок за допомогою кнопки змінити. <br>
-					Ця опція спрацьовує тільки на елементі зіскоку, якщо змінити не зіскок, тоді зміниться на простий
-					елемент. <br>
-					При заміні за допомогою кнопки змінити все, зіскок зміниться на інший.
-				</p>
-			</div>
-			<div class="guide__item">
-				<h2 class="guide__item-title">
-					Унікальність - random
-				</h2>
-				<p class="guide__item-text">
-					Якщо є елементи які повторюються, вам запропонують вибрати їх та замінити на унікальні. <br>
-					При створенні елементу буде створюватись елемент, якого раніше не було у списку
-				</p>
-			</div>
-			<div class="guide__item">
-				<h2 class="guide__item-title">
-					Унікальність - choose
-				</h2>
-				<p class="guide__item-text"></p>
-			</div>
-			<div class="guide__item">
-				<h2 class="guide__item-title"></h2>
-				<p class="guide__item-text"></p>
-			</div>
-		</div>
-	</div>
 	<header class="header">
-		<div class="header__logo">
-			<img src="logo.png" alt="Logo">
-		</div>
+		<img class="header__logo" src="logo.png" alt="Logo">
 		<div class="header__additionals">
-			<button class="far fa-moon" id="switch-theme" title="Switch theme"></button>
-			<button class="fas fa-question-circle" id="guide-opener" title="Guide"></button>
-			<button class="fas fa-flag" id="report-opener" title="Report bug"></button>
-			<button class="fas fa-cog" id="options-opener" title="Options"></button>
+			<button class="header__additionals-btn far fa-moon" id="switch-theme" title="Switch theme"></button>
+			<button class="header__additionals-btn fas fa-question-circle" id="guide-opener" title="Guide"></button>
+			<button class="header__additionals-btn fas fa-flag" id="report-opener" title="Report bug"></button>
+			<button class="header__additionals-btn fas fa-cog" id="options-opener" title="Options"></button>
 		</div>
 	</header>
 	<div class="wrapper">
-		<div class="elements">
+		<div class="wrapper__item elements">
 			<div class="elements__title">
-				<button type="button" class="elements__menu-item delete-all btn btn-small">Delete All</button>
+				<button type="button" class="elements__menu-btn delete-all btn btn-small">Delete All</button>
 				<h2 class="elements__title-text">
 					Elements
 				</h2>
-				<button type="button" class="elements__menu-item change-all btn btn-small">Change All</button>
-			</div>
-			<div class="elements__menu hide">
-				<button type="button" class="elements__menu-item select-all btn btn-small">Select All</button>
-				<button type="button" class="elements__menu-item unselect-all btn btn-small">Unselect All</button>
+				<button type="button" class="elements__menu-btn change-all btn btn-small">Change All</button>
+				<div class="elements__menu hide">
+					<button type="button" class="elements__menu-btn select-all btn btn-small">Select All</button>
+					<button type="button" class="elements__menu-btn unselect-all btn btn-small">Unselect All</button>
+				</div>
 			</div>
 			<ol class="elements__list list"></ol>
 		</div>
-		<div class="inner">
+		<div class="wrapper__item inner">
 			<div class="inner__item choose">
 				<div class="inner__btns choose__btns">
 					<button class="inner__main-btn choose__btn btn">Choose</button>
@@ -135,8 +90,8 @@
 			<div class="inner__item save">
 				<button class="inner__main-btn save__btn btn">Save</button>
 				<div class="save__menu">
-					<button type="button" class="save__menu-item delete-all btn btn-small">Delete All</button>
-					<button type="button" class="save__menu-item toggle-hide-save btn btn-small">Hide</button>
+					<button type="button" class="save__menu-btn delete-all btn btn-small">Delete All</button>
+					<button type="button" class="save__menu-btn toggle-hide-save btn btn-small">Hide</button>
 				</div>
 				<ol class="save__list list"></ol>
 			</div>

@@ -52,6 +52,7 @@ const createLi = (text, pos) => {
 	const li = document.createElement('li')
 	text = text === '' ? random(dataElems.e) : text
 	li.classList.add('elements__item')
+	li.classList.add('list__item')
 	li.innerHTML = `
 		<span class="elements__item-text">${text}</span>  
 		<button title="Опції" class="elements__item-opener context-menu__opener fas fa-ellipsis-v"></button>
